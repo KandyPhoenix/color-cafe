@@ -23,6 +23,7 @@ building without asking anything. Not the build itself.
 
 <!-- one line per resolved ticket: [title](path): gist -->
 
+- [Research: region fill on line-art PNGs in canvas](issues/02-region-fill-technique.md): pre-segment at native resolution (threshold 200) with halo growth, fill by region id, line art multiplied on top; nearest-region tap + mandatory pinch-zoom; a gap-QA script for intake.
 - [Research: reusing Puzzle Parlor's license system](issues/06-license-reuse.md): share one license service with a `product` field (Design B), two-step rollout; use different prices per product.
 
 ## Not yet specified
