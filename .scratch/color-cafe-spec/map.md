@@ -26,11 +26,13 @@ building without asking anything. Not the build itself.
 - [Coloring mechanic](issues/01-coloring-mechanic.md): color-by-number with painted reveal (Happy Color style); source pages are finished colour paintings; flat fills and free brush out of scope for v1.
 
 - [Research: region fill on line-art PNGs in canvas](issues/02-region-fill-technique.md): pre-segment at native resolution (threshold 200) with halo growth, fill by region id, line art multiplied on top; nearest-region tap + mandatory pinch-zoom; a gap-QA script for intake.
+- [Research: splitting a painting into numbered regions](issues/11-segment-painting-into-regions.md): working pipeline (24 Lab colours, merge < 900 px^2, split giants), ~550 regions per page, reveal is pixel-exact; outline page is only medium-clear on painterly art, flatter art reads better; data format = original + packed label PNG + regions.json.
 - [Research: turning Puzzle Parlor art into coloring pages](issues/03-line-art-from-puzzle-art.md): automatic conversion is not colorable; re-generate scenes as line art from the puzzle image as reference, and QA closure with a script.
 - [Research: reusing Puzzle Parlor's license system](issues/06-license-reuse.md): share one license service with a `product` field (Design B), two-step rollout; use different prices per product.
 
 ## Not yet specified
 
+- Outline readability: edge simplification, seam cleanup in flat dark areas, and whether source art should be commissioned in a flatter cel style for cleaner pages.
 - A 'classic' free-colour mode using the black-and-white pages in `pages/` (region fill research in ticket 02 applies): later, if ever.
 - Accessibility: colour-blind-friendly palettes, large tap targets.
 - Sharing a finished page to social / the village.
