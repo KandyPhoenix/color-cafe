@@ -23,6 +23,8 @@ building without asking anything. Not the build itself.
 
 <!-- one line per resolved ticket: [title](path): gist -->
 
+- [Research: reusing Puzzle Parlor's license system](issues/06-license-reuse.md): share one license service with a `product` field (Design B), two-step rollout; use different prices per product.
+
 ## Not yet specified
 
 - Palette and tool UI (color picker, undo, zoom, eraser): depends on the mechanic chosen.
