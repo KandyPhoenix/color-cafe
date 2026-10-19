@@ -1,0 +1,74 @@
+{
+ "treasure-cove--canny.png": {
+  "regions": 3092,
+  "regions_over_500px": 95,
+  "largest_region_pct_of_white": 25.0,
+  "black_pct": 26.7
+ },
+ "treasure-cove--xdog.png": {
+  "regions": 7008,
+  "regions_over_500px": 57,
+  "largest_region_pct_of_white": 51.0,
+  "black_pct": 71.6
+ },
+ "treasure-cove--pencil.png": {
+  "regions": 4552,
+  "regions_over_500px": 127,
+  "largest_region_pct_of_white": 58.2,
+  "black_pct": 36.3
+ },
+ "treasure-cove--posterize.png": {
+  "regions": 1537,
+  "regions_over_500px": 412,
+  "largest_region_pct_of_white": 3.8,
+  "black_pct": 23.0
+ },
+ "treasure-cove--combo.png": {
+  "regions": 3766,
+  "regions_over_500px": 339,
+  "largest_region_pct_of_white": 3.6,
+  "black_pct": 33.3
+ },
+ "pine-forest--canny.png": {
+  "regions": 723,
+  "regions_over_500px": 5,
+  "largest_region_pct_of_white": 98.9,
+  "black_pct": 8.7
+ },
+ "pine-forest--xdog.png": {
+  "regions": 11768,
+  "regions_over_500px": 19,
+  "largest_region_pct_of_white": 11.9,
+  "black_pct": 84.0
+ },
+ "pine-forest--pencil.png": {
+  "regions": 11770,
+  "regions_over_500px": 53,
+  "largest_region_pct_of_white": 80.5,
+  "black_pct": 31.0
+ },
+ "pine-forest--posterize.png": {
+  "regions": 1185,
+  "regions_over_500px": 315,
+  "largest_region_pct_of_white": 6.4,
+  "black_pct": 21.0
+ },
+ "pine-forest--combo.png": {
+  "regions": 1437,
+  "regions_over_500px": 275,
+  "largest_region_pct_of_white": 5.8,
+  "black_pct": 21.6
+ },
+ "REF sea-turtle-treasure.png": {
+  "regions": 1150,
+  "regions_over_500px": 114,
+  "largest_region_pct_of_white": 52.7,
+  "black_pct": 32.3
+ },
+ "treasure-cove--posterize-coarse.png": {
+  "regions": 631,
+  "regions_over_500px": 108,
+  "largest_region_pct_of_white": 9.4,
+  "black_pct": 12.7
+ }
+}
