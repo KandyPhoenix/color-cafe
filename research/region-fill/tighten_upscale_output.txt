@@ -1,0 +1,13 @@
+baseline T=200: 711 regions >=50px
+T=200 (base)    : regions=1991; baseline regions lost (no core left)=0 of 711; baseline regions that split into 2+ pieces(>=30px)=0 (gap-joined groups separated)
+T=230           : regions=2635; baseline regions lost (no core left)=0 of 711; baseline regions that split into 2+ pieces(>=30px)=65 (gap-joined groups separated)
+T=240           : regions=2964; baseline regions lost (no core left)=0 of 711; baseline regions that split into 2+ pieces(>=30px)=75 (gap-joined groups separated)
+T=250           : regions=5774; baseline regions lost (no core left)=0 of 711; baseline regions that split into 2+ pieces(>=30px)=120 (gap-joined groups separated)
+T=200 erode1    : regions=2582; baseline regions lost (no core left)=14 of 711; baseline regions that split into 2+ pieces(>=30px)=93 (gap-joined groups separated)
+T=200 erode1(4n): regions=3382; baseline regions lost (no core left)=6 of 711; baseline regions that split into 2+ pieces(>=30px)=107 (gap-joined groups separated)
+upscale 1500 bilinear T=200: regions=1848 (>=50px: 1068); of 711 baseline regions, 696 rep pixels landed on line; 0 upscaled regions swallow 0 baseline regions; largest=477558 (21.2%)
+upscale 1500 bilinear T=128: regions=1477 (>=50px: 1069); of 711 baseline regions, 483 rep pixels landed on line; 10 upscaled regions swallow 21 baseline regions; largest=519193 (23.1%)
+upscale 1500 lanczos  T=200: regions=1685 (>=50px: 1053); of 711 baseline regions, 661 rep pixels landed on line; 0 upscaled regions swallow 0 baseline regions; largest=488822 (21.7%)
+upscale 1500 lanczos  T=128: regions=1470 (>=50px: 1068); of 711 baseline regions, 452 rep pixels landed on line; 12 upscaled regions swallow 25 baseline regions; largest=521083 (23.2%)
+upscale 1500 nearest  T=200: regions=1991 (>=50px: 1123); of 711 baseline regions, 541 rep pixels landed on line; 0 upscaled regions swallow 0 baseline regions; largest=492370 (21.9%)
+upscale 1500 nearest  T=128: regions=1555 (>=50px: 1098); of 711 baseline regions, 406 rep pixels landed on line; 15 upscaled regions swallow 32 baseline regions; largest=518584 (23.0%)

@@ -1,0 +1,9 @@
+baseline native T=200: 711 regions>=50px; interior DT at rep: min=1.0
+bilinear 1500px T=200: regions=1848 (>=50px: 1068); reps on line=1; 9 regions swallow 18 baseline regions (leaks vs native T=200); largest=21.2%
+bilinear 1500px T=128: regions=1477 (>=50px: 1069); reps on line=0; 52 regions swallow 119 baseline regions (leaks vs native T=200); largest=23.1%
+bicubic  1500px T=200: regions=1716 (>=50px: 1061); reps on line=0; 17 regions swallow 36 baseline regions (leaks vs native T=200); largest=21.6%
+bicubic  1500px T=128: regions=1480 (>=50px: 1069); reps on line=0; 53 regions swallow 122 baseline regions (leaks vs native T=200); largest=23.1%
+nearest  1500px T=200: regions=1991 (>=50px: 1123); reps on line=0; 0 regions swallow 0 baseline regions (leaks vs native T=200); largest=21.9%
+nearest  1500px T=128: regions=1555 (>=50px: 1098); reps on line=0; 48 regions swallow 109 baseline regions (leaks vs native T=200); largest=23.0%
+native   843px T=200: regions=1991 (>=50px: 711); reps on line=0; 0 regions swallow 0 baseline regions (leaks vs native T=200); largest=21.9%
+native   843px T=128: regions=1555 (>=50px: 728); reps on line=0; 48 regions swallow 109 baseline regions (leaks vs native T=200); largest=23.1%

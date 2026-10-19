@@ -1,0 +1,17 @@
+T_halo=128: rounds=13 halo pixels assigned=36373 unassigned(fillable but unreached)=179 line-core(<T_halo)=255010 (35.9%)
+  without halo growth, white gap pixels between fill and line core(<128): 36552 (5.1%)
+T_halo=64: rounds=13 halo pixels assigned=68163 unassigned(fillable but unreached)=395 line-core(<T_halo)=223004 (31.4%)
+T_halo=32: rounds=13 halo pixels assigned=93317 unassigned(fillable but unreached)=481 line-core(<T_halo)=197764 (27.8%)
+erode 1px: 166 eroded regions>=200px; 14 strict regions are made of 2+ such pieces (joined only via a neck <= 2px wide); pieces involved=43
+   strict region 1 size=155576 pieces=10
+   strict region 264 size=20497 pieces=8
+   strict region 1704 size=1523 pieces=3
+   strict region 163 size=1653 pieces=2
+   strict region 1364 size=1291 pieces=2
+   background strict region 1: 10 pieces >=200px after 1px erosion; piece sizes top: [118794, 389, 367, 334, 312, 300, 292, 232]
+erode 2px: 96 eroded regions>=200px; 6 strict regions are made of 2+ such pieces (joined only via a neck <= 4px wide); pieces involved=18
+   strict region 264 size=20497 pieces=6
+   strict region 1 size=155576 pieces=3
+   strict region 747 size=5640 pieces=3
+   strict region 1156 size=2569 pieces=2
+   strict region 1215 size=1415 pieces=2

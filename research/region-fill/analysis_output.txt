@@ -1,0 +1,70 @@
+
+=== garden-gate.png  843x843
+pixels: black(0)=9.017%  white(255)=34.862%  grey(1..254)=56.121%
+dark(<128)=35.884%  light(>=200)=58.972%
+  grey   1- 63: 22.363%
+  grey  64-127: 4.504%
+  grey 128-191: 4.386%
+  grey 192-254: 24.869%
+  T= 64: regions= 1418  >=50px= 767  <10px= 199  largest=171129 (24.1%)
+  T=128: regions= 1555  >=50px= 728  <10px= 328  largest=163843 (23.1%)
+  T=160: regions= 1670  >=50px= 721  <10px= 441  largest=160170 (22.5%)
+  T=200: regions= 1991  >=50px= 711  <10px= 742  largest=155576 (21.9%)
+  T=230: regions= 2635  >=50px= 706  <10px=1310  largest=147594 (20.8%)
+  T=250: regions= 5774  >=50px= 666  <10px=4248  largest=134798 (19.0%)
+
+=== owl-bridge-castle.png  843x843
+pixels: black(0)=8.053%  white(255)=36.198%  grey(1..254)=55.749%
+dark(<128)=33.480%  light(>=200)=61.327%
+  grey   1- 63: 21.054%
+  grey  64-127: 4.373%
+  grey 128-191: 4.424%
+  grey 192-254: 25.898%
+  T= 64: regions= 1200  >=50px= 603  <10px= 250  largest=199651 (28.1%)
+  T=128: regions= 1341  >=50px= 588  <10px= 364  largest=176591 (24.8%)
+  T=160: regions= 1456  >=50px= 588  <10px= 475  largest=170891 (24.0%)
+  T=200: regions= 1819  >=50px= 585  <10px= 822  largest=160921 (22.6%)
+  T=230: regions= 2486  >=50px= 612  <10px=1442  largest=155209 (21.8%)
+  T=250: regions= 5381  >=50px= 608  <10px=4134  largest=143166 (20.1%)
+
+=== reading-nook-cat.png  843x843
+pixels: black(0)=9.117%  white(255)=32.227%  grey(1..254)=58.657%
+dark(<128)=37.301%  light(>=200)=56.724%
+  grey   1- 63: 23.014%
+  grey  64-127: 5.170%
+  grey 128-191: 5.095%
+  grey 192-254: 25.377%
+  T= 64: regions= 1359  >=50px= 817  <10px= 190  largest=142992 (20.1%)
+  T=128: regions= 1559  >=50px= 823  <10px= 282  largest=136026 (19.1%)
+  T=160: regions= 1697  >=50px= 814  <10px= 391  largest=132366 (18.6%)
+  T=200: regions= 2106  >=50px= 797  <10px= 734  largest=124043 (17.5%)
+  T=230: regions= 2868  >=50px= 767  <10px=1395  largest=115966 (16.3%)
+  T=250: regions= 6386  >=50px= 686  <10px=4595  largest=105326 (14.8%)
+
+=== sea-turtle-treasure.png  843x843
+pixels: black(0)=7.583%  white(255)=38.613%  grey(1..254)=53.805%
+dark(<128)=32.203%  light(>=200)=62.666%
+  grey   1- 63: 20.323%
+  grey  64-127: 4.297%
+  grey 128-191: 4.375%
+  grey 192-254: 24.809%
+  T= 64: regions=  958  >=50px= 552  <10px= 118  largest=263215 (37.0%)
+  T=128: regions= 1146  >=50px= 545  <10px= 252  largest=253829 (35.7%)
+  T=160: regions= 1253  >=50px= 547  <10px= 331  largest=250036 (35.2%)
+  T=200: regions= 1651  >=50px= 524  <10px= 676  largest=244471 (34.4%)
+  T=230: regions= 2518  >=50px= 542  <10px=1457  largest=236969 (33.3%)
+  T=250: regions= 6284  >=50px= 600  <10px=4812  largest=219118 (30.8%)
+
+=== storybook-cottage.png  843x843
+pixels: black(0)=8.555%  white(255)=35.571%  grey(1..254)=55.873%
+dark(<128)=34.640%  light(>=200)=60.371%
+  grey   1- 63: 21.667%
+  grey  64-127: 4.418%
+  grey 128-191: 4.243%
+  grey 192-254: 25.546%
+  T= 64: regions= 1381  >=50px= 850  <10px= 192  largest=162537 (22.9%)
+  T=128: regions= 1529  >=50px= 833  <10px= 304  largest=157058 (22.1%)
+  T=160: regions= 1659  >=50px= 819  <10px= 427  largest=154545 (21.7%)
+  T=200: regions= 2002  >=50px= 778  <10px= 742  largest=149866 (21.1%)
+  T=230: regions= 2602  >=50px= 750  <10px=1349  largest=141223 (19.9%)
+  T=250: regions= 5174  >=50px= 722  <10px=3741  largest=126857 (17.9%)

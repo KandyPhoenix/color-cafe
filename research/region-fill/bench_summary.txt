@@ -1,0 +1,34 @@
+
+--- garden-gate.png CPU throttle x1 ---
+843px prep(draw+getImageData+grey)=18.4ms putImageData(full)=0.5ms composite(multiply)=0.06ms/frame
+   T=128 flood: worst 163843px 2.4ms, median 3303px 0.1ms; sample px=[39, 64, 100, 114, 120, 134]...[163843, 163843, 163843]
+   T=128 label: 1555 regions in 24.3ms (+bbox 5.8ms, 2.8MB); fill largest 163843px 4.3ms; median region 164px 0ms
+   T=200 flood: worst 155576px 1.8ms, median 2569px 0ms; sample px=[22, 43, 52, 72, 96, 101]...[155576, 155576, 155576]
+   T=200 label: 1991 regions in 28.1ms (+bbox 4ms, 2.8MB); fill largest 155576px 2.5ms; median region 155px 0ms
+1500px prep(draw+getImageData+grey)=38.4ms putImageData(full)=1.7ms composite(multiply)=0.97ms/frame
+   T=128 flood: worst 520846px 8.1ms, median 520846px 8.1ms; sample px=[115, 193, 302, 358, 374, 426]...[520846, 520846, 520846]
+   T=128 label: 1478 regions in 42.9ms (+bbox 10.6ms, 9MB); fill largest 520846px 7.1ms; median region 281px 0.1ms
+   T=200 flood: worst 480932px 9.5ms, median 480932px 9.5ms; sample px=[70, 147, 205, 293, 355, 1041]...[480932, 480932, 480932]
+   T=200 label: 1854 regions in 61.2ms (+bbox 109.7ms, 9MB); fill largest 480932px 11ms; median region 240px 0ms
+2000px prep(draw+getImageData+grey)=90.1ms putImageData(full)=3.8ms composite(multiply)=1.46ms/frame
+   T=128 flood: worst 925850px 21.1ms, median 18566px 0.2ms; sample px=[207, 349, 511, 563, 634, 650]...[925850, 925850, 925850]
+   T=128 label: 1486 regions in 91.7ms (+bbox 31.8ms, 16MB); fill largest 925850px 18.8ms; median region 396px 0.4ms
+   T=200 flood: worst 855397px 11.9ms, median 855397px 11.9ms; sample px=[129, 259, 417, 521, 630, 1855]...[855397, 855397, 855397]
+   T=200 label: 1776 regions in 67ms (+bbox 22.8ms, 16MB); fill largest 855397px 11.2ms; median region 343px 0.1ms
+
+--- garden-gate.png CPU throttle x4 ---
+843px prep(draw+getImageData+grey)=79.3ms putImageData(full)=2ms composite(multiply)=0.35ms/frame
+   T=128 flood: worst 163843px 11.2ms, median 3303px 0.1ms; sample px=[39, 64, 100, 114, 120, 134]...[163843, 163843, 163843]
+   T=128 label: 1555 regions in 77.9ms (+bbox 20.5ms, 2.8MB); fill largest 163843px 13.4ms; median region 164px 0ms
+   T=200 flood: worst 155576px 7.4ms, median 2569px 0.1ms; sample px=[22, 43, 52, 72, 96, 101]...[155576, 155576, 155576]
+   T=200 label: 1991 regions in 72.9ms (+bbox 16ms, 2.8MB); fill largest 155576px 9.9ms; median region 155px 0ms
+1500px prep(draw+getImageData+grey)=133.2ms putImageData(full)=7.6ms composite(multiply)=3.75ms/frame
+   T=128 flood: worst 520846px 46.5ms, median 520846px 46.5ms; sample px=[115, 193, 302, 358, 374, 426]...[520846, 520846, 520846]
+   T=128 label: 1478 regions in 181.3ms (+bbox 55.8ms, 9MB); fill largest 520846px 25.9ms; median region 281px 0ms
+   T=200 flood: worst 480932px 31.8ms, median 480932px 31.8ms; sample px=[70, 147, 205, 293, 355, 1041]...[480932, 480932, 480932]
+   T=200 label: 1854 regions in 151.2ms (+bbox 51.3ms, 9MB); fill largest 480932px 35.2ms; median region 240px 0.1ms
+2000px prep(draw+getImageData+grey)=684.8ms putImageData(full)=13.7ms composite(multiply)=6.58ms/frame
+   T=128 flood: worst 925850px 61.1ms, median 18566px 1.7ms; sample px=[207, 349, 511, 563, 634, 650]...[925850, 925850, 925850]
+   T=128 label: 1486 regions in 301.2ms (+bbox 1012.4ms, 16MB); fill largest 925850px 58.1ms; median region 396px 0.6ms
+   T=200 flood: worst 855397px 52.9ms, median 855397px 52.9ms; sample px=[129, 259, 417, 521, 630, 1855]...[855397, 855397, 855397]
+   T=200 label: 1776 regions in 248.7ms (+bbox 79.5ms, 16MB); fill largest 855397px 58.5ms; median region 343px 0ms

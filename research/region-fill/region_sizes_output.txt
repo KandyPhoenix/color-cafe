@@ -1,0 +1,10 @@
+garden-gate.png          T=200: regions=1991; <50px: 1280 regions holding 3.91% of fillable area; 50-200px: 412; >=200px: 299; fillable area=59.0%; median region px (>=50)=155
+garden-gate.png          T=230: regions=2635; <50px: 1929 regions holding 4.80% of fillable area; 50-200px: 439; >=200px: 267; fillable area=55.4%; median region px (>=50)=140
+owl-bridge-castle.png    T=200: regions=1819; <50px: 1234 regions holding 2.79% of fillable area; 50-200px: 287; >=200px: 298; fillable area=61.3%; median region px (>=50)=202
+owl-bridge-castle.png    T=230: regions=2486; <50px: 1874 regions holding 3.30% of fillable area; 50-200px: 341; >=200px: 271; fillable area=57.7%; median region px (>=50)=173
+reading-nook-cat.png     T=200: regions=2106; <50px: 1309 regions holding 4.24% of fillable area; 50-200px: 487; >=200px: 310; fillable area=56.7%; median region px (>=50)=146
+reading-nook-cat.png     T=230: regions=2868; <50px: 2101 regions holding 5.81% of fillable area; 50-200px: 478; >=200px: 289; fillable area=52.7%; median region px (>=50)=138
+sea-turtle-treasure.png  T=200: regions=1651; <50px: 1127 regions holding 2.95% of fillable area; 50-200px: 295; >=200px: 229; fillable area=62.7%; median region px (>=50)=166
+sea-turtle-treasure.png  T=230: regions=2518; <50px: 1976 regions holding 3.71% of fillable area; 50-200px: 328; >=200px: 214; fillable area=59.1%; median region px (>=50)=162
+storybook-cottage.png    T=200: regions=2002; <50px: 1224 regions holding 3.42% of fillable area; 50-200px: 439; >=200px: 339; fillable area=60.4%; median region px (>=50)=171
+storybook-cottage.png    T=230: regions=2602; <50px: 1852 regions holding 4.02% of fillable area; 50-200px: 446; >=200px: 304; fillable area=56.8%; median region px (>=50)=165

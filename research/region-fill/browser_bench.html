@@ -1,0 +1,148 @@
+<!doctype html><meta charset="utf-8"><title>region fill bench</title>
+<body><canvas id="c"></canvas><pre id="out"></pre>
+<script>
+// All timings run on the main thread, in Chromium via Playwright. Results are written to window.RESULTS.
+const out = [];
+const log = (s) => { out.push(s); document.getElementById('out').textContent = out.join('\n'); };
+
+function loadImage(src){ return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
+
+// --- Approach A: live scanline flood fill on an RGBA ImageData of the *original line-art*,
+// writing into a separate RGBA colour layer. "Fillable" = grey >= T.
+function floodFillScanline(grey, W, H, sx, sy, T, colorLayer, rgb, visitedId, visited){
+  // grey: Uint8Array W*H ; visited: Int32Array W*H storing fill id to avoid refilling same colour; returns pixels filled
+  if (grey[sy*W+sx] < T) return 0;
+  const stack = [sx, sy]; let filled = 0;
+  while (stack.length){
+    const y = stack.pop(), x0 = stack.pop();
+    let row = y*W, x = x0;
+    // walk left
+    while (x >= 0 && grey[row+x] >= T && visited[row+x] !== visitedId) x--;
+    x++;
+    let spanUp = false, spanDown = false;
+    while (x < W && grey[row+x] >= T && visited[row+x] !== visitedId){
+      const i = row+x; visited[i] = visitedId; filled++;
+      const o = i*4; colorLayer[o]=rgb[0]; colorLayer[o+1]=rgb[1]; colorLayer[o+2]=rgb[2]; colorLayer[o+3]=255;
+      if (y > 0){ const j = i-W; const ok = grey[j] >= T && visited[j] !== visitedId; if (!spanUp && ok){ stack.push(x, y-1); spanUp = true; } else if (spanUp && !ok) spanUp = false; }
+      if (y < H-1){ const j = i+W; const ok = grey[j] >= T && visited[j] !== visitedId; if (!spanDown && ok){ stack.push(x, y+1); spanDown = true; } else if (spanDown && !ok) spanDown = false; }
+      x++;
+    }
+  }
+  return filled;
+}
+
+// --- Approach B: pre-segment once (connected components, 4-conn, two-pass union-find) into an Int32 label map.
+function labelRegions(grey, W, H, T){
+  const labels = new Int32Array(W*H); const parent = [0];
+  const find = (a) => { while (parent[a] !== a){ parent[a] = parent[parent[a]]; a = parent[a]; } return a; };
+  let next = 1;
+  for (let y=0;y<H;y++){ for (let x=0;x<W;x++){ const i=y*W+x; if (grey[i] < T) continue;
+    const up = y>0 ? labels[i-W] : 0, left = x>0 ? labels[i-1] : 0;
+    if (!up && !left){ labels[i] = next; parent[next] = next; next++; }
+    else if (up && left){ const ru=find(up), rl=find(left); labels[i] = Math.min(ru,rl); if (ru!==rl) parent[Math.max(ru,rl)] = Math.min(ru,rl); }
+    else labels[i] = up || left; } }
+  // second pass: flatten + renumber
+  const remap = new Int32Array(next); let n=0;
+  for (let i=0;i<W*H;i++){ const l = labels[i]; if (!l) continue; const r = find(l); if (!remap[r]) remap[r] = ++n; labels[i] = remap[r]; }
+  return { labels, n };
+}
+function fillByLabel(labels, W, H, id, colorLayer, rgb, bbox){
+  // bbox: [x0,y0,x1,y1] per label, precomputed, so a fill touches only its box
+  const [x0,y0,x1,y1] = bbox; let filled=0;
+  for (let y=y0;y<=y1;y++){ let i=y*W+x0; for (let x=x0;x<=x1;x++,i++){ if (labels[i]===id){ const o=i*4; colorLayer[o]=rgb[0]; colorLayer[o+1]=rgb[1]; colorLayer[o+2]=rgb[2]; colorLayer[o+3]=255; filled++; } } }
+  return filled;
+}
+function bboxes(labels, W, H, n){
+  const b = new Int32Array((n+1)*4); b.fill(0x7fffffff); for (let k=0;k<=n;k++){ b[k*4+2]=-1; b[k*4+3]=-1; }
+  for (let y=0;y<H;y++) for (let x=0;x<W;x++){ const l=labels[y*W+x]; if(!l) continue; const o=l*4; if(x<b[o])b[o]=x; if(y<b[o+1])b[o+1]=y; if(x>b[o+2])b[o+2]=x; if(y>b[o+3])b[o+3]=y; }
+  return b;
+}
+
+async function bench(src, size){
+  const img = await loadImage(src);
+  const W = size, H = Math.round(img.height*size/img.width);
+  const cv = document.getElementById('c'); cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d', { willReadFrequently: true });
+  let t0 = performance.now();
+  ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(img, 0, 0, W, H);
+  const id = ctx.getImageData(0,0,W,H); const d = id.data;
+  const grey = new Uint8Array(W*H); for (let i=0,j=0;i<W*H;i++,j+=4) grey[i] = d[j]; // R channel (image is grey)
+  const tPrep = performance.now()-t0;
+  const colorLayer = new Uint8ClampedArray(W*H*4);
+  const res = { src: src.split('/').pop(), W, H, prepMs: +tPrep.toFixed(1) };
+
+  // A: live flood fill, from the largest region (worst case) and from a few random points
+  const visited = new Int32Array(W*H); let vid = 0;
+  for (const T of [128, 200]){
+    // worst case: biggest region = pick a point in the background; find it by sampling
+    let best = {ms:0, px:0, x:0, y:0}; const samples=[];
+    const rnd = mulberry32(7);
+    for (let k=0;k<40;k++){ const x=(rnd()*W)|0, y=(rnd()*H)|0; if (grey[y*W+x] < T) continue;
+      let ms=1e9, px=0; for (let rep=0;rep<2;rep++){ vid++; const s=performance.now(); px=floodFillScanline(grey,W,H,x,y,T,colorLayer,[255,0,0],vid,visited); ms=Math.min(ms,performance.now()-s); }
+      samples.push({px, ms}); if (px>best.px) best={ms,px,x,y}; }
+    samples.sort((a,b)=>a.px-b.px);
+    const med = samples[Math.floor(samples.length/2)];
+    res['floodT'+T] = { worstPx: best.px, worstMs: +best.ms.toFixed(1), medianPx: med.px, medianMs: +med.ms.toFixed(2), n: samples.length, samplePx: samples.map(s=>s.px) };
+    // also time putImageData of the colour layer (full) — the part the app must do after every fill
+    const s2=performance.now(); ctx.putImageData(new ImageData(colorLayer,W,H),0,0); res['putImageDataFullMs'] = +(performance.now()-s2).toFixed(1);
+  }
+
+  // B: pre-segment once
+  for (const T of [128, 200]){
+    const s=performance.now(); const {labels, n} = labelRegions(grey,W,H,T); const tl=performance.now()-s;
+    const s3=performance.now(); const bb = bboxes(labels,W,H,n); const tb=performance.now()-s3;
+    // fill the largest region by label
+    const counts = new Int32Array(n+1); for (let i=0;i<W*H;i++) counts[labels[i]]++; let big=1; for (let k=2;k<=n;k++) if (counts[k]>counts[big]) big=k;
+    const s4=performance.now(); const px=fillByLabel(labels,W,H,big,colorLayer,[0,255,0],bb.subarray(big*4,big*4+4)); const tf=performance.now()-s4;
+    // typical region: median-size region >= 50px
+    const sizes=[]; for (let k=1;k<=n;k++) if (counts[k]>=50) sizes.push([counts[k],k]); sizes.sort((a,b)=>a[0]-b[0]); const [mpx,mid]=sizes[sizes.length>>1];
+    const s5=performance.now(); fillByLabel(labels,W,H,mid,colorLayer,[0,0,255],bb.subarray(mid*4,mid*4+4)); const tm=performance.now()-s5;
+    res['labelT'+T] = { regions: n, regionsGE50: sizes.length, labelMs: +tl.toFixed(1), bboxMs: +tb.toFixed(1), fillLargestPx: px, fillLargestMs: +tf.toFixed(2), fillMedianPx: mpx, fillMedianMs: +tm.toFixed(3), labelBytesMB: +(labels.byteLength/1e6).toFixed(1) };
+  }
+  // C: compositing cost — draw colour layer then line art with multiply, at this size
+  const lineCv = document.createElement('canvas'); lineCv.width=W; lineCv.height=H; lineCv.getContext('2d').drawImage(img,0,0,W,H);
+  const colCv = document.createElement('canvas'); colCv.width=W; colCv.height=H; colCv.getContext('2d').putImageData(new ImageData(colorLayer,W,H),0,0);
+  const s6=performance.now(); for (let k=0;k<10;k++){ ctx.globalCompositeOperation='source-over'; ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H); ctx.drawImage(colCv,0,0); ctx.globalCompositeOperation='multiply'; ctx.drawImage(lineCv,0,0); } ctx.globalCompositeOperation='source-over';
+  res.compositeMultiplyMsPerFrame = +((performance.now()-s6)/10).toFixed(2);
+  return res;
+}
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; } }
+window.runBench = async (src) => { const r = []; for (const size of [843, 1500, 2000]) { r.push(await bench(src, size)); log(JSON.stringify(r[r.length-1])); } window.RESULTS = r; return r; };
+</script>
+<script>
+// Proposed v1 pipeline, timed end to end at native resolution:
+//  1. label fillable core (grey >= T_CORE) with 4-connectivity
+//  2. grow every label simultaneously (multi-source BFS) into the anti-alias halo (grey >= T_HALO),
+//     so halo pixels go to the nearest region and no region leaks into another
+//  3. per-label bounding boxes
+window.runPipeline = async (src, T_CORE, T_HALO) => {
+  const img = await loadImage(src); const W = img.width, H = img.height;
+  const cv = document.getElementById('c'); cv.width=W; cv.height=H; const ctx = cv.getContext('2d',{willReadFrequently:true});
+  const t0 = performance.now(); ctx.drawImage(img,0,0); const d = ctx.getImageData(0,0,W,H).data;
+  const grey = new Uint8Array(W*H); for (let i=0,j=0;i<W*H;i++,j+=4) grey[i]=d[j];
+  const t1 = performance.now();
+  const {labels, n} = labelRegions(grey, W, H, T_CORE);
+  const t2 = performance.now();
+  // multi-source BFS: queue all core pixels that touch an unlabeled halo pixel
+  let q = new Int32Array(W*H), qh=0, qt=0;
+  for (let y=0;y<H;y++) for (let x=0;x<W;x++){ const i=y*W+x; if(!labels[i]) continue;
+    if ((x>0&&!labels[i-1]&&grey[i-1]>=T_HALO)||(x<W-1&&!labels[i+1]&&grey[i+1]>=T_HALO)||(y>0&&!labels[i-W]&&grey[i-W]>=T_HALO)||(y<H-1&&!labels[i+W]&&grey[i+W]>=T_HALO)) q[qt++]=i; }
+  let grown=0;
+  while (qh<qt){ const i=q[qh++], l=labels[i], x=i%W;
+    if (x>0){ const j=i-1; if(!labels[j]&&grey[j]>=T_HALO){ labels[j]=l; q[qt++]=j; grown++; } }
+    if (x<W-1){ const j=i+1; if(!labels[j]&&grey[j]>=T_HALO){ labels[j]=l; q[qt++]=j; grown++; } }
+    if (i>=W){ const j=i-W; if(!labels[j]&&grey[j]>=T_HALO){ labels[j]=l; q[qt++]=j; grown++; } }
+    if (i<W*H-W){ const j=i+W; if(!labels[j]&&grey[j]>=T_HALO){ labels[j]=l; q[qt++]=j; grown++; } } }
+  const t3 = performance.now();
+  const bb = bboxes(labels, W, H, n);
+  const t4 = performance.now();
+  // typical fill: paint one region into an RGBA layer and putImageData only its bbox
+  const counts=new Int32Array(n+1); for(let i=0;i<W*H;i++) counts[labels[i]]++; let big=1; for(let k=2;k<=n;k++) if(counts[k]>counts[big]) big=k;
+  const layer = new Uint8ClampedArray(W*H*4);
+  const t5 = performance.now(); fillByLabel(labels,W,H,big,layer,[255,120,0],bb.subarray(big*4,big*4+4));
+  const [x0,y0,x1,y1]=bb.subarray(big*4,big*4+4); ctx.putImageData(new ImageData(layer,W,H),0,0,x0,y0,x1-x0+1,y1-y0+1);
+  const t6 = performance.now();
+  return { W,H, regions:n, T_CORE, T_HALO, decodeMs:+(t1-t0).toFixed(1), labelMs:+(t2-t1).toFixed(1), growMs:+(t3-t2).toFixed(1), grownPx:grown, bboxMs:+(t4-t3).toFixed(1), totalLoadMs:+(t4-t0).toFixed(1), fillLargestPx:counts[big], fillLargestAndPutMs:+(t6-t5).toFixed(1) };
+};
+</script>
