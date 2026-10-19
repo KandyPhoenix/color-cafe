@@ -15,7 +15,7 @@ building without asking anything. Not the build itself.
 - Pricing: same model as Puzzle Parlor: a few free pages, one-time price for everything, license codes, all sales final (decided while charting).
 - Platform: browser web app like Puzzle Parlor (touch + mouse, installable, Cloudflare Pages; Android wrapper later) (decided while charting).
 - Reference codebase: `/home/user/puzzle-parlor` (public/index.html app, functions/ license API, tools/ release scripts).
-- Starting content: five ChatGPT line-art pages in `pages/` (843x843 as received).
+- Source content: finished colour paintings (Canva Halloween scenes, Puzzle Parlor art, ChatGPT scenes). The five line-art pages in `pages/` are kept for a possible later 'classic' mode.
 - Skills every session should consult: grilling, domain-modeling; prototype for "how should it feel" questions.
 - Kandy is on a phone most of the time: keep questions short, lead with a recommendation.
 
@@ -23,13 +23,15 @@ building without asking anything. Not the build itself.
 
 <!-- one line per resolved ticket: [title](path): gist -->
 
+- [Coloring mechanic](issues/01-coloring-mechanic.md): color-by-number with painted reveal (Happy Color style); source pages are finished colour paintings; flat fills and free brush out of scope for v1.
+
 - [Research: region fill on line-art PNGs in canvas](issues/02-region-fill-technique.md): pre-segment at native resolution (threshold 200) with halo growth, fill by region id, line art multiplied on top; nearest-region tap + mandatory pinch-zoom; a gap-QA script for intake.
 - [Research: turning Puzzle Parlor art into coloring pages](issues/03-line-art-from-puzzle-art.md): automatic conversion is not colorable; re-generate scenes as line art from the puzzle image as reference, and QA closure with a script.
 - [Research: reusing Puzzle Parlor's license system](issues/06-license-reuse.md): share one license service with a `product` field (Design B), two-step rollout; use different prices per product.
 
 ## Not yet specified
 
-- Palette and tool UI (color picker, undo, zoom, eraser): depends on the mechanic chosen.
+- A 'classic' free-colour mode using the black-and-white pages in `pages/` (region fill research in ticket 02 applies): later, if ever.
 - Accessibility: colour-blind-friendly palettes, large tap targets.
 - Sharing a finished page to social / the village.
 - Saved work syncing across devices (Puzzle Parlor saves per device today).
