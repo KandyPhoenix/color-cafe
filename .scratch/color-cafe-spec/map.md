@@ -27,6 +27,7 @@ building without asking anything. Not the build itself.
 - [Coloring mechanic](issues/01-coloring-mechanic.md): color-by-number with painted reveal (Happy Color style); source pages are finished colour paintings; flat fills and free brush out of scope for v1.
 
 - [Research: region fill on line-art PNGs in canvas](issues/02-region-fill-technique.md): pre-segment at native resolution (threshold 200) with halo growth, fill by region id, line art multiplied on top; nearest-region tap + mandatory pinch-zoom; a gap-QA script for intake.
+- [Content pipeline](issues/04-content-pipeline.md): flat cel-style art first, painterly as a busier second tier; Puzzle Parlor vetting rules plus automatic region check; weekly queue releases; gallery by theme (Puzzle Parlor ids + coloring-specific) with a difficulty label per page.
 - [Research: splitting a painting into numbered regions](issues/11-segment-painting-into-regions.md): working pipeline (24 Lab colours, merge < 900 px^2, split giants), ~550 regions per page, reveal is pixel-exact; outline page is only medium-clear on painterly art, flatter art reads better; data format = original + packed label PNG + regions.json.
 - [Research: turning Puzzle Parlor art into coloring pages](issues/03-line-art-from-puzzle-art.md): automatic conversion is not colorable; re-generate scenes as line art from the puzzle image as reference, and QA closure with a script.
 - [Research: reusing Puzzle Parlor's license system](issues/06-license-reuse.md): share one license service with a `product` field (Design B), two-step rollout; use different prices per product.
@@ -40,7 +41,8 @@ building without asking anything. Not the build itself.
 - Saved work syncing across devices (Puzzle Parlor saves per device today).
 - Android wrapper (Capacitor) and store listing: after the web app exists.
 - Brain-health / relaxation marketing copy for the buy page, reusing the Southampton study wording from Puzzle Parlor's buy page.
-- Launch content: how many pages at launch, weekly release cadence, seasonal packs (Halloween, Christmas).
+- Launch content: how many pages at launch; themed packs (Halloween, Christmas) on top of the weekly drip.
+- Difficulty thresholds: what region counts map to Easy / Medium / Detailed.
 - Village landing page tie-in: how Color Cafe appears in the street and cross-sells with Puzzle Parlor.
 
 ## Out of scope
