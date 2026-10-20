@@ -17,6 +17,7 @@ building without asking anything. Not the build itself.
 - Reference codebase: `/home/user/puzzle-parlor` (public/index.html app, functions/ license API, tools/ release scripts).
 - Source content: finished colour paintings (Canva Halloween scenes, Puzzle Parlor art, ChatGPT scenes). The five line-art pages in `pages/` are kept for a possible later 'classic' mode.
 - Skills every session should consult: grilling, domain-modeling; prototype for "how should it feel" questions.
+- Regions must be shaped like the objects in the picture (Kandy, 2026-10-20). Colour-quantising painterly art gives blobs that cut across objects, so source art must be generated in a flat, cel-shaded vector style with solid-colour shapes; a test scene is pending (ticket 04 decides the pipeline).
 - Kandy is on a phone most of the time: keep questions short, lead with a recommendation.
 
 ## Decisions so far
