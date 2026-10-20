@@ -1,0 +1,4 @@
+# Research findings live on research/* branches; never on main
+research/
+node_modules/
+.wrangler/
