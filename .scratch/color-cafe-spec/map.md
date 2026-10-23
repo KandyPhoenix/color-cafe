@@ -19,6 +19,7 @@ building without asking anything. Not the build itself.
 - Source content: finished colour paintings (Canva Halloween scenes, Puzzle Parlor art, ChatGPT scenes). The five line-art pages in `pages/` are kept for a possible later 'classic' mode.
 - Skills every session should consult: grilling, domain-modeling; prototype for "how should it feel" questions.
 - Regions must be shaped like the objects in the picture (Kandy, 2026-10-20). Colour-quantising painterly art gives blobs that cut across objects, so source art must be generated in a flat, cel-shaded vector style with solid-colour shapes; a test scene is pending (ticket 04 decides the pipeline).
+- Reference product: Happy Color (colour-by-number, painted reveal, replay time-lapse video of the colouring, gallery by category, daily new page). Match its feel; no ads in ours.
 - Kandy is on a phone most of the time: keep questions short, lead with a recommendation.
 
 ## Decisions so far
