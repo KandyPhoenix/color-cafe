@@ -19,6 +19,7 @@ building without asking anything. Not the build itself.
 - Source content: finished colour paintings (Canva Halloween scenes, Puzzle Parlor art, ChatGPT scenes). The five line-art pages in `pages/` are kept for a possible later 'classic' mode.
 - Skills every session should consult: grilling, domain-modeling; prototype for "how should it feel" questions.
 - Regions must be shaped like the objects in the picture (Kandy, 2026-10-20). Colour-quantising painterly art gives blobs that cut across objects, so source art must be generated in a flat, cel-shaded vector style with solid-colour shapes; a test scene is pending (ticket 04 decides the pipeline).
+- Region boundaries must be the artwork's own ink outlines, not colour-analysis boundaries (Kandy, 2026-10-23: 'cleanly outlined, then colour in with multi-colour shading'). `research/segment/ink_segment.py` does this: ink = dark-and-thin strokes; regions = enclosed areas; reveal = original shaded pixels. Source art therefore needs bold closed outlines around every part; dark painterly scenes (e.g. The Witch's Brew) do not work with it.
 - Reference product: Happy Color (colour-by-number, painted reveal, replay time-lapse video of the colouring, gallery by category, daily new page). Match its feel; no ads in ours.
 - Kandy is on a phone most of the time: keep questions short, lead with a recommendation.
 
