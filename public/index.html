@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Color Cafe</title>
+<meta name="description" content="Color by number for grown-ups: tap a number, watch the painting appear. Plus free-color mandalas. From KandyPhoenix.com.">
+<meta name="theme-color" content="#3b2a22">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c9643f'/%3E%3Ccircle cx='24' cy='26' r='7' fill='%23f3d9a4'/%3E%3Ccircle cx='40' cy='26' r='7' fill='%23a7c7d9'/%3E%3Ccircle cx='32' cy='40' r='7' fill='%23b4d4a0'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@500;700;800&display=swap">
+<style>
+:root{--bg:#f4ece0;--fg:#2f211b;--muted:#7d6a5c;--card:#fff8ee;--line:#e2d2bb;--espresso:#3b2a22;--cream:#f8f1e4;--accent:#c9643f;--accent-ink:#fff;--ok:#3f8a5a;--chip:#eadfca;
+ --display:"Fraunces",Georgia,serif;--body:"Nunito",system-ui,sans-serif}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);-webkit-text-size-adjust:100%;overscroll-behavior:none}
+button{font:inherit;cursor:pointer}
+a{color:inherit}
+/* ---- gallery ---- */
+#gallery{min-height:100%;padding:0 0 60px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.mast{background:var(--espresso);color:var(--cream);padding:calc(18px + env(safe-area-inset-top)) 0 18px}
+.mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.mast h1{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vw,36px);margin:0;letter-spacing:-.01em}
+.mast h1 span{color:#f0b58a}
+.mast p{margin:4px 0 0;font-size:14px;opacity:.85}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 0 6px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-weight:700;color:var(--muted)}
+.tab.cur{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;padding-top:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-align:left;padding:0;display:flex;flex-direction:column;position:relative}
+.card .art{aspect-ratio:1/1;background:#fff;overflow:hidden;position:relative}
+.card .art img{width:100%;height:100%;object-fit:cover;display:block}
+.card .art canvas{position:absolute;inset:0;width:100%;height:100%}
+.card .meta{padding:10px 12px 12px;display:flex;flex-direction:column;gap:3px}
+.card h3{margin:0;font-size:15px;font-weight:800;line-height:1.25}
+.card .sub{font-size:12px;color:var(--muted)}
+.card .bar{height:4px;background:var(--chip);border-radius:2px;overflow:hidden;margin-top:4px}
+.card .bar i{display:block;height:100%;background:var(--ok)}
+.badge{position:absolute;top:8px;right:8px;background:var(--ok);color:#fff;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;letter-spacing:.04em}
+.badge.new{background:var(--accent)}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
+/* ---- play ---- */
+#play{position:fixed;inset:0;background:#efe6d8;display:flex;flex-direction:column;touch-action:none}
+#play[hidden]{display:none}
+#top{display:flex;align-items:center;gap:8px;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:var(--espresso);color:var(--cream)}
+#top .ttl{flex:1;min-width:0;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top button{background:rgba(255,255,255,.12);color:var(--cream);border:0;border-radius:10px;padding:8px 12px;font-weight:700}
+#top .pct{font-variant-numeric:tabular-nums;font-size:13px;opacity:.85}
+#stage{flex:1;position:relative;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+#pal{background:var(--card);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;align-items:flex-end;min-height:76px}
+#pal::-webkit-scrollbar{display:none}
+.sw{flex:none;width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;position:relative;transition:transform .12s;padding:0}
+.sw.cur{transform:translateY(-8px) scale(1.12);box-shadow:0 4px 10px rgba(0,0,0,.3)}
+.sw.done{opacity:.35}
+.sw.done::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;text-shadow:0 0 3px #000}
+.sw svg{position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);transform:rotate(-90deg);pointer-events:none}
+.sw svg circle{fill:none;stroke:var(--ok);stroke-width:3}
+#toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:rgba(59,42,34,.92);color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;pointer-events:none;opacity:0;transition:opacity .2s}
+#toast.on{opacity:1}
+#done{position:absolute;inset:0;background:rgba(47,33,27,.78);display:flex;align-items:center;justify-content:center;padding:20px}
+#done[hidden]{display:none}
+#done .box{background:var(--card);border-radius:18px;padding:22px;max-width:420px;width:100%;text-align:center;display:flex;flex-direction:column;gap:10px}
+#done h2{font-family:var(--display);margin:0;font-size:26px}
+#done img{width:100%;border-radius:10px}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:12px 18px;font-weight:800}
+.btn.ghost{background:var(--chip);color:var(--fg)}
+#picker{display:none;align-items:center;gap:8px;flex:none}
+#picker input{width:48px;height:48px;border:3px solid #fff;border-radius:50%;padding:0;background:none}
+@media (prefers-reduced-motion:reduce){.sw{transition:none}}
+</style>
+</head>
+<body>
+<main id="gallery">
+  <header class="mast"><div class="wrap"><div><h1>Color <span>Cafe</span></h1><p>Tap a number, watch the painting appear. Pour something warm.</p></div><div id="count" style="font-size:13px;opacity:.8"></div></div></header>
+  <div class="wrap">
+    <nav class="tabs" id="tabs" aria-label="Themes"></nav>
+    <section class="grid" id="grid" aria-live="polite"></section>
+    <footer>Color Cafe &copy; KandyPhoenix.com 2026 &nbsp;·&nbsp; Site by <a href="https://www.phoenixmethodseo.com">Phoenix Method SEO</a> &nbsp;·&nbsp; Next door: <a href="https://puzzles.kandyphoenix.com">Puzzle Parlor</a></footer>
+  </div>
+</main>
+
+<section id="play" hidden aria-label="Coloring page">
+  <div id="top"><button id="back" aria-label="Back to gallery">‹ Back</button><div class="ttl" id="ttl"></div><span class="pct" id="pct"></span><button id="hint" title="Show me one to color">Find</button><button id="fitBtn" title="Fit to screen">Fit</button></div>
+  <div id="stage"><canvas id="cv"></canvas><div id="toast"></div>
+    <div id="done" hidden><div class="box"><h2>Finished!</h2><img id="doneImg" alt="Your finished page"><div style="display:flex;gap:8px;justify-content:center"><button class="btn ghost" id="doneStay">Admire it</button><button class="btn" id="doneBack">Back to gallery</button></div></div></div>
+  </div>
+  <div id="pal"><div id="picker"><input type="color" id="pick" value="#c9643f" aria-label="Pick any color"></div></div>
+</section>
+
+<script>
+/* ---------- data ---------- */
+const THEMES=[{id:'all',label:'All'},{id:'fantasy',label:'Fantasy'},{id:'mandalas',label:'Mandalas'},{id:'classic',label:'Classic'},{id:'studio',label:'My Studio'}];
+const SWATCHES=['#e63946','#f4a261','#f6d55c','#8ac926','#2a9d8f','#48cae4','#4361ee','#7b2cbf','#ff70a6','#c9643f','#8d5524','#f3e5ab','#ffffff','#d9d9d9','#7f7f7f','#1d1d1d','#ffb4a2','#b5e48c','#a7c7d9','#cdb4db','#ffd6a5','#588157','#6a4c93','#e9c46a'];
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+let PAGES=[], theme=store.get('cc-theme')||'all';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isRecent=p=>p.added&&(Date.now()-new Date(p.added+'T00:00:00').getTime())<21*864e5;
+function progressOf(p){const s=store.get('cc-save-'+p.slug);if(!s)return null;return {pct:Math.round(100*s.n/p.regions),done:!!s.done,t:s.t}}
+
+/* ---------- gallery ---------- */
+function renderTabs(){$('tabs').innerHTML=THEMES.map(t=>`<button class="tab${t.id===theme?' cur':''}" data-t="${t.id}">${t.label}</button>`).join('')}
+function renderGrid(){
+  let list=PAGES.slice();
+  if(theme==='studio') list=list.filter(p=>progressOf(p)).sort((a,b)=>(progressOf(b).t||0)-(progressOf(a).t||0));
+  else if(theme!=='all') list=list.filter(p=>p.theme===theme);
+  if(!list.length){$('grid').innerHTML=`<p class="empty">${theme==='studio'?'Nothing here yet. Start a page and it will show up here.':'No pages in this theme yet.'}</p>`;return}
+  $('grid').innerHTML=list.map(p=>{const pr=progressOf(p);
+    return `<button class="card" data-slug="${p.slug}" aria-label="${esc(p.title)}${pr?pr.done?', completed':', '+pr.pct+'% done':''}">
+      <div class="art"><img src="pages/${p.slug}/thumb.jpg" alt="" loading="lazy" width="420" height="420">${pr&&pr.done?'<span class="badge">Done</span>':isRecent(p)?'<span class="badge new">New</span>':''}</div>
+      <div class="meta"><h3>${esc(p.title)}</h3><span class="sub">${p.mode==='pair'?p.colors+' colors · '+p.regions+' areas'+(p.style?' · '+esc(p.style):''):'Free color · '+p.regions+' areas'}</span>${pr&&!pr.done?`<div class="bar"><i style="width:${pr.pct}%"></i></div>`:''}</div></button>`}).join('');
+  $('count').textContent=PAGES.length+' pages';
+}
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;theme=b.dataset.t;store.set('cc-theme',theme);renderTabs();renderGrid()});
+$('grid').addEventListener('click',e=>{const c=e.target.closest('.card');if(!c)return;open(PAGES.find(p=>p.slug===c.dataset.slug))});
+
+/* ---------- play ---------- */
+const cv=$('cv'),ctx=cv.getContext('2d');
+let P=null, cam={x:0,y:0,z:1}, ptrs=new Map(), pinch=null, pan=null, tapStart=null, raf=0;
+async function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src})}
+async function open(page){
+  $('play').hidden=false;$('gallery').hidden=true;$('ttl').textContent=page.title;$('done').hidden=true;toast('Loading…',99999);
+  const [meta,lineImg,labImg,colImg]=await Promise.all([fetch(`pages/${page.slug}/regions.json`).then(r=>r.json()),loadImg(`pages/${page.slug}/line.png`),loadImg(`pages/${page.slug}/labels.png`),page.mode==='pair'?loadImg(`pages/${page.slug}/color.jpg`):null]);
+  const w=meta.w,h=meta.h,N=w*h;
+  const oc=(img)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,w,h);return x};
+  const ld=oc(labImg).getImageData(0,0,w,h).data, labels=new Int32Array(N);
+  for(let i=0,j=0;i<N;i++,j+=4) labels[i]=ld[j]+256*ld[j+1];
+  // pixel index lists per region (counting sort)
+  const R=meta.regions.length, cnt=new Int32Array(R+2); for(let i=0;i<N;i++) cnt[labels[i]+1]++;
+  const off=new Int32Array(R+2); for(let r=1;r<R+2;r++) off[r]=off[r-1]+cnt[r-1];
+  const idx=new Int32Array(N), fillp=off.slice(); for(let i=0;i<N;i++) idx[fillp[labels[i]]++]=i;
+  const colData=colImg?oc(colImg).getImageData(0,0,w,h).data:null;
+  const fillC=document.createElement('canvas');fillC.width=w;fillC.height=h;const fx=fillC.getContext('2d');const fill=fx.createImageData(w,h);
+  const hiC=document.createElement('canvas');hiC.width=w;hiC.height=h;const hx=hiC.getContext('2d');
+  const save=store.get('cc-save-'+page.slug)||{f:{},o:[],n:0,done:false,t:Date.now()};
+  P={page,meta,w,h,labels,idx,off,colData,lineImg,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false};
+  // restore
+  for(const k in save.f){paintRegion(+k,save.f[k],false)}
+  fx.putImageData(fill,0,0);
+  if(page.mode==='pair'){
+    P.byColor=Array.from({length:meta.palette.length},()=>[]);
+    meta.regions.forEach(r=>P.byColor[r.c].push(r.id));
+    P.sel=firstUnfinished();
+  }else{P.sel=store.get('cc-lastcolor')||SWATCHES[0]}
+  renderPal(); resize(); fit(); toast('',0); updatePct();
+  if(save.done) showDone();
+}
+function firstUnfinished(){for(let c=0;c<P.byColor.length;c++){if(P.byColor[c].some(id=>!P.filled[id]))return c}return 0}
+function hexToRgb(h){const n=parseInt(h.slice(1),16);return[(n>>16)&255,(n>>8)&255,n&255]}
+function paintRegion(id,val,commit=true){
+  const {idx,off,fill,colData}=P, d=fill.data; let rgb=null;
+  if(typeof val==='string') rgb=hexToRgb(val);
+  for(let k=off[id];k<off[id+1];k++){const i=idx[k],j=i*4;
+    if(rgb){d[j]=rgb[0];d[j+1]=rgb[1];d[j+2]=rgb[2]}else{d[j]=colData[j];d[j+1]=colData[j+1];d[j+2]=colData[j+2]}
+    d[j+3]=255}
+  if(!P.filled[id]){P.filled[id]=1;P.save.n++}
+  if(commit){P.fx.putImageData(fill,0,0);P.save.f[id]=val;P.save.o.push(id);P.save.t=Date.now();P.hiDirty=true;store.set('cc-save-'+P.page.slug,P.save)}
+}
+function clearRegion(id){const {idx,off,fill}=P,d=fill.data;for(let k=off[id];k<off[id+1];k++)d[idx[k]*4+3]=0;if(P.filled[id]){P.filled[id]=0;P.save.n--}delete P.save.f[id];P.fx.putImageData(fill,0,0);P.hiDirty=true;store.set('cc-save-'+P.page.slug,P.save)}
+function buildHighlight(){
+  const {hx,w,h,idx,off}=P; hx.clearRect(0,0,w,h);
+  if(P.page.mode!=='pair')return;
+  const im=hx.createImageData(w,h),d=im.data; const [r,g,b]=P.meta.palette[P.sel];
+  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=r;d[j+1]=g;d[j+2]=b;d[j+3]=90}}
+  hx.putImageData(im,0,0); P.hiDirty=false;
+}
+/* camera */
+function resize(){const dpr=window.devicePixelRatio||1;cv.width=Math.round(cv.clientWidth*dpr);cv.height=Math.round(cv.clientHeight*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
+function fitZ(){return Math.min(cv.clientWidth/P.w,cv.clientHeight/P.h)*.97}
+function fit(){cam.z=fitZ();cam.x=P.w/2-cv.clientWidth/2/cam.z;cam.y=P.h/2-cv.clientHeight/2/cam.z;draw()}
+function maxZ(){return Math.max(fitZ()*8,4)}
+function clampZ(z){return Math.min(maxZ(),Math.max(fitZ()*.6,z))}
+function world(sx,sy){return[sx/cam.z+cam.x,sy/cam.z+cam.y]}
+function draw(){if(!P)return;cancelAnimationFrame(raf);raf=requestAnimationFrame(_draw)}
+function _draw(){
+  const W=cv.clientWidth,H=cv.clientHeight; ctx.save(); ctx.clearRect(0,0,W,H);
+  ctx.translate(-cam.x*cam.z,-cam.y*cam.z); ctx.scale(cam.z,cam.z);
+  ctx.imageSmoothingEnabled=cam.z<1;
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,P.w,P.h);
+  ctx.drawImage(P.fillC,0,0);
+  if(P.hiDirty)buildHighlight(); ctx.drawImage(P.hiC,0,0);
+  ctx.globalCompositeOperation='multiply'; ctx.drawImage(P.lineImg,0,0,P.w,P.h); ctx.globalCompositeOperation='source-over';
+  // numbers
+  if(P.page.mode==='pair'){
+    const minR=8/cam.z; ctx.textAlign='center';ctx.textBaseline='middle';
+    const x0=cam.x,y0=cam.y,x1=cam.x+W/cam.z,y1=cam.y+H/cam.z;
+    for(const r of P.meta.regions){ if(P.filled[r.id]||r.r<minR||r.x<x0||r.x>x1||r.y<y0||r.y>y1)continue;
+      const fs=Math.min(r.r*1.1,16/cam.z); ctx.font=`700 ${fs}px Nunito,sans-serif`; ctx.fillStyle=r.c===P.sel?'#000':'#6b6b6b'; ctx.fillText(r.c+1,r.x,r.y)}
+  }
+  ctx.restore();
+}
+/* palette */
+function renderPal(){
+  const pal=$('pal'); [...pal.querySelectorAll('.sw')].forEach(e=>e.remove());
+  if(P.page.mode==='pair'){ $('picker').style.display='none';
+    P.meta.palette.forEach((c,i)=>{const total=P.byColor[i].length,done=P.byColor[i].filter(id=>P.filled[id]).length;const lum=(c[0]*.299+c[1]*.587+c[2]*.114);
+      const b=document.createElement('button');b.className='sw'+(i===P.sel?' cur':'')+(done===total?' done':'');b.style.background=`rgb(${c})`;b.style.color=lum>150?'#222':'#fff';b.dataset.i=i;b.textContent=i+1;b.setAttribute('aria-label',`Color ${i+1}, ${done} of ${total}`);
+      const r=24,circ=2*Math.PI*r;b.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 54 54"><circle cx="27" cy="27" r="${r}" stroke-dasharray="${circ*done/total} ${circ}"/></svg>`);pal.appendChild(b)});
+    const cur=pal.querySelector('.sw.cur'); if(cur) cur.scrollIntoView({inline:'center',block:'nearest'});
+  }else{ $('picker').style.display='flex'; $('pick').value=P.sel;
+    SWATCHES.forEach(c=>{const b=document.createElement('button');b.className='sw'+(c===P.sel?' cur':'');b.style.background=c;b.dataset.c=c;b.setAttribute('aria-label','Color '+c);pal.appendChild(b)});
+    const e=document.createElement('button');e.className='sw'+(P.eraseMode?' cur':'');e.style.background='#fff';e.textContent='⌫';e.dataset.erase='1';e.setAttribute('aria-label','Eraser');pal.appendChild(e);
+  }
+}
+$('pal').addEventListener('click',e=>{const b=e.target.closest('.sw');if(!b)return;
+  if(b.dataset.i!=null){P.sel=+b.dataset.i;P.hiDirty=true}
+  else if(b.dataset.erase){P.eraseMode=!P.eraseMode}
+  else{P.sel=b.dataset.c;P.eraseMode=false;store.set('cc-lastcolor',P.sel)}
+  renderPal();draw()});
+$('pick').addEventListener('input',e=>{P.sel=e.target.value;P.eraseMode=false;store.set('cc-lastcolor',P.sel);renderPal()});
+function updatePct(){$('pct').textContent=P.page.mode==='pair'?Math.round(100*P.save.n/P.meta.regions.length)+'%':P.save.n+' colored'}
+let toastT; function toast(m,ms=1400){const t=$('toast');t.textContent=m;t.classList.toggle('on',!!m);clearTimeout(toastT);if(m&&ms<99999)toastT=setTimeout(()=>t.classList.remove('on'),ms)}
+/* input */
+function regionAt(wx,wy){const x=Math.round(wx),y=Math.round(wy);if(x<0||y<0||x>=P.w||y>=P.h)return 0;let id=P.labels[y*P.w+x];if(id)return id;
+  const rad=Math.ceil(6/cam.z)+2; let best=0,bd=1e9;
+  for(let dy=-rad;dy<=rad;dy++)for(let dx=-rad;dx<=rad;dx++){const xx=x+dx,yy=y+dy;if(xx<0||yy<0||xx>=P.w||yy>=P.h)continue;const l=P.labels[yy*P.w+xx];if(l&&dx*dx+dy*dy<bd){bd=dx*dx+dy*dy;best=l}}
+  return best}
+function tap(sx,sy){const[wx,wy]=world(sx,sy);const id=regionAt(wx,wy);if(!id)return;const reg=P.meta.regions[id-1];
+  if(P.page.mode==='pair'){
+    if(P.filled[id]){ if(reg.c!==P.sel){P.sel=reg.c;P.hiDirty=true;renderPal();draw()} return }
+    if(reg.c!==P.sel){toast('That one is number '+(reg.c+1));return}
+    paintRegion(id,'r'); updatePct();
+    if(P.byColor[P.sel].every(i=>P.filled[i])){ if(P.save.n>=P.meta.regions.length){finish()} else {P.sel=firstUnfinished();P.hiDirty=true;toast('Next: color '+(P.sel+1))} }
+    renderPal(); draw();
+  }else{
+    if(P.eraseMode){if(P.filled[id])clearRegion(id)} else paintRegion(id,P.sel);
+    updatePct(); draw();
+  }
+}
+function finish(){P.save.done=true;P.save.t=Date.now();store.set('cc-save-'+P.page.slug,P.save);showDone()}
+function showDone(){const c=document.createElement('canvas');c.width=P.w;c.height=P.h;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,P.w,P.h);x.drawImage(P.fillC,0,0);x.globalCompositeOperation='multiply';x.drawImage(P.lineImg,0,0,P.w,P.h);$('doneImg').src=c.toDataURL('image/jpeg',.85);$('done').hidden=false}
+$('doneStay').onclick=()=>{$('done').hidden=true};
+$('doneBack').onclick=()=>leave();
+$('back').onclick=()=>leave();
+$('fitBtn').onclick=()=>fit();
+$('hint').onclick=()=>{ let ids; if(P.page.mode==='pair') ids=P.byColor[P.sel].filter(id=>!P.filled[id]); else ids=P.meta.regions.map(r=>r.id).filter(id=>!P.filled[id]);
+  if(!ids.length){toast('All done with this one');return} const r=P.meta.regions[ids[Math.floor(Math.random()*ids.length)]-1];
+  cam.z=clampZ(Math.max(cam.z,fitZ()*3)); cam.x=r.x-cv.clientWidth/2/cam.z; cam.y=r.y-cv.clientHeight/2/cam.z; draw(); toast('Here is one'); };
+function leave(){$('play').hidden=true;$('gallery').hidden=false;P=null;renderGrid()}
+function local(e){const r=cv.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
+cv.addEventListener('pointerdown',e=>{if(!P)return;cv.setPointerCapture(e.pointerId);const[sx,sy]=local(e);ptrs.set(e.pointerId,{x:sx,y:sy});
+  if(ptrs.size===2){const[a,b]=[...ptrs.values()];pinch={d0:Math.hypot(a.x-b.x,a.y-b.y)||1,z0:cam.z,w:world((a.x+b.x)/2,(a.y+b.y)/2)};pan=null;tapStart=null;return}
+  if(ptrs.size>2)return; pan={x:sx,y:sy,cx:cam.x,cy:cam.y,pid:e.pointerId,moved:false}; tapStart={x:sx,y:sy,t:performance.now()}});
+cv.addEventListener('pointermove',e=>{if(!P||!ptrs.has(e.pointerId))return;const[sx,sy]=local(e);ptrs.set(e.pointerId,{x:sx,y:sy});
+  if(pinch&&ptrs.size>=2){const[a,b]=[...ptrs.values()],d=Math.hypot(a.x-b.x,a.y-b.y),mx=(a.x+b.x)/2,my=(a.y+b.y)/2;cam.z=clampZ(pinch.z0*d/pinch.d0);cam.x=pinch.w[0]-mx/cam.z;cam.y=pinch.w[1]-my/cam.z;draw();return}
+  if(pan&&pan.pid===e.pointerId){if(!pan.moved&&Math.hypot(sx-pan.x,sy-pan.y)>8)pan.moved=true;if(pan.moved){cam.x=pan.cx-(sx-pan.x)/cam.z;cam.y=pan.cy-(sy-pan.y)/cam.z;draw()}}});
+function up(e){if(!ptrs.has(e.pointerId))return;ptrs.delete(e.pointerId);
+  if(pan&&pan.pid===e.pointerId){if(!pan.moved&&tapStart)tap(tapStart.x,tapStart.y);pan=null;tapStart=null}
+  if(ptrs.size<2)pinch=null;}
+cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+cv.addEventListener('wheel',e=>{e.preventDefault();if(!P)return;const[sx,sy]=local(e);const[wx,wy]=world(sx,sy);cam.z=clampZ(cam.z*(e.deltaY<0?1.15:1/1.15));cam.x=wx-sx/cam.z;cam.y=wy-sy/cam.z;draw()},{passive:false});
+cv.addEventListener('dblclick',e=>{const[sx,sy]=local(e);const[wx,wy]=world(sx,sy);cam.z=clampZ(cam.z*2);cam.x=wx-sx/cam.z;cam.y=wy-sy/cam.z;draw()});
+window.addEventListener('resize',()=>{if(P)resize()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&P)leave()});
+/* ---------- boot ---------- */
+fetch('pages.json').then(r=>r.json()).then(p=>{PAGES=p.slice().reverse();renderTabs();renderGrid()});
+</script>
+</body>
+</html>
