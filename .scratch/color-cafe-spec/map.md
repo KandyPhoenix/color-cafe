@@ -11,6 +11,8 @@ building without asking anything. Not the build itself.
 
 ## Notes
 
+- **Execution override (Kandy, 2026-10-24: 'lets build the color cafe app')**: the map now carries the build. Remaining decisions were taken with defaults and recorded on their tickets.
+
 - Audience: adults, relaxation and brain-health angle, same crowd as Puzzle Parlor (decided while charting).
 - Pricing: same model as Puzzle Parlor: a few free pages, one-time price for everything, license codes, all sales final (decided while charting).
 - Platform: browser web app like Puzzle Parlor (touch + mouse, installable, Cloudflare Pages; Android wrapper later) (decided while charting).

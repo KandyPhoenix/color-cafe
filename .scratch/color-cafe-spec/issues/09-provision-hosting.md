@@ -1,7 +1,7 @@
 # Task: create the Cloudflare Pages project and subdomain
 
 Type: task
-Status: open
+Status: claimed
 Blocked by: 08
 
 ## Question
