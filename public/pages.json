@@ -167,5 +167,18 @@
   "regions": 298,
   "colors": 32,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "raven-pomegranates",
+  "title": "Raven and Pomegranates",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Dutch Golden Age",
+  "w": 1254,
+  "h": 1254,
+  "regions": 789,
+  "colors": 32,
+  "added": "2026-10-25"
  }
 ]
