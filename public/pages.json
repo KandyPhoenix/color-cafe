@@ -362,5 +362,18 @@
   "regions": 689,
   "colors": 28,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "christmas-mantel",
+  "title": "Christmas Eve Mantel",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Soft oil",
+  "w": 1254,
+  "h": 1254,
+  "regions": 1279,
+  "colors": 32,
+  "added": "2026-10-25"
  }
 ]
