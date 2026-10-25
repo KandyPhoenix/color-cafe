@@ -136,7 +136,7 @@ async function open(page){
   const colData=colImg?oc(colImg).getImageData(0,0,w,h).data:null;
   const fillC=document.createElement('canvas');fillC.width=w;fillC.height=h;const fx=fillC.getContext('2d');const fill=fx.createImageData(w,h);
   const hiC=document.createElement('canvas');hiC.width=w;hiC.height=h;const hx=hiC.getContext('2d');
-  const save=store.get('cc-save-'+page.slug)||{f:{},o:[],n:0,done:false,t:Date.now()};
+  let save=store.get('cc-save-'+page.slug); if(!save||save.R!==R){save={f:{},o:[],n:0,done:false,t:Date.now(),R}} // a rebuilt page (different piece count) starts fresh
   P={page,meta,w,h,labels,idx,off,colData,lineImg,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false};
   // restore
   for(const k in save.f){paintRegion(+k,save.f[k],false)}

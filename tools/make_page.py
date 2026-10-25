@@ -18,7 +18,7 @@ ap.add_argument('mode', choices=['pair', 'line']); ap.add_argument('slug'); ap.a
 ap.add_argument('--title', required=True); ap.add_argument('--theme', required=True)
 ap.add_argument('--colors', type=int, default=36); ap.add_argument('--min', type=int, default=250)
 ap.add_argument('--ink', type=int, default=110); ap.add_argument('--size', type=int, default=1400)
-ap.add_argument('--merge', type=float, default=18.0, help='pair mode: merge touching areas whose colours differ by less than this (Lab distance, lightness half-weighted) so one tap fills a whole item')
+ap.add_argument('--merge', type=float, default=0.0, help='pair mode: OFF by default (0). Every outlined piece is its own tap, like Happy Color. Set e.g. 18 to merge touching areas of near-identical colour into one item')
 ap.add_argument('--maxitem', type=float, default=0.12, help='pair mode: never merge into an item bigger than this fraction of the page')
 ap.add_argument('--style', default=''); ap.add_argument('--artist', default='Original art')
 a = ap.parse_args(); t0 = time.time()
@@ -113,9 +113,8 @@ rgb = np.zeros((h, w, 3), np.uint8); rgb[:, :, 2] = labels % 256; rgb[:, :, 1] =
 cv2.imwrite(os.path.join(out, 'labels.png'), rgb, [cv2.IMWRITE_PNG_COMPRESSION, 9])
 if col is not None:
     cv2.imwrite(os.path.join(out, 'color.jpg'), col, [cv2.IMWRITE_JPEG_QUALITY, 88])
-    thumb = col.copy(); thumb[ink > 0] = np.minimum(thumb[ink > 0], line[ink > 0])
-else:
-    thumb = line.copy()
+# gallery thumbnail is ALWAYS the uncoloured line art: the finished painting is the surprise
+thumb = line.copy()
 ts = 420 / max(h, w); thumb = cv2.resize(thumb, (round(w * ts), round(h * ts)), interpolation=cv2.INTER_AREA)
 cv2.imwrite(os.path.join(out, 'thumb.jpg'), thumb, [cv2.IMWRITE_JPEG_QUALITY, 80])
 json.dump({'w': w, 'h': h, 'mode': a.mode, 'palette': palette, 'regions': regions}, open(os.path.join(out, 'regions.json'), 'w'), separators=(',', ':'))
