@@ -153,7 +153,7 @@ function firstUnfinished(){for(let c=0;c<P.byColor.length;c++){if(P.byColor[c].s
 function hexToRgb(h){const n=parseInt(h.slice(1),16);return[(n>>16)&255,(n>>8)&255,n&255]}
 function paintRegion(id,val,commit=true){
   const {idx,off,fill,colData}=P, d=fill.data; let rgb=null;
-  if(typeof val==='string') rgb=hexToRgb(val);
+  if(typeof val==='string'&&val[0]==='#') rgb=hexToRgb(val);
   for(let k=off[id];k<off[id+1];k++){const i=idx[k],j=i*4;
     if(rgb){d[j]=rgb[0];d[j+1]=rgb[1];d[j+2]=rgb[2]}else{d[j]=colData[j];d[j+1]=colData[j+1];d[j+2]=colData[j+2]}
     d[j+3]=255}
