@@ -310,5 +310,18 @@
   "regions": 860,
   "colors": 32,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "coffee-first",
+  "title": "Coffee First, Feelings Later",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Gouache",
+  "w": 1254,
+  "h": 1254,
+  "regions": 619,
+  "colors": 28,
+  "added": "2026-10-25"
  }
 ]
