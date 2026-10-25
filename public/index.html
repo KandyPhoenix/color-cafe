@@ -93,7 +93,7 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
 
 <script>
 /* ---------- data ---------- */
-const THEMES=[{id:'all',label:'All'},{id:'fantasy',label:'Fantasy'},{id:'mandalas',label:'Mandalas'},{id:'classic',label:'Classic'},{id:'studio',label:'My Studio'}];
+const THEMES=[{id:'all',label:'All'},{id:'fantasy',label:'Color by number'},{id:'mandalas',label:'Mandalas'},{id:'classic',label:'Free color'},{id:'studio',label:'My Studio'}];
 const SWATCHES=['#d9466b','#f28ca8','#f9c7d3','#e63946','#ff7b54','#f6c453','#fff1a8','#b5e48c','#5aa469','#2f6b3a','#8ed1c6','#6cc3e0','#4a7bd0','#b39ddb','#7b4fa3','#ffffff','#e8e8e8','#9a9a9a','#2b2b2b','#c8a27a','#8b5a3c','#ffd6a5','#ffb4a2','#cdb4db'];
 const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
 let PAGES=[], theme=store.get('cc-theme')||'all';
@@ -112,7 +112,7 @@ function renderGrid(){
   $('grid').innerHTML=list.map(p=>{const pr=progressOf(p);
     return `<button class="card" data-slug="${p.slug}" aria-label="${esc(p.title)}${pr?pr.done?', completed':', '+pr.pct+'% done':''}">
       <div class="art"><img src="pages/${p.slug}/thumb.jpg" alt="" loading="lazy" width="420" height="420">${pr&&pr.done?'<span class="badge">Done</span>':isRecent(p)?'<span class="badge new">New</span>':''}</div>
-      <div class="meta"><h3>${esc(p.title)}</h3><span class="sub">${p.mode==='pair'?p.colors+' colors · '+p.regions+' areas'+(p.style?' · '+esc(p.style):''):'Free color · '+p.regions+' areas'}</span>${pr&&!pr.done?`<div class="bar"><i style="width:${pr.pct}%"></i></div>`:''}</div></button>`}).join('');
+      <div class="meta"><h3>${esc(p.title)}</h3><span class="sub">${p.mode==='pair'?'Color by number · '+p.colors+' colors'+(p.style?' · '+esc(p.style):''):'Pick your own colors · '+p.regions+' areas'}</span>${pr&&!pr.done?`<div class="bar"><i style="width:${pr.pct}%"></i></div>`:''}</div></button>`}).join('');
   $('count').textContent=PAGES.length+' pages';
 }
 $('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;theme=b.dataset.t;store.set('cc-theme',theme);renderTabs();renderGrid()});
@@ -165,7 +165,7 @@ function buildHighlight(){
   const {hx,w,h,idx,off}=P; hx.clearRect(0,0,w,h);
   if(P.page.mode!=='pair')return;
   const im=hx.createImageData(w,h),d=im.data; const [r,g,b]=P.meta.palette[P.sel];
-  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=r;d[j+1]=g;d[j+2]=b;d[j+3]=90}}
+  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=r;d[j+1]=g;d[j+2]=b;d[j+3]=150}}
   hx.putImageData(im,0,0); P.hiDirty=false;
 }
 /* camera */
@@ -257,7 +257,7 @@ cv.addEventListener('dblclick',e=>{const[sx,sy]=local(e);const[wx,wy]=world(sx,s
 window.addEventListener('resize',()=>{if(P)resize()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&P)leave()});
 /* ---------- boot ---------- */
-fetch('pages.json').then(r=>r.json()).then(p=>{PAGES=p.slice().reverse();renderTabs();renderGrid()});
+fetch('pages.json').then(r=>r.json()).then(p=>{PAGES=p.slice().reverse().sort((a,b)=>(b.mode==='pair')-(a.mode==='pair'));renderTabs();renderGrid()});
 </script>
 </body>
 </html>
