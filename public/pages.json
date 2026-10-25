@@ -349,5 +349,18 @@
   "regions": 476,
   "colors": 28,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "not-today-chaos",
+  "title": "Not Today, Chaos",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Woodblock print",
+  "w": 1254,
+  "h": 1254,
+  "regions": 689,
+  "colors": 28,
+  "added": "2026-10-25"
  }
 ]
