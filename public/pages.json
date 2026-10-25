@@ -401,5 +401,18 @@
   "regions": 1145,
   "colors": 32,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "gingerbread-village",
+  "title": "Gingerbread Village",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Colored pencil",
+  "w": 1254,
+  "h": 1254,
+  "regions": 899,
+  "colors": 32,
+  "added": "2026-10-25"
  }
 ]
