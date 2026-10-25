@@ -18,6 +18,8 @@ ap.add_argument('mode', choices=['pair', 'line']); ap.add_argument('slug'); ap.a
 ap.add_argument('--title', required=True); ap.add_argument('--theme', required=True)
 ap.add_argument('--colors', type=int, default=36); ap.add_argument('--min', type=int, default=250)
 ap.add_argument('--ink', type=int, default=110); ap.add_argument('--size', type=int, default=1400)
+ap.add_argument('--merge', type=float, default=18.0, help='pair mode: merge touching areas whose colours differ by less than this (Lab distance, lightness half-weighted) so one tap fills a whole item')
+ap.add_argument('--maxitem', type=float, default=0.12, help='pair mode: never merge into an item bigger than this fraction of the page')
 ap.add_argument('--style', default=''); ap.add_argument('--artist', default='Original art')
 a = ap.parse_args(); t0 = time.time()
 
@@ -63,6 +65,33 @@ if a.mode == 'pair':
     lab = cv2.cvtColor(col, cv2.COLOR_BGR2LAB).reshape(-1, 3).astype(np.float32); flat = labels.ravel()
     cnt = np.bincount(flat, minlength=Rn + 1).astype(np.float64)
     means = np.stack([np.bincount(flat, weights=lab[:, c], minlength=Rn + 1) for c in range(3)], 1) / np.maximum(cnt, 1)[:, None]
+    if a.merge > 0:
+        # neighbours across the ink: grow labels into the ink lines, then read 4-neighbour pairs
+        grown = labels.astype(np.uint16)
+        for _ in range(6):
+            dil = cv2.dilate(grown, np.ones((3, 3), np.uint8))
+            grown = np.where(grown == 0, dil, grown)
+        pr = np.stack([grown[:, :-1].ravel(), grown[:, 1:].ravel()], 1); pd = np.stack([grown[:-1, :].ravel(), grown[1:, :].ravel()], 1)
+        pairs = np.concatenate([pr, pd]).astype(np.int64); pairs = pairs[(pairs[:, 0] != pairs[:, 1]) & (pairs[:, 0] > 0) & (pairs[:, 1] > 0)]
+        pairs = np.unique(np.sort(pairs, 1), axis=0)
+        wgt = np.array([0.5, 1.0, 1.0]); dE = np.sqrt((((means[pairs[:, 0]] - means[pairs[:, 1]]) * wgt) ** 2).sum(1))
+        order = np.argsort(dE); parent = np.arange(Rn + 1); size = cnt.copy(); limit = a.maxitem * h * w
+        def find(x):
+            while parent[x] != x: parent[x] = parent[parent[x]]; x = parent[x]
+            return x
+        merged = 0
+        for k in order:
+            if dE[k] > a.merge: break
+            ra, rb = find(pairs[k, 0]), find(pairs[k, 1])
+            if ra == rb or size[ra] + size[rb] > limit: continue
+            parent[rb] = ra; size[ra] += size[rb]; merged += 1
+        root = np.array([find(i) for i in range(Rn + 1)]); root[0] = 0
+        _, labels = np.unique(root[labels], return_inverse=True); labels = labels.reshape(h, w).astype(np.int32)
+        Rn = labels.max(); flat = labels.ravel()
+        cnt = np.bincount(flat, minlength=Rn + 1).astype(np.float64)
+        means = np.stack([np.bincount(flat, weights=lab[:, c], minlength=Rn + 1) for c in range(3)], 1) / np.maximum(cnt, 1)[:, None]
+        rc = np.zeros(Rn + 1, np.int32)
+        print(f'merged {merged} touching areas into whole items -> {Rn} items')
     N = min(a.colors, Rn)
     crit = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 60, 0.5)
     _, assign, centers = cv2.kmeans(means[1:].astype(np.float32), N, None, crit, 6, cv2.KMEANS_PP_CENTERS)

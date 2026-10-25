@@ -1,18 +1,5 @@
 [
  {
-  "slug": "water-bearer",
-  "title": "The Water Bearer",
-  "theme": "fantasy",
-  "mode": "pair",
-  "artist": "Original art",
-  "style": "Stained glass",
-  "w": 1254,
-  "h": 1254,
-  "regions": 754,
-  "colors": 36,
-  "added": "2026-10-24"
- },
- {
   "slug": "floral-mandala",
   "title": "Floral Mandala",
   "theme": "mandalas",
@@ -65,68 +52,16 @@
   "added": "2026-10-24"
  },
  {
-  "slug": "storybook-cottage",
-  "title": "Storybook Cottage",
-  "theme": "classic",
-  "mode": "line",
+  "slug": "water-bearer",
+  "title": "The Water Bearer",
+  "theme": "fantasy",
+  "mode": "pair",
   "artist": "Original art",
-  "style": "",
-  "w": 843,
-  "h": 843,
-  "regions": 490,
-  "colors": 0,
-  "added": "2026-10-24"
- },
- {
-  "slug": "owl-bridge-castle",
-  "title": "The Owl and the Castle",
-  "theme": "classic",
-  "mode": "line",
-  "artist": "Original art",
-  "style": "",
-  "w": 843,
-  "h": 843,
-  "regions": 407,
-  "colors": 0,
-  "added": "2026-10-24"
- },
- {
-  "slug": "garden-gate",
-  "title": "The Garden Gate",
-  "theme": "classic",
-  "mode": "line",
-  "artist": "Original art",
-  "style": "",
-  "w": 843,
-  "h": 843,
-  "regions": 419,
-  "colors": 0,
-  "added": "2026-10-24"
- },
- {
-  "slug": "reading-nook-cat",
-  "title": "The Reading Nook",
-  "theme": "classic",
-  "mode": "line",
-  "artist": "Original art",
-  "style": "",
-  "w": 843,
-  "h": 843,
-  "regions": 431,
-  "colors": 0,
-  "added": "2026-10-24"
- },
- {
-  "slug": "sea-turtle-treasure",
-  "title": "Sea Turtle Treasure",
-  "theme": "classic",
-  "mode": "line",
-  "artist": "Original art",
-  "style": "",
-  "w": 843,
-  "h": 843,
-  "regions": 352,
-  "colors": 0,
-  "added": "2026-10-24"
+  "style": "Stained glass",
+  "w": 1254,
+  "h": 1254,
+  "regions": 377,
+  "colors": 36,
+  "added": "2026-10-25"
  }
 ]
