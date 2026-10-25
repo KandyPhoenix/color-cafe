@@ -297,5 +297,18 @@
   "regions": 1244,
   "colors": 32,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "koi-lotus",
+  "title": "Koi Beneath the Lotus",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Woodblock print",
+  "w": 1254,
+  "h": 1254,
+  "regions": 860,
+  "colors": 32,
+  "added": "2026-10-25"
  }
 ]
