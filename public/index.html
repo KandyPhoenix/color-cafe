@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <title>Color Cafe</title>
 <meta name="description" content="Color by number for grown-ups: tap a number, watch the painting appear. Plus free-color mandalas. From KandyPhoenix.com.">
-<meta name="theme-color" content="#3b2a22">
+<meta name="theme-color" content="#4a6b4f">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c9643f'/%3E%3Ccircle cx='24' cy='26' r='7' fill='%23f3d9a4'/%3E%3Ccircle cx='40' cy='26' r='7' fill='%23a7c7d9'/%3E%3Ccircle cx='32' cy='40' r='7' fill='%23b4d4a0'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%234a6b4f'/%3E%3Ccircle cx='24' cy='26' r='7' fill='%23f9c7d3'/%3E%3Ccircle cx='40' cy='26' r='7' fill='%23f6c453'/%3E%3Ccircle cx='32' cy='40' r='7' fill='%23d9466b'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@500;700;800&display=swap">
 <style>
-:root{--bg:#f4ece0;--fg:#2f211b;--muted:#7d6a5c;--card:#fff8ee;--line:#e2d2bb;--espresso:#3b2a22;--cream:#f8f1e4;--accent:#c9643f;--accent-ink:#fff;--ok:#3f8a5a;--chip:#eadfca;
+:root{--bg:#fbf3f1;--fg:#3a2b33;--muted:#8a6f7c;--card:#fffafa;--line:#f0d6dc;--espresso:#4a6b4f;--cream:#fff6f3;--accent:#d9466b;--accent-ink:#fff;--ok:#5aa469;--chip:#f6e3e8;--sun:#f6c453;
  --display:"Fraunces",Georgia,serif;--body:"Nunito",system-ui,sans-serif}
 *{box-sizing:border-box}html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);-webkit-text-size-adjust:100%;overscroll-behavior:none}
@@ -22,7 +22,7 @@ a{color:inherit}
 .mast{background:var(--espresso);color:var(--cream);padding:calc(18px + env(safe-area-inset-top)) 0 18px}
 .mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .mast h1{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vw,36px);margin:0;letter-spacing:-.01em}
-.mast h1 span{color:#f0b58a}
+.mast h1 span{color:#f9c7d3}
 .mast p{margin:4px 0 0;font-size:14px;opacity:.85}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 0 6px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
@@ -43,7 +43,7 @@ a{color:inherit}
 .empty{color:var(--muted);padding:30px 0;text-align:center}
 footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
 /* ---- play ---- */
-#play{position:fixed;inset:0;background:#efe6d8;display:flex;flex-direction:column;touch-action:none}
+#play{position:fixed;inset:0;background:#f4e9ea;display:flex;flex-direction:column;touch-action:none}
 #play[hidden]{display:none}
 #top{display:flex;align-items:center;gap:8px;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:var(--espresso);color:var(--cream)}
 #top .ttl{flex:1;min-width:0;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -59,9 +59,9 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
 .sw.done::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;text-shadow:0 0 3px #000}
 .sw svg{position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);transform:rotate(-90deg);pointer-events:none}
 .sw svg circle{fill:none;stroke:var(--ok);stroke-width:3}
-#toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:rgba(59,42,34,.92);color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;pointer-events:none;opacity:0;transition:opacity .2s}
+#toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:rgba(74,107,79,.94);color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;pointer-events:none;opacity:0;transition:opacity .2s}
 #toast.on{opacity:1}
-#done{position:absolute;inset:0;background:rgba(47,33,27,.78);display:flex;align-items:center;justify-content:center;padding:20px}
+#done{position:absolute;inset:0;background:rgba(58,43,51,.75);display:flex;align-items:center;justify-content:center;padding:20px}
 #done[hidden]{display:none}
 #done .box{background:var(--card);border-radius:18px;padding:22px;max-width:420px;width:100%;text-align:center;display:flex;flex-direction:column;gap:10px}
 #done h2{font-family:var(--display);margin:0;font-size:26px}
@@ -75,7 +75,7 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
 </head>
 <body>
 <main id="gallery">
-  <header class="mast"><div class="wrap"><div><h1>Color <span>Cafe</span></h1><p>Tap a number, watch the painting appear. Pour something warm.</p></div><div id="count" style="font-size:13px;opacity:.8"></div></div></header>
+  <header class="mast"><div class="wrap"><div><h1>Color <span>Cafe</span></h1><p>Tap a number, watch the painting appear. Bouquets, villages, mandalas.</p></div><div id="count" style="font-size:13px;opacity:.8"></div></div></header>
   <div class="wrap">
     <nav class="tabs" id="tabs" aria-label="Themes"></nav>
     <section class="grid" id="grid" aria-live="polite"></section>
@@ -88,13 +88,13 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
   <div id="stage"><canvas id="cv"></canvas><div id="toast"></div>
     <div id="done" hidden><div class="box"><h2>Finished!</h2><img id="doneImg" alt="Your finished page"><div style="display:flex;gap:8px;justify-content:center"><button class="btn ghost" id="doneStay">Admire it</button><button class="btn" id="doneBack">Back to gallery</button></div></div></div>
   </div>
-  <div id="pal"><div id="picker"><input type="color" id="pick" value="#c9643f" aria-label="Pick any color"></div></div>
+  <div id="pal"><div id="picker"><input type="color" id="pick" value="#d9466b" aria-label="Pick any color"></div></div>
 </section>
 
 <script>
 /* ---------- data ---------- */
 const THEMES=[{id:'all',label:'All'},{id:'fantasy',label:'Fantasy'},{id:'mandalas',label:'Mandalas'},{id:'classic',label:'Classic'},{id:'studio',label:'My Studio'}];
-const SWATCHES=['#e63946','#f4a261','#f6d55c','#8ac926','#2a9d8f','#48cae4','#4361ee','#7b2cbf','#ff70a6','#c9643f','#8d5524','#f3e5ab','#ffffff','#d9d9d9','#7f7f7f','#1d1d1d','#ffb4a2','#b5e48c','#a7c7d9','#cdb4db','#ffd6a5','#588157','#6a4c93','#e9c46a'];
+const SWATCHES=['#d9466b','#f28ca8','#f9c7d3','#e63946','#ff7b54','#f6c453','#fff1a8','#b5e48c','#5aa469','#2f6b3a','#8ed1c6','#6cc3e0','#4a7bd0','#b39ddb','#7b4fa3','#ffffff','#e8e8e8','#9a9a9a','#2b2b2b','#c8a27a','#8b5a3c','#ffd6a5','#ffb4a2','#cdb4db'];
 const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
 let PAGES=[], theme=store.get('cc-theme')||'all';
 const $=id=>document.getElementById(id);
