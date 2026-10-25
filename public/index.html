@@ -130,7 +130,7 @@ async function open(page){
   const ld=oc(labImg).getImageData(0,0,w,h).data, labels=new Int32Array(N);
   for(let i=0,j=0;i<N;i++,j+=4) labels[i]=ld[j]+256*ld[j+1];
   // pixel index lists per region (counting sort)
-  const R=meta.regions.length, cnt=new Int32Array(R+2); for(let i=0;i<N;i++) cnt[labels[i]+1]++;
+  const R=meta.regions.length, cnt=new Int32Array(R+2); for(let i=0;i<N;i++) cnt[labels[i]]++;
   const off=new Int32Array(R+2); for(let r=1;r<R+2;r++) off[r]=off[r-1]+cnt[r-1];
   const idx=new Int32Array(N), fillp=off.slice(); for(let i=0;i<N;i++) idx[fillp[labels[i]]++]=i;
   const colData=colImg?oc(colImg).getImageData(0,0,w,h).data:null;
@@ -161,12 +161,14 @@ function paintRegion(id,val,commit=true){
   if(commit){P.fx.putImageData(fill,0,0);P.save.f[id]=val;P.save.o.push(id);P.save.t=Date.now();P.hiDirty=true;store.set('cc-save-'+P.page.slug,P.save)}
 }
 function clearRegion(id){const {idx,off,fill}=P,d=fill.data;for(let k=off[id];k<off[id+1];k++)d[idx[k]*4+3]=0;if(P.filled[id]){P.filled[id]=0;P.save.n--}delete P.save.f[id];P.fx.putImageData(fill,0,0);P.hiDirty=true;store.set('cc-save-'+P.page.slug,P.save)}
+let hatchPat=null;
+function hatch(){ if(hatchPat)return hatchPat; const c=document.createElement('canvas');c.width=c.height=10;const x=c.getContext('2d');x.strokeStyle='rgba(60,60,60,.55)';x.lineWidth=1.6;x.beginPath();x.moveTo(-2,8);x.lineTo(8,-2);x.moveTo(2,12);x.lineTo(12,2);x.stroke();hatchPat=x.createPattern(c,'repeat');return hatchPat }
 function buildHighlight(){
   const {hx,w,h,idx,off}=P; hx.clearRect(0,0,w,h);
   if(P.page.mode!=='pair')return;
-  const im=hx.createImageData(w,h),d=im.data; const [r,g,b]=P.meta.palette[P.sel];
-  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=r;d[j+1]=g;d[j+2]=b;d[j+3]=150}}
-  hx.putImageData(im,0,0); P.hiDirty=false;
+  const im=hx.createImageData(w,h),d=im.data;
+  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){d[idx[k]*4+3]=255}}
+  hx.putImageData(im,0,0); hx.globalCompositeOperation='source-in'; hx.fillStyle=hatch(); hx.fillRect(0,0,w,h); hx.globalCompositeOperation='source-over'; P.hiDirty=false;
 }
 /* camera */
 function resize(){const dpr=window.devicePixelRatio||1;cv.width=Math.round(cv.clientWidth*dpr);cv.height=Math.round(cv.clientHeight*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
