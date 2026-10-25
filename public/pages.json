@@ -388,5 +388,18 @@
   "regions": 1007,
   "colors": 32,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "victorian-ornaments",
+  "title": "Victorian Ornaments",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Dutch Golden Age",
+  "w": 1254,
+  "h": 1254,
+  "regions": 1145,
+  "colors": 32,
+  "added": "2026-10-25"
  }
 ]
