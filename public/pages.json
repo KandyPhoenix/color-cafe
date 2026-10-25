@@ -154,5 +154,18 @@
   "regions": 757,
   "colors": 30,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "witch-apothecary",
+  "title": "The Witch's Apothecary",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Oil painting",
+  "w": 1254,
+  "h": 1254,
+  "regions": 298,
+  "colors": 32,
+  "added": "2026-10-25"
  }
 ]
