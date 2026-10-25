@@ -336,5 +336,18 @@
   "regions": 574,
   "colors": 28,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "plot-twist",
+  "title": "Plot Twist: I'm Fine",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Watercolor",
+  "w": 1254,
+  "h": 1254,
+  "regions": 476,
+  "colors": 28,
+  "added": "2026-10-25"
  }
 ]
