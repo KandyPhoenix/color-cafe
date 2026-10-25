@@ -102,5 +102,18 @@
   "regions": 464,
   "colors": 30,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "venetian-window",
+  "title": "Venetian Window",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Watercolor",
+  "w": 1254,
+  "h": 1254,
+  "regions": 420,
+  "colors": 30,
+  "added": "2026-10-25"
  }
 ]
