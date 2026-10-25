@@ -141,5 +141,18 @@
   "regions": 519,
   "colors": 30,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "enchanted-cottage",
+  "title": "Enchanted Cottage",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Woodblock print",
+  "w": 1254,
+  "h": 1254,
+  "regions": 757,
+  "colors": 30,
+  "added": "2026-10-25"
  }
 ]
