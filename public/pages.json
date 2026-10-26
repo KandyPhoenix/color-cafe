@@ -427,5 +427,18 @@
   "regions": 534,
   "colors": 0,
   "added": "2026-10-26"
+ },
+ {
+  "slug": "victorian-conservatory",
+  "title": "Victorian Conservatory",
+  "theme": "fantasy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Watercolor",
+  "w": 1125,
+  "h": 1125,
+  "regions": 993,
+  "colors": 32,
+  "added": "2026-10-26"
  }
 ]
