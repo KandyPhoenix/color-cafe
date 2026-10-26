@@ -414,5 +414,18 @@
   "regions": 899,
   "colors": 32,
   "added": "2026-10-25"
+ },
+ {
+  "slug": "overthinking",
+  "title": "Currently Overthinking This",
+  "theme": "classic",
+  "mode": "line",
+  "artist": "Original art",
+  "style": "",
+  "w": 1254,
+  "h": 1254,
+  "regions": 534,
+  "colors": 0,
+  "added": "2026-10-26"
  }
 ]
