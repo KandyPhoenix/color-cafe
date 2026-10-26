@@ -20,6 +20,7 @@ ap.add_argument('--colors', type=int, default=36); ap.add_argument('--min', type
 ap.add_argument('--ink', type=int, default=110); ap.add_argument('--size', type=int, default=1400)
 ap.add_argument('--merge', type=float, default=0.0, help='pair mode: OFF by default (0). Every outlined piece is its own tap, like Happy Color. Set e.g. 18 to merge touching areas of near-identical colour into one item')
 ap.add_argument('--maxitem', type=float, default=0.12, help='pair mode: never merge into an item bigger than this fraction of the page')
+ap.add_argument('--split', type=float, default=22.0, help='pair mode: split a piece whose painting colours spread wider than this (0 = off); repairs gaps in the line art')
 ap.add_argument('--style', default=''); ap.add_argument('--artist', default='Original art')
 a = ap.parse_args(); t0 = time.time()
 
@@ -92,6 +93,52 @@ if a.mode == 'pair':
         means = np.stack([np.bincount(flat, weights=lab[:, c], minlength=Rn + 1) for c in range(3)], 1) / np.maximum(cnt, 1)[:, None]
         rc = np.zeros(Rn + 1, np.int32)
         print(f'merged {merged} touching areas into whole items -> {Rn} items')
+    # --- leak repair: a line-art outline with a gap lets one piece span two objects (face + shawl).
+    # Such a piece has a wide colour spread in the painting. Split it along the painting's own colour
+    # edges so each tap fills one colour, like the artist intended.
+    if a.split > 0:
+        blur = cv2.GaussianBlur(col, (0, 0), 2); blab = cv2.cvtColor(blur, cv2.COLOR_BGR2LAB).astype(np.float32)
+        sq = np.stack([np.bincount(flat, weights=(blab[:, :, c].ravel()) ** 2, minlength=Rn + 1) for c in range(3)], 1) / np.maximum(cnt, 1)[:, None]
+        mb = np.stack([np.bincount(flat, weights=blab[:, :, c].ravel(), minlength=Rn + 1) for c in range(3)], 1) / np.maximum(cnt, 1)[:, None]
+        spread = np.sqrt(np.maximum(sq - mb ** 2, 0)); spread[:, 0] *= 0.6; spread = spread.sum(1)
+        leaky = [r for r in range(1, Rn + 1) if spread[r] > a.split and cnt[r] >= 3 * a.min]
+        nxt = Rn + 1; nsplit = 0
+        for r in leaky:
+            m = labels == r; ys, xs = np.nonzero(m); px = blab[ys, xs]
+            k = int(min(5, max(2, round(spread[r] / a.split) + 1)))
+            crit = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.5)
+            _, asg, _ = cv2.kmeans(px, k, None, crit, 3, cv2.KMEANS_PP_CENTERS); asg = asg.ravel()
+            sub = np.zeros(labels.shape, np.uint8); sub[ys, xs] = asg + 1
+            parts = np.zeros(labels.shape, np.int32); base = 0
+            for j in range(1, k + 1):
+                n2, cc = cv2.connectedComponents((sub == j).astype(np.uint8), connectivity=4)
+                parts[cc > 0] = cc[cc > 0] + base; base += n2 - 1
+            # fold tiny fragments into their largest touching neighbour until none are left
+            for _ in range(8):
+                ar = np.bincount(parts.ravel()); small = [i for i in range(1, len(ar)) if 0 < ar[i] < a.min]
+                if not small: break
+                for i in small:
+                    mm = (parts == i).astype(np.uint8); ring = cv2.dilate(mm, np.ones((5, 5), np.uint8)) - mm
+                    nb = parts[(ring > 0) & m]; nb = nb[(nb != i) & (nb > 0)]
+                    if nb.size: parts[mm > 0] = np.bincount(nb).argmax()
+            ids = [i for i in np.unique(parts) if i > 0]
+            if len(ids) < 2: continue
+            for i in ids[1:]:
+                labels[parts == i] = nxt; nxt += 1
+            nsplit += 1
+        if nsplit:
+            # any fragment still under --min joins its largest neighbour (same rule as the first pass)
+            ar = np.bincount(labels.ravel())
+            for r in [r for r in range(1, len(ar)) if 0 < ar[r] < a.min]:
+                mm = (labels == r).astype(np.uint8); ring = cv2.dilate(mm, np.ones((7, 7), np.uint8)) - mm
+                nb = labels[ring > 0]; nb = nb[(nb != r) & (nb > 0)]
+                if nb.size: labels[mm > 0] = np.bincount(nb).argmax()
+            _, labels = np.unique(labels, return_inverse=True); labels = labels.reshape(h, w).astype(np.int32)
+            Rn = labels.max(); flat = labels.ravel()
+            cnt = np.bincount(flat, minlength=Rn + 1).astype(np.float64)
+            means = np.stack([np.bincount(flat, weights=lab[:, c], minlength=Rn + 1) for c in range(3)], 1) / np.maximum(cnt, 1)[:, None]
+            rc = np.zeros(Rn + 1, np.int32)
+            print(f'split {nsplit} leaky pieces along colour edges -> {Rn} pieces')
     N = min(a.colors, Rn)
     crit = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 60, 0.5)
     _, assign, centers = cv2.kmeans(means[1:].astype(np.float32), N, None, crit, 6, cv2.KMEANS_PP_CENTERS)

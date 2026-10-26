@@ -60,9 +60,9 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 754,
+  "regions": 1558,
   "colors": 36,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "reading-nook",
@@ -73,9 +73,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 278,
+  "regions": 458,
   "colors": 30,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "strawberry-patch",
@@ -86,9 +86,9 @@
   "style": "Botanical plate",
   "w": 1254,
   "h": 1254,
-  "regions": 302,
+  "regions": 682,
   "colors": 30,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "bicycle-flowers",
@@ -99,9 +99,9 @@
   "style": "Chalk pastel",
   "w": 1254,
   "h": 1254,
-  "regions": 464,
+  "regions": 629,
   "colors": 30,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "venetian-window",
@@ -112,9 +112,9 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 420,
+  "regions": 807,
   "colors": 30,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "wildflower-meadow",
@@ -125,9 +125,9 @@
   "style": "Oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 345,
+  "regions": 760,
   "colors": 30,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "cafe-terrace",
@@ -138,9 +138,9 @@
   "style": "Ink and watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 519,
+  "regions": 913,
   "colors": 30,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "enchanted-cottage",
@@ -151,9 +151,9 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 757,
+  "regions": 994,
   "colors": 30,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "witch-apothecary",
@@ -164,9 +164,9 @@
   "style": "Oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 298,
+  "regions": 704,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "raven-pomegranates",
@@ -177,9 +177,9 @@
   "style": "Dutch Golden Age",
   "w": 1254,
   "h": 1254,
-  "regions": 789,
+  "regions": 1306,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "grandmothers-garden",
@@ -190,9 +190,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 1369,
+  "regions": 1491,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "rose-window",
@@ -203,9 +203,9 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 1274,
+  "regions": 1710,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "dragonfly-pond",
@@ -216,9 +216,9 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 1513,
+  "regions": 1906,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "elephant-marigolds",
@@ -229,9 +229,9 @@
   "style": "Persian miniature",
   "w": 1254,
   "h": 1254,
-  "regions": 1156,
+  "regions": 1166,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "carousel-horse",
@@ -242,9 +242,9 @@
   "style": "Vintage lithograph",
   "w": 1254,
   "h": 1254,
-  "regions": 1057,
+  "regions": 1174,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "venetian-masquerade",
@@ -255,9 +255,9 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 1136,
+  "regions": 1460,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "hummingbirds-orchids",
@@ -268,9 +268,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 1087,
+  "regions": 1653,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "tiger-hibiscus",
@@ -281,9 +281,9 @@
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 1198,
+  "regions": 1632,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "peacock-roses",
@@ -294,9 +294,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 1244,
+  "regions": 1529,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "koi-lotus",
@@ -307,9 +307,9 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 860,
+  "regions": 1021,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "coffee-first",
@@ -320,9 +320,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 619,
-  "colors": 28,
-  "added": "2026-10-25"
+  "regions": 947,
+  "colors": 30,
+  "added": "2026-10-26"
  },
  {
   "slug": "bloom-anyway",
@@ -333,9 +333,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 574,
-  "colors": 28,
-  "added": "2026-10-25"
+  "regions": 1021,
+  "colors": 30,
+  "added": "2026-10-26"
  },
  {
   "slug": "plot-twist",
@@ -346,9 +346,9 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 476,
-  "colors": 28,
-  "added": "2026-10-25"
+  "regions": 868,
+  "colors": 30,
+  "added": "2026-10-26"
  },
  {
   "slug": "not-today-chaos",
@@ -359,9 +359,9 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 689,
-  "colors": 28,
-  "added": "2026-10-25"
+  "regions": 1114,
+  "colors": 30,
+  "added": "2026-10-26"
  },
  {
   "slug": "christmas-mantel",
@@ -372,9 +372,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 1279,
+  "regions": 1493,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "christmas-market",
@@ -385,9 +385,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 1007,
+  "regions": 1094,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "victorian-ornaments",
@@ -398,9 +398,9 @@
   "style": "Dutch Golden Age",
   "w": 1254,
   "h": 1254,
-  "regions": 1145,
+  "regions": 1341,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "gingerbread-village",
@@ -411,9 +411,9 @@
   "style": "Colored pencil",
   "w": 1254,
   "h": 1254,
-  "regions": 899,
+  "regions": 1132,
   "colors": 32,
-  "added": "2026-10-25"
+  "added": "2026-10-26"
  },
  {
   "slug": "overthinking",
@@ -437,7 +437,7 @@
   "style": "Watercolor",
   "w": 1125,
   "h": 1125,
-  "regions": 993,
+  "regions": 917,
   "colors": 32,
   "added": "2026-10-26"
  }
