@@ -359,9 +359,9 @@ function drawStripes(dpr){
   if(!stripeC){stripeC=document.createElement('canvas');stripeX=stripeC.getContext('2d')}
   if(stripeC.width!==cv.width||stripeC.height!==cv.height){stripeC.width=cv.width;stripeC.height=cv.height}
   const key=String(dpr);
-  if(key!==stripeKey){ // medium grey diagonal stripes
+  if(key!==stripeKey){ // soft grey diagonal stripes
     const t=Math.round(11*dpr),c=document.createElement('canvas');c.width=c.height=t;const x=c.getContext('2d');
-    x.strokeStyle='rgba(95,95,100,.9)';x.lineWidth=2.4*dpr;x.beginPath();x.moveTo(-t*.2,t*1.2);x.lineTo(t*1.2,-t*.2);x.moveTo(-t*.2,t*.2);x.lineTo(t*.2,-t*.2);x.moveTo(t*.8,t*1.2);x.lineTo(t*1.2,t*.8);x.stroke();
+    x.strokeStyle='rgba(150,150,155,.55)';x.lineWidth=1.6*dpr;x.beginPath();x.moveTo(-t*.2,t*1.2);x.lineTo(t*1.2,-t*.2);x.moveTo(-t*.2,t*.2);x.lineTo(t*.2,-t*.2);x.moveTo(t*.8,t*1.2);x.lineTo(t*1.2,t*.8);x.stroke();
     stripePat=stripeX.createPattern(c,'repeat');stripeKey=key}
   const s=stripeX; s.setTransform(1,0,0,1,0,0); s.globalCompositeOperation='source-over'; s.clearRect(0,0,cv.width,cv.height);
   s.setTransform(dpr*cam.z,0,0,dpr*cam.z,-cam.x*cam.z*dpr,-cam.y*cam.z*dpr); s.imageSmoothingEnabled=true; s.drawImage(P.hiC,0,0);
@@ -383,7 +383,7 @@ function _draw(){
   ctx.fillStyle='#fff'; ctx.fillRect(0,0,P.w,P.h);
   ctx.drawImage(P.fillC,0,0);
   if(P.hiDirty)buildHighlight();
-  if(P.page.mode==='pair'){ctx.globalAlpha=.3;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
+  if(P.page.mode==='pair'){ctx.globalAlpha=.14;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
   if(P.path) strokeOutlines(ctx,cam.z,.85);
   else{ctx.globalAlpha=.55;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1} // older pages: lighter ink
   // numbers: the chosen color's numbers are bigger, darker and shown on smaller pieces, so they are easy to find
