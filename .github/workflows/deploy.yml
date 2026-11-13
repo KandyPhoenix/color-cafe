@@ -2,7 +2,7 @@ name: Deploy to Cloudflare Pages
 
 # Publishes public/ to the Cloudflare Pages project that serves color.kandyphoenix.com,
 # on every push to main (and by hand from the Actions tab).
-# Uses the repository secret CLOUDFLARE_API_TOKEN (Pages: Edit), the same token Puzzle Parlor uses.
+# Uses the repository secret CLOUDFLARE_API_TOKEN (the color-cafe-deploy token in Cloudflare).
 
 on:
   push:
@@ -30,29 +30,11 @@ jobs:
       - name: Check the token is set
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
-            echo "::error::Add the CLOUDFLARE_API_TOKEN secret to this repository (Settings > Secrets and variables > Actions). Use the same token as Puzzle Parlor."
+            echo "::error::Add the CLOUDFLARE_API_TOKEN secret to this repository (Settings > Secrets and variables > Actions)."
             exit 1
           fi
-      - name: Find the Pages project that serves the site
-        id: proj
-        run: |
-          api="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects"
-          curl -sS "$api?per_page=100" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" > projects.json
-          name=$(python3 - <<'PY'
-          import json, os
-          d = json.load(open('projects.json'))
-          if not d.get('success'): raise SystemExit('Cloudflare said: %s' % d.get('errors'))
-          dom = os.environ['DOMAIN']
-          hits = [p['name'] for p in d['result'] if dom in (p.get('domains') or [])]
-          print('projects:', ', '.join(f"{p['name']} {p.get('domains')}" for p in d['result']), file=__import__('sys').stderr)
-          print(hits[0] if hits else '')
-          PY
-          )
-          if [ -z "$name" ]; then echo "::error::No Pages project has $DOMAIN attached"; exit 1; fi
-          echo "Deploying to project: $name"
-          echo "name=$name" >> "$GITHUB_OUTPUT"
       - name: Deploy
-        run: npx --yes wrangler@3 pages deploy public --project-name="${{ steps.proj.outputs.name }}" --branch=main --commit-dirty=true
+        run: npx --yes wrangler@3 pages deploy public --project-name=color-cafe-app --branch=main --commit-dirty=true
       - name: Check the live site
         run: |
           sleep 20
