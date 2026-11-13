@@ -310,7 +310,7 @@ async function open(page){
   let save=store.get('cc-save-'+page.slug); if(!save||(save.R!==R&&save.R!==meta.base)){save={f:{},o:[],n:0,done:false,t:Date.now(),R}}
   if(save.R!==R){save.R=R;save.done=false}
   if(!save.h) save.h=[]; // undo history (free color): [piece id, its color before the tap or null]
-  P={page,meta,w,h,labels,idx,off,lineImg,shadeD,meanC,sh,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false};
+  P={page,meta,w,h,labels,idx,off,lineImg,shadeD,meanC,sh,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false,path:outlinePath(meta)};
   // restore (recount filled pieces from scratch so the count never doubles on reopen)
   save.n=0; for(const k in save.f){if(+k>=1&&+k<=R)paintRegion(+k,save.f[k],false); else delete save.f[k]}
   fx.putImageData(fill,0,0);
@@ -336,14 +336,37 @@ function paintRegion(id,val,commit=true){
   if(commit){P.fx.putImageData(fill,0,0);P.save.f[id]=val;P.save.o.push(id);P.save.t=Date.now();P.hiDirty=true;store.set('cc-save-'+P.page.slug,P.save)}
 }
 function clearRegion(id){const {idx,off,fill}=P,d=fill.data;for(let k=off[id];k<off[id+1];k++)d[idx[k]*4+3]=0;if(P.filled[id]){P.filled[id]=0;P.save.n--}delete P.save.f[id];P.fx.putImageData(fill,0,0);P.hiDirty=true;store.set('cc-save-'+P.page.slug,P.save)}
-let hatchPat=null;
-function hatch(){ if(hatchPat)return hatchPat; const c=document.createElement('canvas');c.width=c.height=10;const x=c.getContext('2d');x.strokeStyle='rgba(60,60,60,.55)';x.lineWidth=1.6;x.beginPath();x.moveTo(-2,8);x.lineTo(8,-2);x.moveTo(2,12);x.lineTo(12,2);x.stroke();hatchPat=x.createPattern(c,'repeat');return hatchPat }
+// Outlines (pages built by tools/simplify_page.py): meta.lines holds every piece edge as a polyline
+// (delta-encoded, quarter pixels). Stroked as vectors so they stay thin, light and sharp at any zoom.
+function outlinePath(meta){ if(!meta.lines)return null; const p=new Path2D();
+  for(const d of meta.lines){let x=d[0],y=d[1];p.moveTo(x/4,y/4);for(let i=2;i<d.length;i+=2){x+=d[i];y+=d[i+1];p.lineTo(x/4,y/4)}}
+  return p }
+function strokeOutlines(c,z,alpha){ c.save(); c.lineJoin='round'; c.lineCap='round';
+  c.lineWidth=Math.min(1.5,Math.max(.8,.8*Math.pow(z/fitZ(),.3)))/z; // about 1 screen pixel, a touch more when zoomed in
+  c.strokeStyle=`rgba(85,85,95,${alpha})`; c.stroke(P.path); c.restore() }
+// Pieces of the chosen number: a light tint of that color plus bold stripes. The stripes are drawn in
+// screen pixels, so they stay easy to see whether you are zoomed all the way out or all the way in.
 function buildHighlight(){
   const {hx,w,h,idx,off}=P; hx.clearRect(0,0,w,h);
   if(P.page.mode!=='pair')return;
-  const im=hx.createImageData(w,h),d=im.data;
-  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){d[idx[k]*4+3]=255}}
-  hx.putImageData(im,0,0); hx.globalCompositeOperation='source-in'; hx.fillStyle=hatch(); hx.fillRect(0,0,w,h); hx.globalCompositeOperation='source-over'; P.hiDirty=false;
+  const im=hx.createImageData(w,h),d=im.data,[r,g,b]=P.meta.palette[P.sel];
+  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=r;d[j+1]=g;d[j+2]=b;d[j+3]=255}}
+  hx.putImageData(im,0,0); P.hiDirty=false;
+}
+let stripeC=null,stripeX=null,stripeKey='',stripePat=null;
+function drawStripes(dpr){
+  if(!stripeC){stripeC=document.createElement('canvas');stripeX=stripeC.getContext('2d')}
+  if(stripeC.width!==cv.width||stripeC.height!==cv.height){stripeC.width=cv.width;stripeC.height=cv.height}
+  const [r,g,b]=P.meta.palette[P.sel], lum=r*.299+g*.587+b*.114, key=P.sel+'/'+dpr;
+  if(key!==stripeKey){ // darker shade of the chosen color (lighter for very dark colors)
+    const t=Math.round(11*dpr),c=document.createElement('canvas');c.width=c.height=t;const x=c.getContext('2d');
+    const k=lum>90?.55:1.9, s=[r,g,b].map(v=>Math.min(255,Math.round(v*k+(lum>90?0:40))));
+    x.strokeStyle=`rgba(${s},.95)`;x.lineWidth=2.6*dpr;x.beginPath();x.moveTo(-t*.2,t*1.2);x.lineTo(t*1.2,-t*.2);x.moveTo(-t*.2,t*.2);x.lineTo(t*.2,-t*.2);x.moveTo(t*.8,t*1.2);x.lineTo(t*1.2,t*.8);x.stroke();
+    stripePat=stripeX.createPattern(c,'repeat');stripeKey=key}
+  const s=stripeX; s.setTransform(1,0,0,1,0,0); s.globalCompositeOperation='source-over'; s.clearRect(0,0,cv.width,cv.height);
+  s.setTransform(dpr*cam.z,0,0,dpr*cam.z,-cam.x*cam.z*dpr,-cam.y*cam.z*dpr); s.imageSmoothingEnabled=true; s.drawImage(P.hiC,0,0);
+  s.setTransform(1,0,0,1,0,0); s.globalCompositeOperation='source-in'; s.fillStyle=stripePat; s.fillRect(0,0,cv.width,cv.height); s.globalCompositeOperation='source-over';
+  ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.drawImage(stripeC,0,0); ctx.restore();
 }
 /* camera */
 function resize(){const dpr=window.devicePixelRatio||1;cv.width=Math.round(cv.clientWidth*dpr);cv.height=Math.round(cv.clientHeight*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
@@ -356,17 +379,21 @@ function draw(){if(!P)return;cancelAnimationFrame(raf);raf=requestAnimationFrame
 function _draw(){
   const W=cv.clientWidth,H=cv.clientHeight; ctx.save(); ctx.clearRect(0,0,W,H);
   ctx.translate(-cam.x*cam.z,-cam.y*cam.z); ctx.scale(cam.z,cam.z);
-  ctx.imageSmoothingEnabled=cam.z<1;
+  ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high'; // smooth, never blocky, when zoomed in
   ctx.fillStyle='#fff'; ctx.fillRect(0,0,P.w,P.h);
   ctx.drawImage(P.fillC,0,0);
-  if(P.hiDirty)buildHighlight(); ctx.drawImage(P.hiC,0,0);
-  ctx.globalCompositeOperation='multiply'; ctx.drawImage(P.lineImg,0,0,P.w,P.h); ctx.globalCompositeOperation='source-over';
-  // numbers
+  if(P.hiDirty)buildHighlight();
+  if(P.page.mode==='pair'){ctx.globalAlpha=.42;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
+  if(P.path) strokeOutlines(ctx,cam.z,.85);
+  else{ctx.globalAlpha=.55;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1} // older pages: lighter ink
+  // numbers: the chosen color's numbers are bigger, darker and shown on smaller pieces, so they are easy to find
   if(P.page.mode==='pair'){
-    const minR=8/cam.z; ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';
     const x0=cam.x,y0=cam.y,x1=cam.x+W/cam.z,y1=cam.y+H/cam.z;
-    for(const r of P.meta.regions){ if(P.filled[r.id]||r.r<minR||r.x<x0||r.x>x1||r.y<y0||r.y>y1)continue;
-      const fs=Math.min(r.r*1.1,16/cam.z); ctx.font=`700 ${fs}px Nunito,sans-serif`; ctx.fillStyle=r.c===P.sel?'#000':'#6b6b6b'; ctx.fillText(r.c+1,r.x,r.y)}
+    for(const r of P.meta.regions){ const me=r.c===P.sel; if(P.filled[r.id]||r.r<(me?5.5:8)/cam.z||r.x<x0||r.x>x1||r.y<y0||r.y>y1)continue;
+      const fs=Math.min(r.r*(me?1.25:1.1),(me?18:15)/cam.z); ctx.font=`${me?800:700} ${fs}px Nunito,sans-serif`;
+      if(me){ctx.lineWidth=3/cam.z;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.strokeText(r.c+1,r.x,r.y);ctx.fillStyle='#111'} else ctx.fillStyle='#8a8a8a';
+      ctx.fillText(r.c+1,r.x,r.y)}
   }
   drawHint();
   ctx.restore();
@@ -419,7 +446,9 @@ function tap(sx,sy){const[wx,wy]=world(sx,sy);const id=regionAt(wx,wy);if(!id)re
   }
 }
 function finish(){P.save.done=true;P.save.t=Date.now();store.set('cc-save-'+P.page.slug,P.save);showDone()}
-function showDone(){const c=document.createElement('canvas');c.width=P.w;c.height=P.h;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,P.w,P.h);x.drawImage(P.fillC,0,0);x.globalCompositeOperation='multiply';x.drawImage(P.lineImg,0,0,P.w,P.h);$('doneImg').src=c.toDataURL('image/jpeg',.85);$('done').hidden=false}
+function showDone(){const c=document.createElement('canvas');c.width=P.w;c.height=P.h;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,P.w,P.h);x.drawImage(P.fillC,0,0);
+  if(P.path) strokeOutlines(x,1,.35); else{x.globalCompositeOperation='multiply';x.drawImage(P.lineImg,0,0,P.w,P.h)}
+  $('doneImg').src=c.toDataURL('image/jpeg',.85);$('done').hidden=false}
 $('doneStay').onclick=()=>{$('done').hidden=true};
 $('doneBack').onclick=()=>leave();
 $('back').onclick=()=>leave();
