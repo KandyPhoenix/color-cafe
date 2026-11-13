@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <title>Color Cafe</title>
-<meta name="description" content="Color by number for grown-ups: tap a number, watch the painting appear. Plus free-color mandalas. From KandyPhoenix.com.">
+<meta name="description" content="Color by number for everyone: tap a number, watch the painting appear. Plus free-color mandalas. From KandyPhoenix.com.">
 <meta name="theme-color" content="#4a6b4f">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%234a6b4f'/%3E%3Ccircle cx='24' cy='26' r='7' fill='%23f9c7d3'/%3E%3Ccircle cx='40' cy='26' r='7' fill='%23f6c453'/%3E%3Ccircle cx='32' cy='40' r='7' fill='%23d9466b'/%3E%3C/svg%3E">
@@ -18,18 +18,81 @@ button{font:inherit;cursor:pointer}
 a{color:inherit}
 /* ---- gallery ---- */
 #gallery{min-height:100%;padding:0 0 60px}
-.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
-.mast{background:var(--espresso);color:var(--cream);padding:calc(18px + env(safe-area-inset-top)) 0 18px}
-.mast .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.mast h1{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vw,36px);margin:0;letter-spacing:-.01em}
-.mast h1 span{color:#f9c7d3}
-.mast p{margin:4px 0 0;font-size:14px;opacity:.85}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 0 6px;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-weight:700;color:var(--muted)}
-.tab.cur{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;padding-top:10px}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.hero{background:radial-gradient(circle at 85% 20%,rgba(249,199,211,.18),transparent 45%),var(--espresso);color:var(--cream);padding:calc(30px + env(safe-area-inset-top)) 0 34px}
+.hero .wrap{display:grid;grid-template-columns:1fr;gap:26px;align-items:center}
+@media (min-width:860px){.hero .wrap{grid-template-columns:1.1fr .9fr;gap:48px}.hero{padding-top:calc(44px + env(safe-area-inset-top));padding-bottom:48px}
+ .hero:not(.slim) .wrap>div:first-child{align-self:start;padding-top:41px;padding-left:4px}
+ .hero:not(.slim) h1+.lead{margin-top:10px}
+ #specialBox{padding-right:6px}} /* title and paragraph start where Puzzle Parlor's do */
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(50px,9.4vw,90px);line-height:1;margin:0;letter-spacing:-.02em}
+.hero h1 span{color:#f9c7d3}
+.hero h1 a{color:inherit;text-decoration:none}
+.libbtn.homebtn{background:var(--espresso);border-color:var(--espresso);color:var(--cream)}
+.homebtn[hidden]{display:none}
+.homebtn:not([hidden])+label{display:none}
+.lead{font-size:clamp(16px,2vw,19px);line-height:1.55;margin:14px 0 0;max-width:36em;opacity:.95}
+.steps{list-style:none;padding:0;margin:22px 0 0;display:flex;flex-wrap:wrap;gap:10px 22px}
+.steps li{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px}
+.steps b{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#3a2b33}
+.sechead{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap}
+.secleft{min-width:0}
+#resumeBox:empty{display:none}
+#resumeBox{flex:0 1 420px;padding-bottom:6px}
+.resume{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;text-align:left;color:var(--fg);width:100%;box-shadow:0 2px 8px rgba(58,43,51,.06)}
+.resume img{width:52px;height:52px;border-radius:8px;object-fit:cover;background:#fff;flex:none}
+.resume span{flex:1;min-width:0;font-size:14px;line-height:1.35}
+.resume strong{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.resume span{color:var(--muted)}.resume strong{color:var(--fg)}
+.resume em{font-style:normal;flex:none;background:var(--sun);color:#3a2b33;font-weight:800;border-radius:10px;padding:8px 12px;font-size:14px}
+.special{background:var(--card);color:var(--fg);border-radius:20px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.28);border:0;padding:0;text-align:left;display:flex;flex-direction:column;width:100%;max-width:380px;margin:0 auto}
+.special .pic{position:relative;aspect-ratio:380/305;background:#fff}
+.special .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+.special .tag{position:absolute;top:12px;left:12px;background:var(--accent);color:#fff;font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px}
+.special .info{display:flex;align-items:center;gap:12px;padding:0 16px;height:56px}
+.special .info div{flex:1;min-width:0}
+.special h2{font-family:var(--display);font-size:22px;margin:0;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.special .sub{font-size:13px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.special em{font-style:normal;flex:none;background:var(--accent);color:#fff;font-weight:800;border-radius:12px;padding:9px 16px;font-size:15px}
+.starnote{margin:16px 0 0;font-size:14px;opacity:.95}
+.starnote span{color:var(--sun)}
+.starlink{all:unset;cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-weight:700}
+.starlink:focus-visible{outline:2px solid var(--sun);outline-offset:2px;border-radius:3px}
+.freeline{margin-top:22px}
+.freebtn{margin-top:12px;background:none;border:2px solid rgba(255,255,255,.5);color:var(--cream);border-radius:12px;padding:9px 16px;font-weight:800;font-size:15px;min-height:44px}
+.freebtn:hover{background:rgba(255,255,255,.1)}
+.resume:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.special:focus-visible,.freebtn:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.hero.slim{padding:calc(16px + env(safe-area-inset-top)) 0 16px}
+.hero.slim .wrap{display:block}.hero.slim h1{font-size:clamp(32px,6vw,45px)}
+.hero.slim .lead,.hero.slim .starnote,.hero.slim .freeline,.hero.slim .steps,.hero.slim .freebtn,.hero.slim #specialBox,.hero.slim #resumeBox{display:none}
+.sec{font-family:var(--display);font-size:clamp(22px,3vw,28px);margin:22px 0 0}
+.sec small{display:block;font-family:var(--body);font-size:14px;color:var(--muted);font-weight:700;margin-top:4px}
+.sec+.filters{padding-top:18px}
+/* filter bar: one category dropdown + a My Library button */
+.filters{display:flex;gap:8px;align-items:center;padding:14px 0 6px;flex-wrap:wrap}
+.filters label{font-weight:700;color:var(--muted);font-size:14px}
+.sel{appearance:none;-webkit-appearance:none;font:inherit;font-weight:700;color:var(--fg);background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238a6f7c' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 12px center;border:1px solid var(--line);border-radius:12px;padding:9px 36px 9px 14px;min-height:42px;max-width:100%;flex:0 1 auto;width:auto}
+.sel:focus-visible,.libbtn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.libbtn{flex:none;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:9px 14px;min-height:42px;font-weight:800;color:var(--muted)}
+.libbtn.cur{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+/* 5 big cards per row on desktop, fewer on smaller screens so pictures stay large */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding-top:10px}
+@media (min-width:560px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:820px){.grid{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:980px){.grid{grid-template-columns:repeat(5,1fr);gap:18px}}
+.more{display:flex;justify-content:center;padding:22px 0 0}
+.more button{border:1px solid var(--accent);background:var(--card);color:var(--accent);border-radius:12px;padding:12px 20px;font-weight:800;min-height:44px}
+.more button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-align:left;padding:0;display:flex;flex-direction:column;position:relative}
+.card .open{all:unset;cursor:pointer;display:flex;flex-direction:column;flex:1}
+.card .open:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;border-radius:14px}
+.fav{position:absolute;top:8px;left:8px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.92);box-shadow:0 1px 4px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;padding:0;color:var(--muted)}
+.fav svg{width:20px;height:20px}
+.fav[aria-pressed="true"]{color:var(--accent)}
+.fav:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.filters.inlib label,.filters.inlib select,.filters.inlib #tryFree{display:none}
+#favTop[aria-pressed="true"]{color:#ffb3c6}
 .card .art{aspect-ratio:1/1;background:#fff;overflow:hidden;position:relative}
 .card .art img{width:100%;height:100%;object-fit:cover;display:block}
 .card .art canvas{position:absolute;inset:0;width:100%;height:100%}
@@ -40,7 +103,7 @@ a{color:inherit}
 .card .bar i{display:block;height:100%;background:var(--ok)}
 .badge{position:absolute;top:8px;right:8px;background:var(--ok);color:#fff;font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;letter-spacing:.04em}
 .badge.new{background:var(--accent)}
-.empty{color:var(--muted);padding:30px 0;text-align:center}
+.empty{color:var(--muted);padding:30px 0;text-align:center;grid-column:1/-1}
 footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
 /* ---- play ---- */
 #play{position:fixed;inset:0;background:#f4e9ea;display:flex;flex-direction:column;touch-action:none}
@@ -48,11 +111,19 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
 #top{display:flex;align-items:center;gap:8px;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:var(--espresso);color:var(--cream)}
 #top .ttl{flex:1;min-width:0;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #top button{background:rgba(255,255,255,.12);color:var(--cream);border:0;border-radius:10px;padding:8px 12px;font-weight:700}
+#top button[hidden]{display:none}
+#top button:disabled{opacity:.4}
 #top .pct{font-variant-numeric:tabular-nums;font-size:13px;opacity:.85}
 #stage{flex:1;position:relative;overflow:hidden}
 #cv{position:absolute;inset:0;width:100%;height:100%;display:block}
-#pal{background:var(--card);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;align-items:flex-end;min-height:76px}
-#pal::-webkit-scrollbar{display:none}
+/* color tray: arrows on each end, dots scroll side to side (like Puzzle Parlor's piece tray) */
+#tray{flex:none;display:flex;align-items:center;gap:6px;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(58,43,51,.08);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+#pal{flex:1;min-width:0;display:flex;align-items:center;gap:10px;overflow-x:auto;overflow-y:hidden;padding:16px 8px 12px;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--line) transparent;-webkit-overflow-scrolling:touch}
+#pal::-webkit-scrollbar{height:6px}#pal::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.arw{flex:none;width:40px;height:64px;border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:12px;font-size:26px;font-weight:800;line-height:1;padding:0;display:flex;align-items:center;justify-content:center}
+.arw:disabled{opacity:.35}
+.arw:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (max-width:420px){.arw{width:30px}#top .lbl{display:none}#top button{padding:8px 10px}}
 .sw{flex:none;width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;position:relative;transition:transform .12s;padding:0}
 .sw.cur{transform:translateY(-8px) scale(1.12);box-shadow:0 4px 10px rgba(0,0,0,.3)}
 .sw.done{opacity:.35}
@@ -62,7 +133,10 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
 #toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:rgba(74,107,79,.94);color:#fff;padding:8px 14px;border-radius:999px;font-size:14px;pointer-events:none;opacity:0;transition:opacity .2s}
 #toast.on{opacity:1}
 #done{position:absolute;inset:0;background:rgba(58,43,51,.75);display:flex;align-items:center;justify-content:center;padding:20px}
-#done[hidden]{display:none}
+#done[hidden],.modal[hidden]{display:none}
+.modal{position:absolute;inset:0;background:rgba(58,43,51,.75);display:flex;align-items:center;justify-content:center;padding:20px;z-index:5}
+.modal .box{background:var(--card);border-radius:18px;padding:22px;max-width:380px;width:100%;text-align:center;display:flex;flex-direction:column;gap:12px}
+.modal h2{font-family:var(--display);margin:0;font-size:24px}
 #done .box{background:var(--card);border-radius:18px;padding:22px;max-width:420px;width:100%;text-align:center;display:flex;flex-direction:column;gap:10px}
 #done h2{font-family:var(--display);margin:0;font-size:26px}
 #done img{width:100%;border-radius:10px}
@@ -75,48 +149,141 @@ footer{margin-top:40px;text-align:center;font-size:12px;color:var(--muted)}
 </head>
 <body>
 <main id="gallery">
-  <header class="mast"><div class="wrap"><div><h1>Color <span>Cafe</span></h1><p>Tap a number, watch the painting appear. Bouquets, villages, mandalas.</p></div><div id="count" style="font-size:13px;opacity:.8"></div></div></header>
+  <header class="hero" id="hero"><div class="wrap">
+    <div>
+      <h1><a href="./" id="homeLink" title="Home">Color <span>Cafe</span></a></h1>
+      <p class="lead">Color by number for everyone. Pick a page, tap a number, and watch a full painting bloom one piece at a time. Dragons and haunted libraries, race cars and coral reefs, quiet gardens and starry skies. Just you, a warm cup and a little calm.</p>
+      <ol class="steps"><li><b style="background:#f9c7d3">1</b>Pick a page</li><li><b style="background:var(--sun)">2</b>Tap a number</li><li><b style="background:#b5e48c">3</b>Watch it bloom</li></ol>
+      <p class="starnote"><span aria-hidden="true">&#9733;</span> Love picking your own colors? Try our <button class="starlink" id="starFree">free color pages</button>.</p>
+    </div>
+    <div id="specialBox"></div>
+  </div></header>
   <div class="wrap">
-    <nav class="tabs" id="tabs" aria-label="Themes"></nav>
+    <div class="sechead"><div class="secleft"><h2 class="sec" id="secTitle"></h2>
+    <nav class="filters" aria-label="Browse pages"><button class="libbtn homebtn" id="home" hidden>&larr; Home</button><label for="cat">Browse</label><select class="sel" id="cat"></select><button class="libbtn" id="lib" aria-pressed="false">My Library</button><button class="libbtn" id="tryFree" aria-pressed="false">Free color</button></nav></div><div id="resumeBox"></div></div>
     <section class="grid" id="grid" aria-live="polite"></section>
     <footer>Color Cafe &copy; KandyPhoenix.com 2026 &nbsp;·&nbsp; Site by <a href="https://www.phoenixmethodseo.com">Phoenix Method SEO</a> &nbsp;·&nbsp; Next door: <a href="https://puzzles.kandyphoenix.com">Puzzle Parlor</a></footer>
   </div>
 </main>
 
 <section id="play" hidden aria-label="Coloring page">
-  <div id="top"><button id="back" aria-label="Back to gallery">‹ Back</button><div class="ttl" id="ttl"></div><span class="pct" id="pct"></span><button id="hint" title="Show me one to color">Find</button><button id="fitBtn" title="Fit to screen">Fit</button></div>
+  <div id="top"><button id="back" aria-label="Back to gallery">‹ Back</button><div class="ttl" id="ttl"></div><span class="pct" id="pct"></span><button id="favTop" aria-pressed="false" title="Save to My Library">&#9825;<span class="lbl"> Save</span></button><button id="undo" title="Undo your last tap" hidden>&#8630;<span class="lbl"> Undo</span></button><button id="reset" title="Start this page over">&#10227;<span class="lbl"> Reset</span></button><button id="hint" title="Show me where to color next">&#128161;<span class="lbl"> Hint</span></button><button id="fitBtn" title="Fit to screen">Fit</button></div>
   <div id="stage"><canvas id="cv"></canvas><div id="toast"></div>
+    <div id="resetBox" class="modal" hidden><div class="box"><h2>Start over?</h2><p style="margin:0;color:var(--muted)">This clears every color on this page. It can't be undone.</p><div style="display:flex;gap:8px;justify-content:center"><button class="btn ghost" id="resetNo">Keep coloring</button><button class="btn" id="resetYes">Start over</button></div></div></div>
     <div id="done" hidden><div class="box"><h2>Finished!</h2><img id="doneImg" alt="Your finished page"><div style="display:flex;gap:8px;justify-content:center"><button class="btn ghost" id="doneStay">Admire it</button><button class="btn" id="doneBack">Back to gallery</button></div></div></div>
   </div>
-  <div id="pal"><div id="picker"><input type="color" id="pick" value="#d9466b" aria-label="Pick any color"></div></div>
+  <div id="tray"><button class="arw" id="palL" aria-label="Scroll colors left">&lsaquo;</button><div id="pal"><div id="picker"><input type="color" id="pick" value="#d9466b" aria-label="Pick any color"></div></div><button class="arw" id="palR" aria-label="Scroll colors right">&rsaquo;</button></div>
 </section>
 
 <script>
 /* ---------- data ---------- */
-const THEMES=[{id:'all',label:'All'},{id:'fantasy',label:'Color by number'},{id:'mandalas',label:'Mandalas'},{id:'classic',label:'Free color'},{id:'studio',label:'My Studio'}];
+// Categories: each page's "theme" in pages.json is one of these ids (set with make_page.py --theme).
+const CATS=[{id:'fantasy',label:'Fantasy & Magic'},{id:'mystic',label:'Tarot & Celestial'},{id:'spooky',label:'Halloween & Spooky'},{id:'christmas',label:'Christmas'},
+ {id:'animals',label:'Animals & Birds'},{id:'gardens',label:'Flowers & Gardens'},{id:'cozy',label:'Cozy & Vintage'},{id:'machines',label:'Men & Machines'},{id:'sports',label:'Sports'},
+ {id:'wild',label:'Safari & Sea Life'},{id:'space',label:'Outer Space'},{id:'landscapes',label:'Landscapes'},{id:'quotes',label:'Quotes'},{id:'mandalas',label:'Mandalas'}];
+// Difficulty from piece count, shown on each card
+const level=p=>p.regions<=900?'Easy':p.regions<=1300?'Medium':'Hard';
+// Special filters that cut across categories
+const NEWEST=15;
+// Top of the menu: the home view. Bottom of the menu: the 'show everything' views.
+const TOP=[{id:'newest',label:'Home'}];
+const BOTTOM=[{id:'bynumber',label:'All color by number'},{id:'free',label:'All free color'},{id:'all',label:'All pages'}];
 const SWATCHES=['#d9466b','#f28ca8','#f9c7d3','#e63946','#ff7b54','#f6c453','#fff1a8','#b5e48c','#5aa469','#2f6b3a','#8ed1c6','#6cc3e0','#4a7bd0','#b39ddb','#7b4fa3','#ffffff','#e8e8e8','#9a9a9a','#2b2b2b','#c8a27a','#8b5a3c','#ffd6a5','#ffb4a2','#cdb4db'];
 const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
-let PAGES=[], theme=store.get('cc-theme')||'all';
+let PAGES=[], theme=store.get('cc-theme')||'newest', lib=false;
+if(theme==='studio'){theme='all';lib=true;store.set('cc-lib',true);store.set('cc-theme','all')} // old "My Studio" choice -> My Library
+if(theme==='classic') theme='free';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const isRecent=p=>p.added&&(Date.now()-new Date(p.added+'T00:00:00').getTime())<21*864e5;
+// Saved (hearted) pages: {slug: time saved}. They show in My Library with the pages you've started.
+const HEART='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.2 5.2 3 1.6-1.8 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>';
+const HEART_O='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.3-9-8.6C1.6 8.3 3.5 5 6.8 5c2 0 3.4 1.2 5.2 3.2C13.8 6.2 15.2 5 17.2 5c3.3 0 5.2 3.3 3.8 6.4C19 15.7 12 20 12 20z" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const favs=()=>store.get('cc-favs')||{};
+const isFav=slug=>!!favs()[slug];
+function toggleFav(slug){const f=favs();if(f[slug])delete f[slug];else f[slug]=Date.now();store.set('cc-favs',f);return !!f[slug]}
+const inLibrary=p=>progressOf(p)||isFav(p.slug);
+const libTime=p=>Math.max((progressOf(p)||{}).t||0,favs()[p.slug]||0);
 function progressOf(p){const s=store.get('cc-save-'+p.slug);if(!s)return null;return {pct:Math.round(100*s.n/p.regions),done:!!s.done,t:s.t}}
 
 /* ---------- gallery ---------- */
-function renderTabs(){$('tabs').innerHTML=THEMES.map(t=>`<button class="tab${t.id===theme?' cur':''}" data-t="${t.id}">${t.label}</button>`).join('')}
-function renderGrid(){
-  let list=PAGES.slice();
-  if(theme==='studio') list=list.filter(p=>progressOf(p)).sort((a,b)=>(progressOf(b).t||0)-(progressOf(a).t||0));
-  else if(theme!=='all') list=list.filter(p=>p.theme===theme);
-  if(!list.length){$('grid').innerHTML=`<p class="empty">${theme==='studio'?'Nothing here yet. Start a page and it will show up here.':'No pages in this theme yet.'}</p>`;return}
-  $('grid').innerHTML=list.map(p=>{const pr=progressOf(p);
-    return `<button class="card" data-slug="${p.slug}" aria-label="${esc(p.title)}${pr?pr.done?', completed':', '+pr.pct+'% done':''}">
-      <div class="art"><img src="pages/${p.slug}/thumb.jpg" alt="" loading="lazy" width="420" height="420">${pr&&pr.done?'<span class="badge">Done</span>':isRecent(p)?'<span class="badge new">New</span>':''}</div>
-      <div class="meta"><h3>${esc(p.title)}</h3><span class="sub">${p.mode==='pair'?'Color by number · '+p.colors+' colors'+(p.style?' · '+esc(p.style):''):'Pick your own colors · '+p.regions+' areas'}</span>${pr&&!pr.done?`<div class="bar"><i style="width:${pr.pct}%"></i></div>`:''}</div></button>`}).join('');
-  $('count').textContent=PAGES.length+' pages';
+function matches(p,id){
+  if(id==='all') return true;
+  if(id==='newest') return PAGES.indexOf(p)<NEWEST;
+  if(id==='bynumber') return p.mode==='pair';
+  if(id==='free') return p.mode==='line';
+  return p.theme===id;
 }
-$('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;theme=b.dataset.t;store.set('cc-theme',theme);renderTabs();renderGrid()});
-$('grid').addEventListener('click',e=>{const c=e.target.closest('.card');if(!c)return;open(PAGES.find(p=>p.slug===c.dataset.slug))});
+function renderTabs(){
+  const n=id=>PAGES.filter(p=>matches(p,id)).length;
+  const opt=t=>`<option value="${t.id}"${t.id===theme?' selected':''}>${esc(t.label)}</option>`;
+  // hide empty categories so the menu only lists places that have pages
+  $('cat').innerHTML=TOP.map(opt).join('')+
+    '<optgroup label="Categories">'+CATS.filter(t=>n(t.id)).map(opt).join('')+'</optgroup>'+
+    '<optgroup label="Everything">'+BOTTOM.filter(t=>t.id==='all'||n(t.id)).map(opt).join('')+'</optgroup>';
+  if(!$('cat').querySelector(`option[value="${theme}"]`)){theme='newest';$('cat').value='newest'}
+  $('lib').classList.toggle('cur',lib);$('lib').setAttribute('aria-pressed',lib);
+  document.querySelector('.filters').classList.toggle('inlib',lib); // in My Library: just Home and My Library
+  const fr=theme==='free'&&!lib; $('tryFree').classList.toggle('cur',fr); $('tryFree').setAttribute('aria-pressed',fr);
+}
+function renderGrid(){
+  renderHero();
+  let list=lib?PAGES.filter(inLibrary).sort((a,b)=>libTime(b)-libTime(a)):PAGES.filter(p=>matches(p,theme)); // My Library: every page you started or saved
+  if(!list.length){$('grid').innerHTML=`<p class="empty">${lib?'Nothing in your Library yet. Tap the heart on any page to save it for later, or start coloring and it will show up here.':'No pages here yet.'}</p>`;return}
+  $('grid').innerHTML=list.map(p=>{const pr=progressOf(p);
+    const fv=isFav(p.slug);
+    return `<div class="card" data-slug="${p.slug}"><button class="open" aria-label="${esc(p.title)}${pr?pr.done?', completed':', '+pr.pct+'% done':''}">
+      <div class="art"><img src="pages/${p.slug}/thumb.jpg" alt="" loading="lazy" width="420" height="420">${pr&&pr.done?'<span class="badge">Done</span>':isRecent(p)?'<span class="badge new">New</span>':''}</div>
+      <div class="meta"><h3>${esc(p.title)}</h3><span class="sub">${p.mode==='pair'?level(p)+' · '+p.colors+' colors'+(p.style?' · '+esc(p.style):''):'Pick your own colors · '+p.regions+' areas'}</span>${pr&&!pr.done?`<div class="bar"><i style="width:${pr.pct}%"></i></div>`:''}</div></button>
+      <button class="fav" aria-pressed="${fv}" aria-label="${fv?'Remove '+esc(p.title)+' from':'Save '+esc(p.title)+' to'} My Library" title="${fv?'Saved to My Library':'Save to My Library'}">${fv?HEART:HEART_O}</button></div>`}).join('')+
+    (theme==='newest'&&!lib&&PAGES.length>NEWEST?`<div class="more" style="grid-column:1/-1"><button id="seeAll">See all pages</button></div>`:'');
+}
+/* ---------- homepage header ---------- */
+const catLabel=id=>(CATS.find(c=>c.id===id)||{}).label||'';
+const SEC={newest:['Fresh Brews','Our newest pages, hot off the press'],bynumber:['All color by number','Every color by number page, from easy to hard'],free:['All free color','Like to pick your own colors? Our free color pages, mandalas and quotes, let you paint every space any color you like.'],all:['All pages','Every color by number and free color page in the cafe'],
+ fantasy:['Fantasy & Magic','Dragons, wizards, fairies and enchanted castles to color by number'],
+ mystic:['Tarot & Celestial','Tarot cards, moons, stars and celestial goddesses to color'],
+ spooky:['Halloween & Spooky','Witches, haunted houses and spooky Halloween coloring pages'],
+ christmas:['Christmas','Cozy Christmas coloring pages: villages, mantels and festive markets'],
+ animals:['Animals & Birds','Owls, peacocks, hummingbirds and more animal coloring pages'],
+ gardens:['Flowers & Gardens','Flower coloring pages: roses, wildflowers and garden gates'],
+ cozy:['Cozy & Vintage','Reading nooks, cottages, cafes and vintage scenes to relax with'],
+ machines:['Men & Machines','Muscle cars, motorcycles, trains, planes and robots to color by number'],
+ sports:['Sports','Baseball, football, golf, surfing and mountain biking coloring pages'],
+ wild:['Safari & Sea Life','Lions, elephants, whales, sea turtles and coral reefs to color'],
+ space:['Outer Space','Planets, rockets, astronauts and glowing nebulas to color by number'],
+ landscapes:['Landscapes','Mountains, canyons, lakes and sunsets to color by number'],
+ quotes:['Quotes','Funny and uplifting quote coloring pages'],
+ mandalas:['Mandalas','Free color mandalas: pick any color for every space']};
+function lastStarted(){let best=null,bt=0;for(const p of PAGES){const pr=progressOf(p);if(pr&&!pr.done&&pr.t>bt){bt=pr.t;best=p}}return best}
+// Holiday seasons: October shows Halloween pages, December shows Christmas pages, other months any page
+function season(){const m=new Date().getMonth();return m===9?{theme:'spooky',tag:'Halloween special',picks:['witch-apothecary','haunted-library','potion-shop']}:m===11?{theme:'christmas',tag:'Christmas special'}:{theme:null,tag:"Today's special"}}
+function todaysSpecial(){const se=season();let l=PAGES.filter(p=>p.mode==='pair');const h=l.filter(p=>se.picks?se.picks.includes(p.slug):p.theme===se.theme);if(h.length)l=h;l.sort((a,b)=>a.slug.localeCompare(b.slug));if(!l.length)return null;
+  const d=new Date(),day=Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5);return l[(day*7919)%l.length]} // same page all day, a new one tomorrow
+function renderHero(){
+  const home=theme==='newest'&&!lib; $('hero').classList.toggle('slim',!home); $('home').hidden=home;
+  const s=SEC[theme]||[catLabel(theme),''];
+  $('secTitle').innerHTML=lib?'My Library<small>Pages you have saved or started, most recent first</small>':esc(s[0])+(s[1]?`<small>${esc(s[1])}</small>`:'');
+  const r=home?lastStarted():null;
+  $('resumeBox').innerHTML=r?`<button class="resume" data-slug="${r.slug}"><img src="pages/${r.slug}/thumb.jpg" alt=""><span>Pick up where you left off<strong>${esc(r.title)}</strong></span><em>Keep coloring</em></button>`:'';
+  const f=todaysSpecial(), fp=f&&progressOf(f);
+  $('specialBox').innerHTML=f?`<button class="special" data-slug="${f.slug}" aria-label="${season().tag}: ${esc(f.title)}"><div class="pic"><img src="pages/${f.slug}/feature.jpg" alt="" width="900" height="722"><span class="tag">${season().tag}</span></div>
+    <div class="info"><div><h2>${esc(f.title)}</h2></div><em>${fp&&!fp.done?'Keep coloring':'Start coloring'}</em></div></button>`:'';
+}
+$('starFree').addEventListener('click',e=>{e.stopPropagation();$('tryFree').click();$('secTitle').scrollIntoView({behavior:'smooth'})});
+$('tryFree').addEventListener('click',()=>{theme='free';lib=false;store.set('cc-theme',theme);store.set('cc-lib',false);renderTabs();renderGrid()});
+const openFrom=e=>{const b=e.target.closest('[data-slug]');if(b)open(PAGES.find(p=>p.slug===b.dataset.slug))};
+$('hero').addEventListener('click',openFrom);$('resumeBox').addEventListener('click',openFrom); // featured page + Keep coloring
+$('cat').addEventListener('change',e=>{theme=e.target.value;store.set('cc-theme',theme);renderTabs();renderGrid()});
+// Home: back to the homepage view from a category or My Library
+function goHome(e){if(e)e.preventDefault();theme='newest';lib=false;store.set('cc-theme',theme);store.set('cc-lib',false);renderTabs();renderGrid();window.scrollTo({top:0,behavior:'smooth'})}
+$('home').addEventListener('click',goHome);$('homeLink').addEventListener('click',goHome);
+$('lib').addEventListener('click',()=>{lib=!lib;store.set('cc-lib',lib);renderTabs();renderGrid()});
+if(store.get('cc-lib')) lib=true;
+$('grid').addEventListener('click',e=>{if(e.target.id==='seeAll'){theme='all';store.set('cc-theme',theme);renderTabs();renderGrid();window.scrollTo({top:0,behavior:'smooth'});return}const c=e.target.closest('.card');if(!c)return;
+  if(e.target.closest('.fav')){const on=toggleFav(c.dataset.slug);if(lib&&!on){renderGrid();return}const b=c.querySelector('.fav'),t=PAGES.find(p=>p.slug===c.dataset.slug).title;
+    b.setAttribute('aria-pressed',on);b.innerHTML=on?HEART:HEART_O;b.title=on?'Saved to My Library':'Save to My Library';b.setAttribute('aria-label',(on?'Remove '+t+' from':'Save '+t+' to')+' My Library');return}
+  if(e.target.closest('.open'))open(PAGES.find(p=>p.slug===c.dataset.slug))});
 
 /* ---------- play ---------- */
 const cv=$('cv'),ctx=cv.getContext('2d');
@@ -124,7 +291,7 @@ let P=null, cam={x:0,y:0,z:1}, ptrs=new Map(), pinch=null, pan=null, tapStart=nu
 async function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src})}
 async function open(page){
   $('play').hidden=false;$('gallery').hidden=true;$('ttl').textContent=page.title;$('done').hidden=true;toast('Loading…',99999);
-  const [meta,lineImg,labImg,colImg]=await Promise.all([fetch(`pages/${page.slug}/regions.json`).then(r=>r.json()),loadImg(`pages/${page.slug}/line.png`),loadImg(`pages/${page.slug}/labels.png`),page.mode==='pair'?loadImg(`pages/${page.slug}/color.jpg`):null]);
+  const [meta,lineImg,labImg,colImg]=await Promise.all([fetch(`pages/${page.slug}/regions.json`).then(r=>r.json()),loadImg(`pages/${page.slug}/line.png`),loadImg(`pages/${page.slug}/labels.png`),page.mode==='pair'?loadImg(`pages/${page.slug}/color.jpg`).catch(()=>null):null]);
   const w=meta.w,h=meta.h,N=w*h;
   const oc=(img)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,w,h);return x};
   const ld=oc(labImg).getImageData(0,0,w,h).data, labels=new Int32Array(N);
@@ -133,30 +300,38 @@ async function open(page){
   const R=meta.regions.length, cnt=new Int32Array(R+2); for(let i=0;i<N;i++) cnt[labels[i]]++;
   const off=new Int32Array(R+2); for(let r=1;r<R+2;r++) off[r]=off[r-1]+cnt[r-1];
   const idx=new Int32Array(N), fillp=off.slice(); for(let i=0;i<N;i++) idx[fillp[labels[i]]++]=i;
-  const colData=colImg?oc(colImg).getImageData(0,0,w,h).data:null;
+  // optional light shading (meta.shade 0-1): swatch color plus a little of the painting's light and dark
+  let shadeD=null,meanC=null; const sh=meta.shade||0;
+  if(sh>0&&colImg){shadeD=oc(colImg).getImageData(0,0,w,h).data;meanC=new Float32Array((R+1)*3);
+    for(let r=1;r<=R;r++){let a=0,b=0,c=0;for(let k=off[r];k<off[r+1];k++){const j=idx[k]*4;a+=shadeD[j];b+=shadeD[j+1];c+=shadeD[j+2]}const n=Math.max(1,off[r+1]-off[r]);meanC[r*3]=a/n;meanC[r*3+1]=b/n;meanC[r*3+2]=c/n}}
   const fillC=document.createElement('canvas');fillC.width=w;fillC.height=h;const fx=fillC.getContext('2d');const fill=fx.createImageData(w,h);
   const hiC=document.createElement('canvas');hiC.width=w;hiC.height=h;const hx=hiC.getContext('2d');
-  let save=store.get('cc-save-'+page.slug); if(!save||save.R!==R){save={f:{},o:[],n:0,done:false,t:Date.now(),R}} // a rebuilt page (different piece count) starts fresh
-  P={page,meta,w,h,labels,idx,off,colData,lineImg,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false};
-  // restore
-  for(const k in save.f){paintRegion(+k,save.f[k],false)}
+  // a rebuilt page (different pieces) starts fresh; a page whose glued pieces were split (meta.base) keeps its progress
+  let save=store.get('cc-save-'+page.slug); if(!save||(save.R!==R&&save.R!==meta.base)){save={f:{},o:[],n:0,done:false,t:Date.now(),R}}
+  if(save.R!==R){save.R=R;save.done=false}
+  if(!save.h) save.h=[]; // undo history (free color): [piece id, its color before the tap or null]
+  P={page,meta,w,h,labels,idx,off,lineImg,shadeD,meanC,sh,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false};
+  // restore (recount filled pieces from scratch so the count never doubles on reopen)
+  save.n=0; for(const k in save.f){if(+k>=1&&+k<=R)paintRegion(+k,save.f[k],false); else delete save.f[k]}
   fx.putImageData(fill,0,0);
   if(page.mode==='pair'){
     P.byColor=Array.from({length:meta.palette.length},()=>[]);
     meta.regions.forEach(r=>P.byColor[r.c].push(r.id));
     P.sel=firstUnfinished();
   }else{P.sel=store.get('cc-lastcolor')||SWATCHES[0]}
-  renderPal(); resize(); fit(); toast('',0); updatePct();
+  $('undo').hidden=page.mode==='pair'; $('hint').hidden=page.mode!=='pair'; $('resetBox').hidden=true;
+  renderPal(); resize(); fit(); toast('',0); updatePct(); favTopUi(); undoUi();
   if(save.done) showDone();
 }
 function firstUnfinished(){for(let c=0;c<P.byColor.length;c++){if(P.byColor[c].some(id=>!P.filled[id]))return c}return 0}
 function hexToRgb(h){const n=parseInt(h.slice(1),16);return[(n>>16)&255,(n>>8)&255,n&255]}
 function paintRegion(id,val,commit=true){
-  const {idx,off,fill,colData}=P, d=fill.data; let rgb=null;
-  if(typeof val==='string'&&val[0]==='#') rgb=hexToRgb(val);
-  for(let k=off[id];k<off[id+1];k++){const i=idx[k],j=i*4;
-    if(rgb){d[j]=rgb[0];d[j+1]=rgb[1];d[j+2]=rgb[2]}else{d[j]=colData[j];d[j+1]=colData[j+1];d[j+2]=colData[j+2]}
-    d[j+3]=255}
+  const {idx,off,fill}=P, d=fill.data;
+  // color by number ('r'): the piece gets exactly its swatch color, so what you tap is what you get
+  const rgb=(typeof val==='string'&&val[0]==='#')?hexToRgb(val):P.meta.palette[P.meta.regions[id-1].c];
+  if(val==='r'&&P.shadeD){const S=P.shadeD,m=P.meanC,o=id*3,t=P.sh;
+    for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=rgb[0]+t*(S[j]-m[o]);d[j+1]=rgb[1]+t*(S[j+1]-m[o+1]);d[j+2]=rgb[2]+t*(S[j+2]-m[o+2]);d[j+3]=255}}
+  else for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=rgb[0];d[j+1]=rgb[1];d[j+2]=rgb[2];d[j+3]=255}
   if(!P.filled[id]){P.filled[id]=1;P.save.n++}
   if(commit){P.fx.putImageData(fill,0,0);P.save.f[id]=val;P.save.o.push(id);P.save.t=Date.now();P.hiDirty=true;store.set('cc-save-'+P.page.slug,P.save)}
 }
@@ -193,21 +368,28 @@ function _draw(){
     for(const r of P.meta.regions){ if(P.filled[r.id]||r.r<minR||r.x<x0||r.x>x1||r.y<y0||r.y>y1)continue;
       const fs=Math.min(r.r*1.1,16/cam.z); ctx.font=`700 ${fs}px Nunito,sans-serif`; ctx.fillStyle=r.c===P.sel?'#000':'#6b6b6b'; ctx.fillText(r.c+1,r.x,r.y)}
   }
+  drawHint();
   ctx.restore();
 }
 /* palette */
-function renderPal(){
+function renderPal(){setTimeout(palArrows,350);
   const pal=$('pal'); [...pal.querySelectorAll('.sw')].forEach(e=>e.remove());
   if(P.page.mode==='pair'){ $('picker').style.display='none';
     P.meta.palette.forEach((c,i)=>{const total=P.byColor[i].length,done=P.byColor[i].filter(id=>P.filled[id]).length;const lum=(c[0]*.299+c[1]*.587+c[2]*.114);
       const b=document.createElement('button');b.className='sw'+(i===P.sel?' cur':'')+(done===total?' done':'');b.style.background=`rgb(${c})`;b.style.color=lum>150?'#222':'#fff';b.dataset.i=i;b.textContent=i+1;b.setAttribute('aria-label',`Color ${i+1}, ${done} of ${total}`);
       const r=24,circ=2*Math.PI*r;b.insertAdjacentHTML('beforeend',`<svg viewBox="0 0 54 54"><circle cx="27" cy="27" r="${r}" stroke-dasharray="${circ*done/total} ${circ}"/></svg>`);pal.appendChild(b)});
-    const cur=pal.querySelector('.sw.cur'); if(cur) cur.scrollIntoView({inline:'center',block:'nearest'});
+    const cur=pal.querySelector('.sw.cur'); if(cur) cur.scrollIntoView({inline:'nearest',block:'nearest'});
   }else{ $('picker').style.display='flex'; $('pick').value=P.sel;
     SWATCHES.forEach(c=>{const b=document.createElement('button');b.className='sw'+(c===P.sel?' cur':'');b.style.background=c;b.dataset.c=c;b.setAttribute('aria-label','Color '+c);pal.appendChild(b)});
     const e=document.createElement('button');e.className='sw'+(P.eraseMode?' cur':'');e.style.background='#fff';e.textContent='⌫';e.dataset.erase='1';e.setAttribute('aria-label','Eraser');pal.appendChild(e);
   }
 }
+// tray arrows and mouse wheel scroll the dots sideways; arrows grey out at the ends
+const palEl=$('pal');
+function palArrows(){$('palL').disabled=palEl.scrollLeft<=2;$('palR').disabled=palEl.scrollLeft+palEl.clientWidth>=palEl.scrollWidth-2}
+$('palL').onclick=()=>palEl.scrollBy({left:-palEl.clientWidth*.8});$('palR').onclick=()=>palEl.scrollBy({left:palEl.clientWidth*.8});
+palEl.addEventListener('scroll',palArrows,{passive:true});window.addEventListener('resize',palArrows);
+palEl.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){palEl.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
 $('pal').addEventListener('click',e=>{const b=e.target.closest('.sw');if(!b)return;
   if(b.dataset.i!=null){P.sel=+b.dataset.i;P.hiDirty=true}
   else if(b.dataset.erase){P.eraseMode=!P.eraseMode}
@@ -224,13 +406,16 @@ function regionAt(wx,wy){const x=Math.round(wx),y=Math.round(wy);if(x<0||y<0||x>
 function tap(sx,sy){const[wx,wy]=world(sx,sy);const id=regionAt(wx,wy);if(!id)return;const reg=P.meta.regions[id-1];
   if(P.page.mode==='pair'){
     if(P.filled[id]){ if(reg.c!==P.sel){P.sel=reg.c;P.hiDirty=true;renderPal();draw()} return }
-    if(reg.c!==P.sel){toast('That one is number '+(reg.c+1));return}
+    if(reg.c!==P.sel) return; // wrong number: do nothing
     paintRegion(id,'r'); updatePct();
-    if(P.byColor[P.sel].every(i=>P.filled[i])){ if(P.save.n>=P.meta.regions.length){finish()} else {P.sel=firstUnfinished();P.hiDirty=true;toast('Next: color '+(P.sel+1))} }
+    if(P.byColor[P.sel].every(i=>P.filled[i])){ if(P.save.n>=P.meta.regions.length){finish()} else {renderPal();draw()} } // color done: stay on it, the user picks the next dot
     renderPal(); draw();
   }else{
-    if(P.eraseMode){if(P.filled[id])clearRegion(id)} else paintRegion(id,P.sel);
-    updatePct(); draw();
+    const prev=P.save.f[id]??null;
+    if(P.eraseMode){if(!P.filled[id])return; P.save.h.push([id,prev]); clearRegion(id)}
+    else{if(prev===P.sel)return; P.save.h.push([id,prev]); paintRegion(id,P.sel)}
+    if(P.save.h.length>1000) P.save.h.splice(0,P.save.h.length-1000);
+    store.set('cc-save-'+P.page.slug,P.save); updatePct(); undoUi(); draw();
   }
 }
 function finish(){P.save.done=true;P.save.t=Date.now();store.set('cc-save-'+P.page.slug,P.save);showDone()}
@@ -238,10 +423,39 @@ function showDone(){const c=document.createElement('canvas');c.width=P.w;c.heigh
 $('doneStay').onclick=()=>{$('done').hidden=true};
 $('doneBack').onclick=()=>leave();
 $('back').onclick=()=>leave();
+// Undo: step back one tap at a time
+function undoUi(){$('undo').disabled=!(P&&P.save.h&&P.save.h.length)}
+$('undo').onclick=()=>{const h=P.save.h.pop();if(!h)return;
+  if(h[1]==null)clearRegion(h[0]); else{paintRegion(h[0],h[1]);P.save.o.pop()}
+  store.set('cc-save-'+P.page.slug,P.save); updatePct(); undoUi(); draw()};
+// Reset: clear the whole page after asking
+$('reset').onclick=()=>{$('resetBox').hidden=false};
+$('resetNo').onclick=()=>{$('resetBox').hidden=true};
+$('resetYes').onclick=()=>{const R=P.meta.regions.length;P.save={f:{},o:[],h:[],n:0,done:false,t:Date.now(),R};
+  P.fill.data.fill(0);P.filled.fill(0);P.fx.putImageData(P.fill,0,0);store.del('cc-save-'+P.page.slug);
+  if(P.page.mode==='pair')P.sel=firstUnfinished(); P.hiDirty=true;$('resetBox').hidden=true;$('done').hidden=true;
+  renderPal();updatePct();undoUi();draw();toast('Fresh page. Have fun!')};
+function favTopUi(){const on=isFav(P.page.slug);$('favTop').setAttribute('aria-pressed',on);$('favTop').innerHTML=on?'&#9829;<span class="lbl"> Saved</span>':'&#9825;<span class="lbl"> Save</span>';$('favTop').title=on?'Saved to My Library (tap to remove)':'Save to My Library'}
+$('favTop').onclick=()=>{toggleFav(P.page.slug);favTopUi();toast(isFav(P.page.slug)?'Saved to My Library':'Removed from My Library')};
 $('fitBtn').onclick=()=>fit();
+// Hint: a soft glowing circle near an uncolored piece of the chosen color. The piece is inside the circle
+// but off-center, so it points you to the area without giving the exact spot away.
 $('hint').onclick=()=>{ let ids; if(P.page.mode==='pair') ids=P.byColor[P.sel].filter(id=>!P.filled[id]); else ids=P.meta.regions.map(r=>r.id).filter(id=>!P.filled[id]);
-  if(!ids.length){toast('All done with this one');return} const r=P.meta.regions[ids[Math.floor(Math.random()*ids.length)]-1];
-  cam.z=clampZ(Math.max(cam.z,fitZ()*3)); cam.x=r.x-cv.clientWidth/2/cam.z; cam.y=r.y-cv.clientHeight/2/cam.z; draw(); toast('Here is one'); };
+  if(!ids.length){toast(P.page.mode==='pair'?'This color is all done. Pick another dot':'All done with this one');return}
+  const r=P.meta.regions[ids[Math.floor(Math.random()*ids.length)]-1];
+  cam.z=clampZ(Math.max(cam.z,fitZ()*2.2));
+  const rad=Math.max(r.r*3,95/cam.z), a=Math.random()*Math.PI*2, k=rad*(0.35+Math.random()*0.3);
+  const cx=r.x+Math.cos(a)*k, cy=r.y+Math.sin(a)*k;
+  cam.x=cx-cv.clientWidth/2/cam.z; cam.y=cy-cv.clientHeight/2/cam.z;
+  P.hint={x:cx,y:cy,rad,t0:performance.now()}; hintLoop(); };
+function hintLoop(){ if(!P||!P.hint)return; if(performance.now()-P.hint.t0>4200){P.hint=null;draw();return} _draw(); requestAnimationFrame(hintLoop) }
+function drawHint(){ const h=P.hint; if(!h)return; const t=(performance.now()-h.t0)/1000;
+  const fade=Math.min(1,t/0.3)*Math.min(1,(4.2-t)/0.8), pulse=1+0.08*Math.sin(t*5);
+  const R=h.rad*pulse, g=ctx.createRadialGradient(h.x,h.y,0,h.x,h.y,R*1.15);
+  g.addColorStop(0,`rgba(255,236,140,${0.1*fade})`);g.addColorStop(0.7,`rgba(255,214,70,${0.18*fade})`);g.addColorStop(0.86,`rgba(255,190,40,${0.55*fade})`);g.addColorStop(1,'rgba(255,190,40,0)');
+  ctx.fillStyle=g; ctx.beginPath(); ctx.arc(h.x,h.y,R*1.15,0,Math.PI*2); ctx.fill();
+  ctx.save(); ctx.shadowColor='rgba(255,180,0,.9)'; ctx.shadowBlur=18; // glowing ring
+  ctx.lineWidth=5/cam.z; ctx.strokeStyle=`rgba(255,165,0,${fade})`; ctx.beginPath(); ctx.arc(h.x,h.y,R,0,Math.PI*2); ctx.stroke(); ctx.restore(); }
 function leave(){$('play').hidden=true;$('gallery').hidden=false;P=null;renderGrid()}
 function local(e){const r=cv.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
 cv.addEventListener('pointerdown',e=>{if(!P)return;cv.setPointerCapture(e.pointerId);const[sx,sy]=local(e);ptrs.set(e.pointerId,{x:sx,y:sy});
@@ -259,7 +473,7 @@ cv.addEventListener('dblclick',e=>{const[sx,sy]=local(e);const[wx,wy]=world(sx,s
 window.addEventListener('resize',()=>{if(P)resize()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&P)leave()});
 /* ---------- boot ---------- */
-fetch('pages.json').then(r=>r.json()).then(p=>{PAGES=p.slice().reverse().sort((a,b)=>(b.mode==='pair')-(a.mode==='pair'));renderTabs();renderGrid()});
+fetch('pages.json').then(r=>r.json()).then(p=>{PAGES=p.map((x,i)=>[x,i]).sort((a,b)=>(b[0].added||'').localeCompare(a[0].added||'')||b[1]-a[1]).map(x=>x[0]);renderTabs();renderGrid()});
 </script>
 </body>
 </html>
