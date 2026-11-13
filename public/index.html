@@ -308,7 +308,8 @@ async function open(page){
   const fillC=document.createElement('canvas');fillC.width=w;fillC.height=h;const fx=fillC.getContext('2d');const fill=fx.createImageData(w,h);
   const hiC=document.createElement('canvas');hiC.width=w;hiC.height=h;const hx=hiC.getContext('2d');
   // a rebuilt page (different pieces) starts fresh; a page whose glued pieces were split (meta.base) keeps its progress
-  let save=store.get('cc-save-'+page.slug); if(!save||(save.R!==R&&save.R!==meta.base)){save={f:{},o:[],n:0,done:false,t:Date.now(),R}}
+  // meta.b stamps each build of a page's pieces: progress saved on an older build starts fresh even if the piece count matches
+  let save=store.get('cc-save-'+page.slug); if(!save||(save.R!==R&&save.R!==meta.base)||(meta.b&&save.b!==meta.b)){save={f:{},o:[],n:0,done:false,t:Date.now(),R,b:meta.b}}
   if(save.R!==R){save.R=R;save.done=false}
   if(!save.h) save.h=[]; // undo history (free color): [piece id, its color before the tap or null]
   P={page,meta,w,h,labels,idx,off,lineImg,shadeD,meanC,sh,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false,path:outlinePath(meta)};
@@ -467,7 +468,7 @@ $('undo').onclick=()=>{const h=P.save.h.pop();if(!h)return;
 // Reset: clear the whole page after asking
 $('reset').onclick=()=>{$('resetBox').hidden=false};
 $('resetNo').onclick=()=>{$('resetBox').hidden=true};
-$('resetYes').onclick=()=>{const R=P.meta.regions.length;P.save={f:{},o:[],h:[],n:0,done:false,t:Date.now(),R};
+$('resetYes').onclick=()=>{const R=P.meta.regions.length;P.save={f:{},o:[],h:[],n:0,done:false,t:Date.now(),R,b:P.meta.b};
   P.fill.data.fill(0);P.filled.fill(0);P.fx.putImageData(P.fill,0,0);store.del('cc-save-'+P.page.slug);
   if(P.page.mode==='pair')P.sel=firstUnfinished(); P.hiDirty=true;$('resetBox').hidden=true;$('done').hidden=true;
   renderPal();updatePct();undoUi();draw();toast('Fresh page. Have fun!')};

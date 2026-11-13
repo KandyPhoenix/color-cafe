@@ -4,16 +4,17 @@
   python3 tools/book_page.py <slug> [<slug> ...] [--src DIR] [--colors N] [--speck 40]
 
 Uses the artist's own black-and-white drawing (DIR/<slug>-line.png) and the painting made from it
-(public/pages/<slug>/color.jpg, else DIR/<slug>-color.jpg). DIR defaults to pages/src. Every enclosed white area of the drawing becomes one
-spot you tap, exactly as in a coloring book; only specks too small to tap (under --speck pixels on a
-1254px page) join the neighbouring spot they share the most edge with. Each spot is numbered with the
-palette colour closest to the painting inside it, so the finished page looks like the painting.
+(public/pages/<slug>/color.jpg, else DIR/<slug>-color.jpg). DIR defaults to pages/src. Every drawn shape
+becomes one piece you tap, as in a coloring book: small gaps in the long outlines are closed first (light
+grey ticks show where), so the water does not run into the mist or a hill. Specks and pieces too small to
+colour join a small neighbour. Each piece is numbered with its main painted colour (sunlight and glow count
+as light on it: water with a sun path is blue), and filling it brings back every colour the painting has there.
 
 Writes public/pages/<slug>/: labels.png, regions.json (v 3, no blob outlines), ink.png (the drawing,
 2x, solid black lines), line.png (the drawing, page size). Updates public/pages.json (regions, colors).
 Rebuilding changes the pieces, so anyone partway through that page starts it fresh. Needs opencv, numpy.
 """
-import sys, os, json, argparse
+import sys, os, json, argparse, time
 import numpy as np, cv2
 
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,9 @@ ap.add_argument('--colors', type=int, default=None, help='palette size (default:
 ap.add_argument('--speck', type=float, default=80, help='areas smaller than this (px on a 1254px page) join a neighbour')
 ap.add_argument('--ink', type=int, default=140, help='grey level below which the drawing counts as a line')
 ap.add_argument('--min', type=float, default=700, help='pieces smaller than this (px on a 1254px page) join the touching piece of the closest colour')
-ap.add_argument('--split', type=float, default=1.2, help='open areas bigger than this %% of the page whose painting has clearly different colours are split into a few sections')
+ap.add_argument('--gap', type=float, default=4, help='outline gaps up to about twice this (px on a 1254px page) are closed, so each drawn shape is its own piece')
+ap.add_argument('--cap', type=float, default=3, help='touching same-number pieces join only while the piece stays under this %% of the page')
+ap.add_argument('--glow', type=float, default=0.3, help='a piece that is partly sunlight/glow colours takes the number of its deeper colour when that covers at least this share')
 ap.add_argument('--shade', type=float, default=1.0)
 a = ap.parse_args()
 
@@ -42,7 +45,7 @@ def build(slug):
     old = {}
     try: old = json.load(open(os.path.join(out, 'regions.json')))
     except Exception: pass
-    K = a.colors or (len(old['palette']) if isinstance(old.get('palette'), list) else 28)
+    K = a.colors or old.get('k') or (len(old['palette']) if isinstance(old.get('palette'), list) else 28)
     k2 = (w * h) / (1254 * 1254)
 
     # 0. remove the colour-band cuts an older tool (carve.py) drew into some drawings: solid 3px strokes of
@@ -75,9 +78,36 @@ def build(slug):
     ink[np.isin(lab, dots)] = 0
     Lc = L.copy(); Lc[np.isin(lab, dots)] = 255
 
-    # 2. spots = enclosed white areas
-    n, lab = cv2.connectedComponents((1 - ink).astype(np.uint8), connectivity=4)
-    lab = lab.astype(np.int32)
+    # 2. spots = enclosed white areas, one per drawn shape. In a big open area (1%+ of the page) a small gap in an
+    #    outline lets the white run on into the next shape (river into mist, mist up a hill), so there gaps up to
+    #    about 2*--gap px are closed first: the long lines are thickened, each shape left is a seed, and the seeds
+    #    grow back to the lines. Smaller shapes are kept exactly as drawn.
+    white = (1 - ink).astype(np.uint8)
+    n0, lab0, st0, _ = cv2.connectedComponentsWithStats(white, connectivity=4)
+    lab = lab0.astype(np.int32); n = n0
+    gr = int(round(a.gap * k2 ** 0.5))
+    bigc = np.nonzero(st0[:, cv2.CC_STAT_AREA] >= 0.01 * w * h)[0]; bigc = bigc[bigc > 0]
+    if gr > 0 and len(bigc):
+        inbig = np.isin(lab0, bigc)
+        se = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * gr + 1, 2 * gr + 1))
+        # only the long lines (outlines, shorelines) are thickened; short strokes (ripples, feathers, hatching) are
+        # left as they are, so they never chop an open area like the water into pieces
+        ni, il, ist, _ = cv2.connectedComponentsWithStats(ink, connectivity=8)
+        longl = np.isin(il, np.nonzero(ist[:, cv2.CC_STAT_AREA] >= 200 * k2)[0][1:]).astype(np.uint8)
+        n1, l1 = cv2.connectedComponents((inbig & (cv2.dilate(longl, se) == 0)).astype(np.uint8), connectivity=4)
+        l1 = l1.astype(np.int32)
+        cross = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
+        for _ in range(gr + 2):      # grow back over the thickened margin, through white only, never across a line
+            m = inbig & (l1 == 0)
+            if not m.any(): break
+            d = cv2.dilate(l1.astype(np.float32), cross).astype(np.int32); up = m & (d > 0)
+            if not up.any(): break
+            l1[up] = d[up]
+        # a narrow shape the thick lines covered (a pole, a thin branch) is not flooded from its open end: it keeps its own spot
+        rest = inbig & (l1 == 0)
+        nr, lr = cv2.connectedComponents(rest.astype(np.uint8), connectivity=4)
+        l1[rest] = lr[rest] + n1 - 1
+        lab[inbig] = l1[inbig] + n; n += n1 + nr
     area = np.bincount(lab.ravel(), minlength=n)
     # 3. specks join the neighbour they touch most (repeat until none left)
     speck = a.speck * k2
@@ -96,8 +126,9 @@ def build(slug):
             ys, xs = np.nonzero(lab == i) if area[i] < 400 else (None, None)
             if ys is None: continue
             v = grown[ys, xs]; v = v[v > 0]
-            if len(v):
-                t = np.bincount(v).argmax(); lab[ys, xs] = t; area[t] += area[i]; area[i] = 0
+            if len(v):     # a speck inside a small thing (between a bird's feathers) stays with it, not the water
+                cv_ = np.bincount(v); cs_ = np.nonzero(cv_)[0]; sm_ = cs_[area[cs_] < 0.01 * w * h]
+                t = sm_[cv_[sm_].argmax()] if len(sm_) else cv_.argmax(); lab[ys, xs] = t; area[t] += area[i]; area[i] = 0
         if not any(0 < area[i] < speck for i in small): break
     # 4. line pixels belong to the nearest spot, so a fill covers right up under the line
     m = lab == 0
@@ -112,51 +143,7 @@ def build(slug):
     remap = np.zeros(lab.max() + 1, np.int32); remap[ids] = np.arange(1, len(ids) + 1)
     lab = remap[lab]; Rn = len(ids)
 
-    # 4b. a big open area of the drawing (a lake, a sky) whose painting has clearly different colours is split into
-    #     a few large, smooth sections, divided by light grey lines (not black ink): e.g. blue / sun-yellow / blue water
     blur = cv2.cvtColor(cv2.GaussianBlur(C, (0, 0), 6 * k2 ** 0.5), cv2.COLOR_BGR2LAB).astype(np.float32)
-    soft = np.zeros((h, w), bool); sig = 14 * k2 ** 0.5
-    areas = np.bincount(lab.ravel(), minlength=Rn + 1)
-    for r in (np.nonzero(areas >= a.split / 100 * w * h)[0] if a.split > 0 else []):
-        if r == 0: continue
-        ys, xs = np.nonzero(lab == r); y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
-        M = lab[y0:y1, x0:x1] == r; px = blur[y0:y1, x0:x1][M]
-        sub = px[np.random.default_rng(2).choice(len(px), min(40000, len(px)), replace=False)]
-        _, _, cen = cv2.kmeans(sub, 6, None, (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.5), 2, cv2.KMEANS_PP_CENTERS)
-        wts = [float((np.argmin(((sub[:, None] - cen[None]) ** 2).sum(2), 1) == k).sum()) for k in range(len(cen))]
-        cen = list(cen); wts = list(wts)
-        while len(cen) > 1:   # colours closer than this are one section
-            dd = [(((cen[i] - cen[j]) ** 2).sum() ** .5, i, j) for i in range(len(cen)) for j in range(i + 1, len(cen))]
-            dm, i, j = min(dd)
-            if dm > 22: break
-            cen[i] = (cen[i] * wts[i] + cen[j] * wts[j]) / (wts[i] + wts[j]); wts[i] += wts[j]; del cen[j]; del wts[j]
-        if len(cen) < 2: continue
-        cen = np.array(cen, np.float32)
-        hard = np.argmin(((blur[y0:y1, x0:x1][:, :, None, :] - cen[None, None]) ** 2).sum(3), 2)
-        Mf = cv2.GaussianBlur(M.astype(np.float32), (0, 0), sig) + 1e-6
-        prob = np.stack([cv2.GaussianBlur(((hard == k) & M).astype(np.float32), (0, 0), sig) / Mf for k in range(len(cen))], 2)
-        sec = np.argmax(prob, 2); sec[~M] = -1
-        # sections smaller than a piece worth colouring go to the section around them
-        minsec = max(0.004 * w * h, 0.03 * M.sum())
-        secl = np.full(M.shape, -1, np.int32); nid = 0
-        for k in range(len(cen)):
-            nk, cl, cs, _ = cv2.connectedComponentsWithStats((sec == k).astype(np.uint8), connectivity=4)
-            for q in range(1, nk):
-                if cs[q, cv2.CC_STAT_AREA] >= minsec: secl[cl == q] = nid; nid += 1
-        if nid < 2: continue
-        un = (secl < 0) & M
-        for _ in range(400):
-            if not un.any(): break
-            g2 = cv2.dilate((secl + 1).astype(np.float32), np.ones((3, 3), np.uint8)).astype(np.int32) - 1
-            fill = un & (g2 >= 0); secl[fill] = g2[fill]; un = (secl < 0) & M
-        secl[un] = 0
-        blk = lab[y0:y1, x0:x1]
-        for q in range(1, nid):
-            Rn += 1; blk[M & (secl == q)] = Rn
-        e = np.zeros(M.shape, bool)
-        e[:, 1:] |= (secl[:, 1:] != secl[:, :-1]) & M[:, 1:] & M[:, :-1]; e[1:, :] |= (secl[1:, :] != secl[:-1, :]) & M[1:, :] & M[:-1, :]
-        soft[y0:y1, x0:x1] |= e
-        print(f'  split an open area ({100 * M.sum() / (w * h):.1f}% of the page) into {nid} colour sections')
 
     # 5. palette: k-means in Lab over the painting, then each spot takes the colour nearest its median
     lab3 = cv2.cvtColor(C, cv2.COLOR_BGR2LAB).reshape(-1, 3).astype(np.float32)
@@ -176,9 +163,14 @@ def build(slug):
         near[i0:i0 + 250000] = np.argmin(((bl[i0:i0 + 250000, None, :] - cent[None]) ** 2).sum(2), 1)
     cidx = np.zeros(Rn, np.int64)
     simk = np.exp(-((cent[:, None] - cent[None]) ** 2).sum(2) / (2 * 18.0 ** 2))
+    # light warm colours (sunlight, glow: pale gold, peach, yellow) are light falling on a thing, not its own
+    # colour: water with a sun path is numbered blue and a fire deep orange, and the fill still brings the glow
+    glow = (cent[:, 0] >= 175) & (cent[:, 2] - 128 > 25) & (cent[:, 2] > cent[:, 1])
     for r in range(Rn):
         cnt = np.bincount(near[order[bounds[r]:bounds[r + 1]]], minlength=K).astype(np.float64)
-        cidx[r] = (simk @ cnt).argmax()        # similar shades count together: many blues outvote one gold
+        sc = simk @ cnt                        # similar shades count together: many blues outvote one gold
+        if glow[sc.argmax()] and cnt[~glow].sum() >= a.glow * cnt.sum(): sc = np.where(glow, -1, sc)
+        cidx[r] = sc.argmax()
     used = np.unique(cidx); cm = np.full(K, -1); cm[used] = np.arange(len(used)); cidx = cm[cidx]; cent = cent[used]
     # order palette light to dark-ish by hue for a tidy picker
     rgb = cv2.cvtColor(cent.reshape(1, -1, 3).astype(np.uint8), cv2.COLOR_LAB2RGB).reshape(-1, 3)
@@ -186,9 +178,10 @@ def build(slug):
     po = np.lexsort((-hsv[:, 2].astype(int), (hsv[:, 1] < 40).astype(int) * 1000 + hsv[:, 0].astype(int)))
     rank = np.empty(len(po), int); rank[po] = np.arange(len(po)); cidx = rank[cidx]; rgb = rgb[po]
 
-    # 5b. fewer, bigger pieces: touching spots with the same number become one piece, and pieces too small to
-    #     see a number in join the touching piece whose painted colour is closest. The drawing still shows every
-    #     line, and the painting's light and dark shades each piece, so detail is kept without extra taps.
+    # 5b. fewer pieces without mixing things up: touching pieces with the same number become one piece (a leaded
+    #     window's glass becomes a few pieces) while both are under 1% of the page and the piece stays under --cap,
+    #     so a big shape (the water) never takes in a bird or a pole. Pieces too small to see a number in join the
+    #     touching piece whose painted colour is closest, a small one first.
     par = np.arange(Rn)
     def root(i):
         while par[i] != i: par[i] = par[par[i]]; i = par[i]
@@ -197,11 +190,17 @@ def build(slug):
     p1 = np.concatenate([A[0], B[0]]) - 1; p2 = np.concatenate([A[1], B[1]]) - 1; d = p1 != p2
     pairs, cnt = np.unique(np.minimum(p1[d], p2[d]).astype(np.int64) * Rn + np.maximum(p1[d], p2[d]), return_counts=True)
     pa, pb = pairs // Rn, pairs % Rn
-    for i, j in zip(pa, pb):
-        if cidx[i] == cidx[j]: ri, rj = root(i), root(j); par[ri] = rj
     sz = np.bincount(flat - 1, minlength=Rn).astype(np.float64)
-    nb = {}
-    for i, j, c in zip(pa, pb, cnt): nb.setdefault(i, []).append(j); nb.setdefault(j, []).append(i)
+    nb = {}; edge = {}
+    for i, j, c in zip(pa, pb, cnt):
+        nb.setdefault(i, []).append(j); nb.setdefault(j, []).append(i); edge[(i, j)] = edge[(j, i)] = c
+    gsz = sz.copy(); bigP = 0.01 * w * h; capP = a.cap / 100 * w * h
+    for k in np.argsort(-cnt):        # longest shared edge first
+        i, j = pa[k], pb[k]
+        if cidx[i] != cidx[j] or sz[i] >= bigP or sz[j] >= bigP: continue
+        ri, rj = root(i), root(j)
+        if ri == rj or gsz[ri] + gsz[rj] >= capP: continue
+        par[ri] = rj; gsz[rj] += gsz[ri]
     minp = a.min * k2
     for _ in range(8):
         g = np.array([root(i) for i in range(Rn)])
@@ -211,7 +210,9 @@ def build(slug):
             if gs[r] == 0 or gs[r] >= minp or root(r) != r: continue
             cand = {root(j) for i in np.nonzero(g == r)[0] for j in nb.get(i, [])} - {r}
             if not cand: continue
-            t = min(cand, key=lambda q: ((gm[q] - gm[r]) ** 2).sum())
+            # bits of one small thing (a bird's chest and feathers) gather together before any of them joins a big shape
+            small_ = {q for q in cand if gs[q] < bigP}
+            t = min(small_ or cand, key=lambda q: ((gm[q] - gm[r]) ** 2).sum())
             par[r] = t; gs[t] += gs[r]; gs[r] = 0; changed = True
         if not changed: break
     g = np.array([root(i) for i in range(Rn)])
@@ -223,6 +224,10 @@ def build(slug):
     used = np.unique(cidx); cm = np.full(len(rgb), -1); cm[used] = np.arange(len(used)); cidx = cm[cidx]; rgb = rgb[used]
     flat = lab.ravel(); order = np.argsort(flat, kind='stable'); bounds = np.searchsorted(flat[order], np.arange(1, Rn + 2))
     spread = np.zeros(Rn)
+    # where a piece ends at a closed gap (no line in the drawing), a light grey line shows the edge
+    soft = np.zeros((h, w), bool)
+    soft[:, 1:] |= (lab[:, 1:] != lab[:, :-1]) & (ink[:, 1:] == 0) & (ink[:, :-1] == 0)
+    soft[1:, :] |= (lab[1:, :] != lab[:-1, :]) & (ink[1:, :] == 0) & (ink[:-1, :] == 0)
 
     # 6. number spot: the point deepest inside each spot
     regions = []
@@ -247,7 +252,7 @@ def build(slug):
     up = cv2.GaussianBlur(up, (0, 0), 0.5 * S)
     t = 1 / (1 + np.exp((up - 150) / 16))
     cv2.imwrite(os.path.join(out, 'ink.png'), (255 - 255 * t).clip(0, 255).astype(np.uint8), [cv2.IMWRITE_PNG_COMPRESSION, 9])
-    meta = {'w': w, 'h': h, 'mode': 'pair', 'palette': rgb.tolist(), 'regions': regions, 'shade': a.shade, 'reveal': 1, 'v': 3, 'ink': S}
+    meta = {'w': w, 'h': h, 'mode': 'pair', 'palette': rgb.tolist(), 'regions': regions, 'shade': a.shade, 'reveal': 1, 'v': 3, 'ink': S, 'k': K, 'b': int(time.time())}
     json.dump(meta, open(os.path.join(out, 'regions.json'), 'w'), separators=(',', ':'))
     pj = os.path.join(R, 'public', 'pages.json'); P = json.load(open(pj, encoding='utf-8'))
     for p in P:
@@ -257,7 +262,7 @@ def build(slug):
             with open(pj + '.tmp', 'w', encoding='utf-8') as f: json.dump(P, f, ensure_ascii=False, indent=1)
             os.replace(pj + '.tmp', pj); break
         except PermissionError:
-            import time; time.sleep(0.5)
+            time.sleep(0.5)
     big = max(r['a'] for r in regions) / (w * h)
     print(f"{slug}: {Rn} spots, {len(rgb)} colors, biggest {big:.1%}, mixed-colour {int((spread > 25).sum())}, tiny {sum(r['r'] < 3 for r in regions)}")
     return True
