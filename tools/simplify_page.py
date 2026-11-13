@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild a colour-by-number page so it is easy to colour.
 
-  python3 tools/simplify_page.py <slug> [--src DIR] [--colors 28] [--min 1100] [--width 7] [--same 8]
+  python3 tools/simplify_page.py <slug> [--src DIR] [--colors 28] [--min 1800] [--width 9] [--same 8]
 
 Reads the ink drawing and DIR/color.jpg (the painting, already aligned to the drawing; make_page.py does
 that alignment). DIR defaults to public/pages/<slug>/. The ink drawing is pages/ink/<slug>.png when that
@@ -33,8 +33,8 @@ R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ap = argparse.ArgumentParser()
 ap.add_argument('slug'); ap.add_argument('--src', default=None)
 ap.add_argument('--colors', type=int, default=28, help='palette size')
-ap.add_argument('--min', type=float, default=1100, help='smallest piece, in pixels of a 1254px page (scaled for other sizes)')
-ap.add_argument('--width', type=float, default=7.0, help='thinnest piece (approx. width in px); thinner slivers are merged')
+ap.add_argument('--min', type=float, default=1800, help='smallest piece, in pixels of a 1254px page (scaled for other sizes)')
+ap.add_argument('--width', type=float, default=9.0, help='thinnest piece (approx. width in px); thinner slivers are merged')
 ap.add_argument('--same', type=float, default=8.0, help='merge touching pieces whose painted colours differ by less than this (Lab dE)')
 ap.add_argument('--hard', type=float, default=0.6, help='pieces under this fraction of --min always merge, whatever their colour')
 ap.add_argument('--distinct', type=float, default=28.0, help='a piece between --hard and --min stays if every neighbour differs from it by more than this (Lab dE)')
