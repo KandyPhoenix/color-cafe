@@ -32,9 +32,9 @@ the heavy black ink with thin grey outlines traced from the pieces themselves (s
 
 Then commit `public/pages/<slug>/`, `public/pages.json` and `pages/ink/<slug>.png`.
 
-Deploying: as of 2026-11-13 the live site (color.kandyphoenix.com) was ahead of this repo (114 pages vs 34
-committed), so it is being deployed from outside git. Deploy this repo's `public/` folder (for a Cloudflare
-direct upload: `npx wrangler pages deploy public --project-name <project>`) and commit pages here first,
-so the repo stays the source of truth.
+Deploying: every push to `main` publishes `public/` to color.kandyphoenix.com through
+`.github/workflows/deploy.yml` (also runnable by hand from the Actions tab). It uses the repository secret
+`CLOUDFLARE_API_TOKEN`, the same Cloudflare token Puzzle Parlor uses, and finds the Pages project that has
+color.kandyphoenix.com attached. Commit pages here; the repo is the source of truth.
 
 Themes in the app: fantasy, mandalas, classic (add more in `THEMES` in index.html).
