@@ -182,7 +182,7 @@ const CATS=[{id:'fantasy',label:'Fantasy & Magic'},{id:'mystic',label:'Tarot & C
  {id:'animals',label:'Animals & Birds'},{id:'gardens',label:'Flowers & Gardens'},{id:'cozy',label:'Cozy & Vintage'},{id:'machines',label:'Men & Machines'},{id:'sports',label:'Sports'},
  {id:'wild',label:'Safari & Sea Life'},{id:'space',label:'Outer Space'},{id:'landscapes',label:'Landscapes'},{id:'quotes',label:'Quotes'},{id:'mandalas',label:'Mandalas'}];
 // Difficulty from piece count, shown on each card
-const level=p=>p.regions<=1000?'Easy':p.regions<=1600?'Medium':'Hard'; // coloring-book pages (every drawn area is a spot)
+const level=p=>p.level||(p.regions<=270?'Easy':p.regions<=450?'Medium':'Hard'); // pages.json "level": the difficulty the page was made for
 // Special filters that cut across categories
 const NEWEST=15;
 // Top of the menu: the home view. Bottom of the menu: the 'show everything' views.
@@ -330,7 +330,9 @@ function paintRegion(id,val,commit=true){
   const {idx,off,fill}=P, d=fill.data;
   // color by number ('r'): the piece gets exactly its swatch color, so what you tap is what you get
   const rgb=(typeof val==='string'&&val[0]==='#')?hexToRgb(val):P.meta.palette[P.meta.regions[id-1].c];
-  if(val==='r'&&P.shadeD){const S=P.shadeD,m=P.meanC,o=id*3,t=P.sh;
+  if(val==='r'&&P.shadeD&&P.meta.reveal){const S=P.shadeD; // coloring-book pages: the right color brings the painting's own shades into the piece
+    for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=S[j];d[j+1]=S[j+1];d[j+2]=S[j+2];d[j+3]=255}}
+  else if(val==='r'&&P.shadeD){const S=P.shadeD,m=P.meanC,o=id*3,t=P.sh;
     for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=rgb[0]+t*(S[j]-m[o]);d[j+1]=rgb[1]+t*(S[j+1]-m[o+1]);d[j+2]=rgb[2]+t*(S[j+2]-m[o+2]);d[j+3]=255}}
   else for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=rgb[0];d[j+1]=rgb[1];d[j+2]=rgb[2];d[j+3]=255}
   if(!P.filled[id]){P.filled[id]=1;P.save.n++}
