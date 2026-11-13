@@ -344,24 +344,24 @@ function outlinePath(meta){ if(!meta.lines)return null; const p=new Path2D();
 function strokeOutlines(c,z,alpha){ c.save(); c.lineJoin='round'; c.lineCap='round';
   c.lineWidth=Math.min(1.5,Math.max(.8,.8*Math.pow(z/fitZ(),.3)))/z; // about 1 screen pixel, a touch more when zoomed in
   c.strokeStyle=`rgba(85,85,95,${alpha})`; c.stroke(P.path); c.restore() }
-// Pieces of the chosen number: a light tint of that color plus bold stripes. The stripes are drawn in
-// screen pixels, so they stay easy to see whether you are zoomed all the way out or all the way in.
+// Pieces of the chosen number: light grey with darker grey stripes, the same for every number, so they
+// stand out from the white page without giving away the color. The stripes are drawn in screen pixels,
+// so they stay easy to see whether you are zoomed all the way out or all the way in.
 function buildHighlight(){
   const {hx,w,h,idx,off}=P; hx.clearRect(0,0,w,h);
   if(P.page.mode!=='pair')return;
-  const im=hx.createImageData(w,h),d=im.data,[r,g,b]=P.meta.palette[P.sel];
-  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=r;d[j+1]=g;d[j+2]=b;d[j+3]=255}}
+  const im=hx.createImageData(w,h),d=im.data;
+  for(const id of P.byColor[P.sel]){ if(P.filled[id])continue; for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=d[j+1]=d[j+2]=150;d[j+3]=255}}
   hx.putImageData(im,0,0); P.hiDirty=false;
 }
 let stripeC=null,stripeX=null,stripeKey='',stripePat=null;
 function drawStripes(dpr){
   if(!stripeC){stripeC=document.createElement('canvas');stripeX=stripeC.getContext('2d')}
   if(stripeC.width!==cv.width||stripeC.height!==cv.height){stripeC.width=cv.width;stripeC.height=cv.height}
-  const [r,g,b]=P.meta.palette[P.sel], lum=r*.299+g*.587+b*.114, key=P.sel+'/'+dpr;
-  if(key!==stripeKey){ // darker shade of the chosen color (lighter for very dark colors)
+  const key=String(dpr);
+  if(key!==stripeKey){ // soft grey diagonal stripes
     const t=Math.round(11*dpr),c=document.createElement('canvas');c.width=c.height=t;const x=c.getContext('2d');
-    const k=lum>90?.55:1.9, s=[r,g,b].map(v=>Math.min(255,Math.round(v*k+(lum>90?0:40))));
-    x.strokeStyle=`rgba(${s},.95)`;x.lineWidth=2.6*dpr;x.beginPath();x.moveTo(-t*.2,t*1.2);x.lineTo(t*1.2,-t*.2);x.moveTo(-t*.2,t*.2);x.lineTo(t*.2,-t*.2);x.moveTo(t*.8,t*1.2);x.lineTo(t*1.2,t*.8);x.stroke();
+    x.strokeStyle='rgba(150,150,155,.55)';x.lineWidth=1.6*dpr;x.beginPath();x.moveTo(-t*.2,t*1.2);x.lineTo(t*1.2,-t*.2);x.moveTo(-t*.2,t*.2);x.lineTo(t*.2,-t*.2);x.moveTo(t*.8,t*1.2);x.lineTo(t*1.2,t*.8);x.stroke();
     stripePat=stripeX.createPattern(c,'repeat');stripeKey=key}
   const s=stripeX; s.setTransform(1,0,0,1,0,0); s.globalCompositeOperation='source-over'; s.clearRect(0,0,cv.width,cv.height);
   s.setTransform(dpr*cam.z,0,0,dpr*cam.z,-cam.x*cam.z*dpr,-cam.y*cam.z*dpr); s.imageSmoothingEnabled=true; s.drawImage(P.hiC,0,0);
@@ -383,7 +383,7 @@ function _draw(){
   ctx.fillStyle='#fff'; ctx.fillRect(0,0,P.w,P.h);
   ctx.drawImage(P.fillC,0,0);
   if(P.hiDirty)buildHighlight();
-  if(P.page.mode==='pair'){ctx.globalAlpha=.42;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
+  if(P.page.mode==='pair'){ctx.globalAlpha=.14;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
   if(P.path) strokeOutlines(ctx,cam.z,.85);
   else{ctx.globalAlpha=.55;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1} // older pages: lighter ink
   // numbers: the chosen color's numbers are bigger, darker and shown on smaller pieces, so they are easy to find
