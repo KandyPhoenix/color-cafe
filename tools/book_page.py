@@ -9,6 +9,9 @@ becomes one piece you tap, as in a coloring book: small gaps in the long outline
 grey ticks show where), so the water does not run into the mist or a hill. Specks and pieces too small to
 colour join a small neighbour. Each piece is numbered with its main painted colour (sunlight and glow count
 as light on it: water with a sun path is blue), and filling it brings back every colour the painting has there.
+Where pages/water/<slug>.png marks the water (white), all of it is one piece in that colour, reflections and
+ripples included, so one tap colours it to its edges; only a part cut off by something standing in it (the water
+between a fisherman and his bird) is a piece of its own, numbered the same.
 
 Writes public/pages/<slug>/: labels.png, regions.json (v 3, no blob outlines), ink.png (the drawing,
 2x, solid black lines), line.png (the drawing, page size). Updates public/pages.json (regions, colors).
@@ -28,6 +31,7 @@ ap.add_argument('--min', type=float, default=700, help='pieces smaller than this
 ap.add_argument('--gap', type=float, default=4, help='outline gaps up to about twice this (px on a 1254px page) are closed, so each drawn shape is its own piece')
 ap.add_argument('--cap', type=float, default=3, help='touching same-number pieces join only while the piece stays under this %% of the page')
 ap.add_argument('--glow', type=float, default=0.3, help='a piece that is partly sunlight/glow colours takes the number of its deeper colour when that covers at least this share')
+ap.add_argument('--water', default=os.path.join(R, 'pages', 'water'), help='folder of water masks (<slug>.png, white = the water)')
 ap.add_argument('--shade', type=float, default=1.0)
 a = ap.parse_args()
 
@@ -143,11 +147,39 @@ def build(slug):
     remap = np.zeros(lab.max() + 1, np.int32); remap[ids] = np.arange(1, len(ids) + 1)
     lab = remap[lab]; Rn = len(ids)
 
-    blur = cv2.cvtColor(cv2.GaussianBlur(C, (0, 0), 6 * k2 ** 0.5), cv2.COLOR_BGR2LAB).astype(np.float32)
+    # 4b. the water. Where pages/water/<slug>.png exists, its white part is the water: every spot inside it (ripples,
+    #     reflections, the water behind a buffalo's back) is water, and a spot the water's edge runs through (a leg that
+    #     runs on into its reflection, a wing the water leaks into through a gap) is cut along that edge.
+    isW = np.zeros(Rn + 1, bool)
+    wm = cv2.imread(os.path.join(a.water, slug + '.png'), cv2.IMREAD_GRAYSCALE)
+    if wm is not None:
+        wm = cv2.resize(wm, (w, h), interpolation=cv2.INTER_NEAREST) > 127
+        fw = np.bincount(lab.ravel(), weights=wm.ravel(), minlength=Rn + 1); fa = np.bincount(lab.ravel(), minlength=Rn + 1)
+        nxt = Rn + 1
+        for s in np.nonzero((fw > 0) & (fw < fa))[0]:
+            maj = fw[s] * 2 >= fa[s]                       # True: mostly water
+            if min(fw[s], fa[s] - fw[s]) < speck: continue  # a sliver: the whole spot goes with its bigger side
+            ys, xs = np.nonzero(lab == s); bx = (slice(ys.min(), ys.max() + 1), slice(xs.min(), xs.max() + 1))
+            sub = lab[bx]; m = sub == s
+            # the other side, and any bit of this side the cut leaves apart from the rest, become spots of their own
+            for other in (True, False):
+                part_ = m & ((wm[bx] != maj) if other else (wm[bx] == maj))
+                n_, cc, st_, _ = cv2.connectedComponentsWithStats(part_.astype(np.uint8), connectivity=4)
+                for q, k in enumerate(np.argsort(-st_[1:, cv2.CC_STAT_AREA]) + 1):
+                    if st_[k, cv2.CC_STAT_AREA] < speck: continue   # a few stray pixels stay with the spot
+                    if not other and q == 0: continue                # the biggest bit of the bigger side keeps the spot
+                    sub[cc == k] = nxt; nxt += 1
+            lab[bx] = sub
+        Rn = nxt - 1
+        fw = np.bincount(lab.ravel(), weights=wm.ravel(), minlength=Rn + 1); fa = np.bincount(lab.ravel(), minlength=Rn + 1)
+        isW = fw * 2 >= np.maximum(fa, 1); isW[0] = False
+
+    blur =cv2.cvtColor(cv2.GaussianBlur(C, (0, 0), 6 * k2 ** 0.5), cv2.COLOR_BGR2LAB).astype(np.float32)
 
     # 5. palette: k-means in Lab over the painting, then each spot takes the colour nearest its median
     lab3 = cv2.cvtColor(C, cv2.COLOR_BGR2LAB).reshape(-1, 3).astype(np.float32)
-    rng = np.random.default_rng(1); samp = lab3[rng.choice(len(lab3), min(200000, len(lab3)), replace=False)]
+    cv2.setRNGSeed(1)      # the same drawing always gives the same pieces
+    rng = np.random.default_rng(1); samp =lab3[rng.choice(len(lab3), min(200000, len(lab3)), replace=False)]
     _, _, cent = cv2.kmeans(samp, K, None, (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 40, 0.5), 3, cv2.KMEANS_PP_CENTERS)
     flat = lab.ravel()
     order = np.argsort(flat, kind='stable'); bounds = np.searchsorted(flat[order], np.arange(1, Rn + 2))
@@ -166,11 +198,16 @@ def build(slug):
     # light warm colours (sunlight, glow: pale gold, peach, yellow) are light falling on a thing, not its own
     # colour: water with a sun path is numbered blue and a fire deep orange, and the fill still brings the glow
     glow = (cent[:, 0] >= 175) & (cent[:, 2] - 128 > 25) & (cent[:, 2] > cent[:, 1])
-    for r in range(Rn):
-        cnt = np.bincount(near[order[bounds[r]:bounds[r + 1]]], minlength=K).astype(np.float64)
+    def number(cnt):
         sc = simk @ cnt                        # similar shades count together: many blues outvote one gold
         if glow[sc.argmax()] and cnt[~glow].sum() >= a.glow * cnt.sum(): sc = np.where(glow, -1, sc)
-        cidx[r] = sc.argmax()
+        return sc.argmax()
+    cntW = np.zeros(K)
+    for r in range(Rn):
+        cnt = np.bincount(near[order[bounds[r]:bounds[r + 1]]], minlength=K).astype(np.float64)
+        cidx[r] = number(cnt)
+        if isW[r + 1]: cntW += cnt
+    if isW.any(): cidx[isW[1:]] = number(cntW)   # all the water has one number: the colour of the water as a whole
     used = np.unique(cidx); cm = np.full(K, -1); cm[used] = np.arange(len(used)); cidx = cm[cidx]; cent = cent[used]
     # order palette light to dark-ish by hue for a tidy picker
     rgb = cv2.cvtColor(cent.reshape(1, -1, 3).astype(np.uint8), cv2.COLOR_LAB2RGB).reshape(-1, 3)
@@ -195,9 +232,14 @@ def build(slug):
     for i, j, c in zip(pa, pb, cnt):
         nb.setdefault(i, []).append(j); nb.setdefault(j, []).append(i); edge[(i, j)] = edge[(j, i)] = c
     gsz = sz.copy(); bigP = 0.01 * w * h; capP = a.cap / 100 * w * h
+    W0 = isW[1:]
+    for i, j in zip(pa, pb):          # the water is one piece wherever it runs on (past ripples and reflections); only
+        if W0[i] and W0[j]:           # something standing in it (a man, a pole) leaves a part of it as a piece of its own
+            ri, rj = root(i), root(j)
+            if ri != rj: par[ri] = rj; gsz[rj] += gsz[ri]
     for k in np.argsort(-cnt):        # longest shared edge first
         i, j = pa[k], pb[k]
-        if cidx[i] != cidx[j] or sz[i] >= bigP or sz[j] >= bigP: continue
+        if cidx[i] != cidx[j] or sz[i] >= bigP or sz[j] >= bigP or W0[i] or W0[j]: continue
         ri, rj = root(i), root(j)
         if ri == rj or gsz[ri] + gsz[rj] >= capP: continue
         par[ri] = rj; gsz[rj] += gsz[ri]
@@ -209,6 +251,7 @@ def build(slug):
         for r in np.argsort(gs):
             if gs[r] == 0 or gs[r] >= minp or root(r) != r: continue
             cand = {root(j) for i in np.nonzero(g == r)[0] for j in nb.get(i, [])} - {r}
+            if not W0[r]: cand = {q for q in cand if not W0[q]}   # nothing joins the water
             if not cand: continue
             # bits of one small thing (a bird's chest and feathers) gather together before any of them joins a big shape
             small_ = {q for q in cand if gs[q] < bigP}
@@ -221,6 +264,19 @@ def build(slug):
         best[g[i]] = cidx[i] if sz[i] >= big[g[i]] else best[g[i]]; big[g[i]] = max(big[g[i]], sz[i])
     roots = np.unique(g); newid = np.zeros(Rn, np.int32); newid[roots] = np.arange(1, len(roots) + 1)
     lab = np.concatenate([[0], newid[g]])[lab]; cidx = best[roots]; Rn = len(roots)
+    if W0.any():
+        # old cut-line marks left in the water (solid pure black with hard edges; the artist's ripples fade through grey):
+        # the painting has none, so they come out of the drawing and the filled water looks like the painting
+        inner = cv2.erode(np.concatenate([[0], W0[roots]]).astype(np.uint8)[lab], np.ones((5, 5), np.uint8)) > 0
+        z = ((Lc < 8) & inner).astype(np.uint8)
+        nz, zl, zst, _ = cv2.connectedComponentsWithStats(z, connectivity=8)
+        ring = (cv2.dilate(z, np.ones((3, 3), np.uint8)) > 0) & (z == 0)
+        zr = cv2.dilate(zl.astype(np.float32), np.ones((3, 3), np.uint8)).astype(np.int32)
+        softr = np.bincount(zr[ring & (Lc > 25) & (Lc < 215)], minlength=nz) / np.maximum(np.bincount(zr[ring], minlength=nz), 1)
+        gone = np.nonzero((softr < 0.6) & (zst[:, cv2.CC_STAT_AREA] >= 8 * k2))[0]; gone = gone[gone > 0]
+        if len(gone):
+            Lc = Lc.copy(); Lc[np.isin(zl, gone)] = 255
+            print(f'  cleared {len(gone)} old cut-line marks from the water')
     used = np.unique(cidx); cm = np.full(len(rgb), -1); cm[used] = np.arange(len(used)); cidx = cm[cidx]; rgb = rgb[used]
     flat = lab.ravel(); order = np.argsort(flat, kind='stable'); bounds = np.searchsorted(flat[order], np.arange(1, Rn + 2))
     spread = np.zeros(Rn)
