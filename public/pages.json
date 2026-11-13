@@ -60,7 +60,7 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 384,
+  "regions": 962,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -73,8 +73,8 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 156,
-  "colors": 28,
+  "regions": 339,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -86,8 +86,8 @@
   "style": "Botanical plate",
   "w": 1254,
   "h": 1254,
-  "regions": 169,
-  "colors": 28,
+  "regions": 359,
+  "colors": 26,
   "added": "2026-10-25"
  },
  {
@@ -99,8 +99,8 @@
   "style": "Chalk pastel",
   "w": 1254,
   "h": 1254,
-  "regions": 201,
-  "colors": 28,
+  "regions": 548,
+  "colors": 26,
   "added": "2026-10-25"
  },
  {
@@ -112,8 +112,8 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 241,
-  "colors": 28,
+  "regions": 475,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -125,8 +125,8 @@
   "style": "Oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 214,
-  "colors": 28,
+  "regions": 429,
+  "colors": 26,
   "added": "2026-10-25"
  },
  {
@@ -138,8 +138,8 @@
   "style": "Ink and watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 272,
-  "colors": 28,
+  "regions": 619,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -151,8 +151,8 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 226,
-  "colors": 28,
+  "regions": 878,
+  "colors": 25,
   "added": "2026-10-25"
  },
  {
@@ -164,8 +164,8 @@
   "style": "Oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 194,
-  "colors": 28,
+  "regions": 354,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -177,8 +177,8 @@
   "style": "Dutch Golden Age",
   "w": 1254,
   "h": 1254,
-  "regions": 287,
-  "colors": 28,
+  "regions": 1052,
+  "colors": 24,
   "added": "2026-10-25"
  },
  {
@@ -190,7 +190,7 @@
   "style": "Vibrant soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 426,
+  "regions": 1717,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -203,7 +203,7 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 437,
+  "regions": 1612,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -216,7 +216,7 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 503,
+  "regions": 1935,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -229,8 +229,8 @@
   "style": "Persian miniature",
   "w": 1254,
   "h": 1254,
-  "regions": 329,
-  "colors": 28,
+  "regions": 2159,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -242,8 +242,8 @@
   "style": "Vintage lithograph",
   "w": 1254,
   "h": 1254,
-  "regions": 288,
-  "colors": 28,
+  "regions": 1516,
+  "colors": 26,
   "added": "2026-10-25"
  },
  {
@@ -255,7 +255,7 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 285,
+  "regions": 1542,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -268,7 +268,7 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 444,
+  "regions": 1536,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -281,8 +281,8 @@
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 393,
-  "colors": 28,
+  "regions": 1669,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -294,7 +294,7 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 515,
+  "regions": 1786,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -307,8 +307,8 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 301,
-  "colors": 28,
+  "regions": 1499,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -320,7 +320,7 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 278,
+  "regions": 703,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -333,8 +333,8 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 274,
-  "colors": 28,
+  "regions": 730,
+  "colors": 26,
   "added": "2026-10-25"
  },
  {
@@ -346,8 +346,8 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 208,
-  "colors": 28,
+  "regions": 633,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -359,8 +359,8 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 267,
-  "colors": 28,
+  "regions": 862,
+  "colors": 26,
   "added": "2026-10-25"
  },
  {
@@ -372,7 +372,7 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 371,
+  "regions": 1839,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -385,8 +385,8 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 358,
-  "colors": 28,
+  "regions": 1592,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -398,8 +398,8 @@
   "style": "Dutch Golden Age",
   "w": 1254,
   "h": 1254,
-  "regions": 368,
-  "colors": 28,
+  "regions": 1611,
+  "colors": 27,
   "added": "2026-10-25"
  },
  {
@@ -411,7 +411,7 @@
   "style": "Colored pencil",
   "w": 1254,
   "h": 1254,
-  "regions": 293,
+  "regions": 1248,
   "colors": 28,
   "added": "2026-10-25"
  },
@@ -437,8 +437,8 @@
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 454,
-  "colors": 28,
+  "regions": 2275,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -450,8 +450,8 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 390,
-  "colors": 28,
+  "regions": 2235,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -463,7 +463,7 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 488,
+  "regions": 2714,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -476,8 +476,8 @@
   "style": "Art Nouveau",
   "w": 1254,
   "h": 1254,
-  "regions": 325,
-  "colors": 28,
+  "regions": 2279,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -489,7 +489,7 @@
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 464,
+  "regions": 2310,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -502,8 +502,8 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 379,
-  "colors": 28,
+  "regions": 2420,
+  "colors": 24,
   "added": "2026-10-26"
  },
  {
@@ -515,7 +515,7 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 515,
+  "regions": 2702,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -528,8 +528,8 @@
   "style": "Art Nouveau",
   "w": 1254,
   "h": 1254,
-  "regions": 344,
-  "colors": 28,
+  "regions": 2433,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -541,8 +541,8 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 266,
-  "colors": 28,
+  "regions": 2155,
+  "colors": 25,
   "added": "2026-10-26"
  },
  {
@@ -554,7 +554,7 @@
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 481,
+  "regions": 2285,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -567,8 +567,8 @@
   "style": "Chalk pastel",
   "w": 1254,
   "h": 1254,
-  "regions": 293,
-  "colors": 28,
+  "regions": 2099,
+  "colors": 25,
   "added": "2026-10-26"
  },
  {
@@ -580,8 +580,8 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 341,
-  "colors": 28,
+  "regions": 1817,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -593,8 +593,8 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 370,
-  "colors": 28,
+  "regions": 2444,
+  "colors": 25,
   "added": "2026-10-26"
  },
  {
@@ -606,8 +606,8 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 349,
-  "colors": 28,
+  "regions": 2255,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -619,7 +619,7 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 391,
+  "regions": 2539,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -632,8 +632,8 @@
   "style": "Persian miniature",
   "w": 1254,
   "h": 1254,
-  "regions": 358,
-  "colors": 28,
+  "regions": 2167,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -645,7 +645,7 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 480,
+  "regions": 2431,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -658,8 +658,8 @@
   "style": "Art Nouveau",
   "w": 1254,
   "h": 1254,
-  "regions": 407,
-  "colors": 28,
+  "regions": 2374,
+  "colors": 25,
   "added": "2026-10-26"
  },
  {
@@ -671,8 +671,8 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 392,
-  "colors": 28,
+  "regions": 1857,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -684,8 +684,8 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 355,
-  "colors": 28,
+  "regions": 2045,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -697,8 +697,8 @@
   "style": "Acrylic",
   "w": 1254,
   "h": 1254,
-  "regions": 403,
-  "colors": 28,
+  "regions": 2412,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -710,7 +710,7 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 406,
+  "regions": 2460,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -723,8 +723,8 @@
   "style": "Hand-tinted engraving",
   "w": 1254,
   "h": 1254,
-  "regions": 278,
-  "colors": 28,
+  "regions": 2152,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -736,7 +736,7 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 490,
+  "regions": 2239,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -749,7 +749,7 @@
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 468,
+  "regions": 2381,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -762,7 +762,7 @@
   "style": "Chrome and enamel",
   "w": 1254,
   "h": 1254,
-  "regions": 358,
+  "regions": 1650,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -775,8 +775,8 @@
   "style": "Hand-tinted engraving",
   "w": 1254,
   "h": 1254,
-  "regions": 183,
-  "colors": 28,
+  "regions": 457,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -788,8 +788,8 @@
   "style": "Hand-tinted engraving",
   "w": 1254,
   "h": 1254,
-  "regions": 287,
-  "colors": 28,
+  "regions": 2262,
+  "colors": 25,
   "added": "2026-10-26"
  },
  {
@@ -801,8 +801,8 @@
   "style": "Vintage lithograph",
   "w": 1254,
   "h": 1254,
-  "regions": 178,
-  "colors": 28,
+  "regions": 394,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -814,8 +814,8 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 367,
-  "colors": 28,
+  "regions": 1834,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -827,8 +827,8 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 279,
-  "colors": 28,
+  "regions": 320,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -840,7 +840,7 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 515,
+  "regions": 2134,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -853,8 +853,8 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 408,
-  "colors": 28,
+  "regions": 2436,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -866,8 +866,8 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 228,
-  "colors": 28,
+  "regions": 135,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -879,8 +879,8 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 344,
-  "colors": 28,
+  "regions": 2050,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -892,7 +892,7 @@
   "style": "Acrylic",
   "w": 1254,
   "h": 1254,
-  "regions": 221,
+  "regions": 285,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -905,8 +905,8 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 195,
-  "colors": 28,
+  "regions": 207,
+  "colors": 25,
   "added": "2026-10-26"
  },
  {
@@ -918,7 +918,7 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 418,
+  "regions": 1797,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -931,8 +931,8 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 396,
-  "colors": 28,
+  "regions": 2347,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -944,8 +944,8 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 275,
-  "colors": 28,
+  "regions": 249,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -957,8 +957,8 @@
   "style": "Chalk pastel",
   "w": 1254,
   "h": 1254,
-  "regions": 228,
-  "colors": 28,
+  "regions": 346,
+  "colors": 24,
   "added": "2026-10-26"
  },
  {
@@ -970,7 +970,7 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 431,
+  "regions": 2421,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -983,7 +983,7 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 410,
+  "regions": 2568,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -996,8 +996,8 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 157,
-  "colors": 28,
+  "regions": 161,
+  "colors": 25,
   "added": "2026-10-26"
  },
  {
@@ -1009,8 +1009,8 @@
   "style": "Hand-tinted engraving",
   "w": 1254,
   "h": 1254,
-  "regions": 233,
-  "colors": 28,
+  "regions": 1614,
+  "colors": 24,
   "added": "2026-10-26"
  },
  {
@@ -1022,7 +1022,7 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 304,
+  "regions": 438,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -1035,7 +1035,7 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 443,
+  "regions": 2185,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -1048,8 +1048,8 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 217,
-  "colors": 28,
+  "regions": 125,
+  "colors": 22,
   "added": "2026-10-26"
  },
  {
@@ -1061,7 +1061,7 @@
   "style": "Chrome and enamel",
   "w": 1254,
   "h": 1254,
-  "regions": 417,
+  "regions": 1946,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -1074,8 +1074,8 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 240,
-  "colors": 28,
+  "regions": 210,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -1087,8 +1087,8 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 333,
-  "colors": 28,
+  "regions": 1730,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -1100,7 +1100,7 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 482,
+  "regions": 2017,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -1113,8 +1113,8 @@
   "style": "Colored pencil",
   "w": 1254,
   "h": 1254,
-  "regions": 171,
-  "colors": 28,
+  "regions": 276,
+  "colors": 26,
   "added": "2026-10-26"
  },
  {
@@ -1126,7 +1126,7 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 279,
+  "regions": 565,
   "colors": 28,
   "added": "2026-10-26"
  },
@@ -1139,8 +1139,8 @@
   "style": "Colored pencil",
   "w": 1254,
   "h": 1254,
-  "regions": 314,
-  "colors": 28,
+  "regions": 1814,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -1152,8 +1152,8 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 253,
-  "colors": 28,
+  "regions": 234,
+  "colors": 27,
   "added": "2026-10-26"
  },
  {
@@ -1165,7 +1165,7 @@
   "style": "Vibrant gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 210,
+  "regions": 304,
   "colors": 28,
   "added": "2026-10-27"
  },
@@ -1178,7 +1178,7 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 468,
+  "regions": 1754,
   "colors": 28,
   "added": "2026-10-27"
  },
@@ -1191,8 +1191,8 @@
   "style": "Vibrant gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 268,
-  "colors": 28,
+  "regions": 304,
+  "colors": 27,
   "added": "2026-10-27"
  },
  {
@@ -1204,8 +1204,8 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 257,
-  "colors": 28,
+  "regions": 272,
+  "colors": 27,
   "added": "2026-10-27"
  },
  {
@@ -1217,7 +1217,7 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 393,
+  "regions": 1504,
   "colors": 28,
   "added": "2026-10-27"
  },
@@ -1230,8 +1230,8 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 232,
-  "colors": 28,
+  "regions": 268,
+  "colors": 26,
   "added": "2026-10-27"
  },
  {
@@ -1243,7 +1243,7 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 328,
+  "regions": 1001,
   "colors": 28,
   "added": "2026-10-27"
  },
@@ -1256,8 +1256,8 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 311,
-  "colors": 28,
+  "regions": 247,
+  "colors": 25,
   "added": "2026-10-27"
  },
  {
@@ -1269,7 +1269,7 @@
   "style": "Vibrant oil",
   "w": 1254,
   "h": 1254,
-  "regions": 430,
+  "regions": 2057,
   "colors": 28,
   "added": "2026-10-27"
  },
@@ -1282,8 +1282,8 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 351,
-  "colors": 28,
+  "regions": 681,
+  "colors": 27,
   "added": "2026-10-27"
  },
  {
@@ -1295,7 +1295,7 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 476,
+  "regions": 1758,
   "colors": 28,
   "added": "2026-10-28"
  },
@@ -1308,7 +1308,7 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 479,
+  "regions": 2456,
   "colors": 28,
   "added": "2026-10-28"
  },
@@ -1321,7 +1321,7 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 428,
+  "regions": 2200,
   "colors": 28,
   "added": "2026-10-28"
  },
@@ -1334,8 +1334,8 @@
   "style": "Lifelike painterly",
   "w": 1254,
   "h": 1254,
-  "regions": 313,
-  "colors": 28,
+  "regions": 801,
+  "colors": 27,
   "added": "2026-10-28"
  },
  {
@@ -1347,7 +1347,7 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 201,
+  "regions": 528,
   "colors": 28,
   "added": "2026-10-29"
  },
@@ -1360,7 +1360,7 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 317,
+  "regions": 1316,
   "colors": 28,
   "added": "2026-10-29"
  },
@@ -1373,7 +1373,7 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 380,
+  "regions": 1632,
   "colors": 28,
   "added": "2026-10-29"
  },
@@ -1386,7 +1386,7 @@
   "style": "Lifelike photo",
   "w": 1254,
   "h": 1254,
-  "regions": 294,
+  "regions": 1249,
   "colors": 28,
   "added": "2026-10-29"
  },
@@ -1399,7 +1399,7 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 343,
+  "regions": 1515,
   "colors": 28,
   "added": "2026-10-29"
  },
@@ -1412,8 +1412,8 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 298,
-  "colors": 28,
+  "regions": 1065,
+  "colors": 27,
   "added": "2026-10-29"
  },
  {
@@ -1425,7 +1425,7 @@
   "style": "Rich oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 388,
+  "regions": 1906,
   "colors": 28,
   "added": "2026-10-29"
  },
@@ -1438,7 +1438,7 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 371,
+  "regions": 1673,
   "colors": 28,
   "added": "2026-10-29"
  },
@@ -1451,8 +1451,8 @@
   "style": "Japanese woodblock",
   "w": 1254,
   "h": 1254,
-  "regions": 306,
-  "colors": 28,
+  "regions": 1739,
+  "colors": 27,
   "added": "2026-10-29"
  },
  {
@@ -1464,7 +1464,7 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 400,
+  "regions": 1540,
   "colors": 28,
   "added": "2026-10-29"
  },
@@ -1477,7 +1477,7 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 365,
+  "regions": 1628,
   "colors": 28,
   "added": "2026-10-29"
  }

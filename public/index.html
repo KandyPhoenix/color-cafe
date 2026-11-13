@@ -182,7 +182,7 @@ const CATS=[{id:'fantasy',label:'Fantasy & Magic'},{id:'mystic',label:'Tarot & C
  {id:'animals',label:'Animals & Birds'},{id:'gardens',label:'Flowers & Gardens'},{id:'cozy',label:'Cozy & Vintage'},{id:'machines',label:'Men & Machines'},{id:'sports',label:'Sports'},
  {id:'wild',label:'Safari & Sea Life'},{id:'space',label:'Outer Space'},{id:'landscapes',label:'Landscapes'},{id:'quotes',label:'Quotes'},{id:'mandalas',label:'Mandalas'}];
 // Difficulty from piece count, shown on each card
-const level=p=>p.regions<=900?'Easy':p.regions<=1300?'Medium':'Hard';
+const level=p=>p.regions<=1000?'Easy':p.regions<=1600?'Medium':'Hard'; // coloring-book pages (every drawn area is a spot)
 // Special filters that cut across categories
 const NEWEST=15;
 // Top of the menu: the home view. Bottom of the menu: the 'show everything' views.
@@ -385,8 +385,8 @@ function _draw(){
   ctx.drawImage(P.fillC,0,0);
   if(P.hiDirty)buildHighlight();
   if(P.page.mode==='pair'){ctx.globalAlpha=.10;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
-  if(P.meta.ink){ // the drawing itself, in soft grey: it always looks like a coloring page
-    ctx.globalAlpha=.55;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
+  if(P.meta.ink){ // the drawing itself: solid black on coloring-book pages (v3, tools/book_page.py), soft grey on older ones
+    ctx.globalAlpha=P.meta.v>=3?1:.55;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
     if(P.path) strokeOutlines(ctx,cam.z,.45); // piece edges close any gap in the drawing
   }
   else if(P.path) strokeOutlines(ctx,cam.z,.85);
