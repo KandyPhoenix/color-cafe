@@ -291,8 +291,9 @@ let P=null, cam={x:0,y:0,z:1}, ptrs=new Map(), pinch=null, pan=null, tapStart=nu
 async function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src})}
 async function open(page){
   $('play').hidden=false;$('gallery').hidden=true;$('ttl').textContent=page.title;$('done').hidden=true;toast('Loading…',99999);
-  const [meta,lineImg,labImg,colImg]=await Promise.all([fetch(`pages/${page.slug}/regions.json`).then(r=>r.json()),loadImg(`pages/${page.slug}/line.png`),loadImg(`pages/${page.slug}/labels.png`),page.mode==='pair'?loadImg(`pages/${page.slug}/color.jpg`).catch(()=>null):null]);
+  let [meta,lineImg,labImg,colImg]=await Promise.all([fetch(`pages/${page.slug}/regions.json`).then(r=>r.json()),loadImg(`pages/${page.slug}/line.png`),loadImg(`pages/${page.slug}/labels.png`),page.mode==='pair'?loadImg(`pages/${page.slug}/color.jpg`).catch(()=>null):null]);
   const w=meta.w,h=meta.h,N=w*h;
+  if(meta.ink){try{lineImg=await loadImg(`pages/${page.slug}/ink.png`)}catch(e){meta.ink=0}} // the cleaned-up drawing (tools/make_ink.py)
   const oc=(img)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,w,h);return x};
   const ld=oc(labImg).getImageData(0,0,w,h).data, labels=new Int32Array(N);
   for(let i=0,j=0;i<N;i++,j+=4) labels[i]=ld[j]+256*ld[j+1];
@@ -384,7 +385,11 @@ function _draw(){
   ctx.drawImage(P.fillC,0,0);
   if(P.hiDirty)buildHighlight();
   if(P.page.mode==='pair'){ctx.globalAlpha=.10;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
-  if(P.path) strokeOutlines(ctx,cam.z,.85);
+  if(P.meta.ink){ // the drawing itself, in soft grey: it always looks like a coloring page
+    ctx.globalAlpha=.55;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
+    if(P.path) strokeOutlines(ctx,cam.z,.45); // piece edges close any gap in the drawing
+  }
+  else if(P.path) strokeOutlines(ctx,cam.z,.85);
   else{ctx.globalAlpha=.35;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1} // older pages: lighter ink
   // numbers: the chosen color's numbers are bigger, darker and shown on smaller pieces, so they are easy to find
   if(P.page.mode==='pair'){
@@ -392,7 +397,7 @@ function _draw(){
     const x0=cam.x,y0=cam.y,x1=cam.x+W/cam.z,y1=cam.y+H/cam.z;
     for(const r of P.meta.regions){ const me=r.c===P.sel; if(P.filled[r.id]||r.r<(me?5.5:8)/cam.z||r.x<x0||r.x>x1||r.y<y0||r.y>y1)continue;
       const fs=Math.min(r.r*(me?1.25:1.1),(me?18:15)/cam.z); ctx.font=`${me?800:700} ${fs}px Nunito,sans-serif`;
-      if(me){ctx.lineWidth=3/cam.z;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.strokeText(r.c+1,r.x,r.y);ctx.fillStyle='#111'} else ctx.fillStyle='#8a8a8a';
+      if(me){ctx.lineWidth=3/cam.z;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.strokeText(r.c+1,r.x,r.y);ctx.fillStyle='#111'} else {ctx.lineWidth=2.5/cam.z;ctx.strokeStyle='rgba(255,255,255,.9)';ctx.strokeText(r.c+1,r.x,r.y);ctx.fillStyle='#8a8a8a'}
       ctx.fillText(r.c+1,r.x,r.y)}
   }
   drawHint();
