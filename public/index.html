@@ -316,6 +316,7 @@ async function open(page){
   let [meta,lineImg,labImg,colImg]=await Promise.all([fetch(`pages/${page.slug}/regions.json`).then(r=>r.json()),loadImg(`pages/${page.slug}/line.png`),loadImg(`pages/${page.slug}/labels.png`),page.mode==='pair'?loadImg(`pages/${page.slug}/color.jpg`).catch(()=>null):null]);
   const w=meta.w,h=meta.h,N=w*h;
   if(meta.ink){try{lineImg=await loadImg(`pages/${page.slug}/ink.png`)}catch(e){meta.ink=0}} // the cleaned-up drawing (tools/make_ink.py)
+  let inkPath=null; if(meta.ink&&meta.inkv){try{inkPath=inkShapes(await fetch(`pages/${page.slug}/ink.json`).then(r=>r.json()))}catch(e){inkPath=null}} // the same drawing as smooth vector shapes (tools/vector_ink.py)
   const oc=(img)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,w,h);return x};
   const ld=oc(labImg).getImageData(0,0,w,h).data, labels=new Int32Array(N);
   for(let i=0,j=0;i<N;i++,j+=4) labels[i]=ld[j]+256*ld[j+1];
@@ -335,7 +336,7 @@ async function open(page){
   let save=store.get('cc-save-'+page.slug); if(!save||(save.R!==R&&save.R!==meta.base)||(meta.b&&save.b!==meta.b)){save={f:{},o:[],n:0,done:false,t:Date.now(),R,b:meta.b}}
   if(save.R!==R){save.R=R;save.done=false}
   if(!save.h) save.h=[]; // undo history (free color): [piece id, its color before the tap or null]
-  P={page,meta,w,h,labels,idx,off,lineImg,shadeD,meanC,sh,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false,path:outlinePath(meta)};
+  P={page,meta,w,h,labels,idx,off,lineImg,shadeD,meanC,sh,fillC,fx,fill,hiC,hx,save,sel:0,filled:new Uint8Array(R+1),byColor:null,hiDirty:true,eraseMode:false,path:outlinePath(meta),inkPath};
   // restore (recount filled pieces from scratch so the count never doubles on reopen)
   save.n=0; for(const k in save.f){if(+k>=1&&+k<=R)paintRegion(+k,save.f[k],false); else delete save.f[k]}
   fx.putImageData(fill,0,0);
@@ -368,6 +369,15 @@ function clearRegion(id){const {idx,off,fill}=P,d=fill.data;for(let k=off[id];k<
 function outlinePath(meta){ if(!meta.lines)return null; const p=new Path2D();
   for(const d of meta.lines){let x=d[0],y=d[1];p.moveTo(x/4,y/4);for(let i=2;i<d.length;i+=2){x+=d[i];y+=d[i+1];p.lineTo(x/4,y/4)}}
   return p }
+// The drawing as vector shapes (ink.json): each ink shape is a closed outline; curves run through the
+// midpoints of its points, so every line stays smooth, solid and sharp however far you zoom in.
+function inkShapes(j){ const p=new Path2D(), q=j.s||8;
+  for(const d of j.p){ const n=d.length/2, X=new Float32Array(n), Y=new Float32Array(n); let x=d[0],y=d[1]; X[0]=x/q;Y[0]=y/q;
+    for(let i=1;i<n;i++){x+=d[2*i];y+=d[2*i+1];X[i]=x/q;Y[i]=y/q}
+    if(n<3)continue; p.moveTo((X[n-1]+X[0])/2,(Y[n-1]+Y[0])/2);
+    for(let i=0;i<n;i++){const k=(i+1)%n;p.quadraticCurveTo(X[i],Y[i],(X[i]+X[k])/2,(Y[i]+Y[k])/2)}
+    p.closePath() }
+  return p }
 function strokeOutlines(c,z,alpha){ c.save(); c.lineJoin='round'; c.lineCap='round';
   c.lineWidth=Math.min(1.5,Math.max(.8,.8*Math.pow(z/fitZ(),.3)))/z; // about 1 screen pixel, a touch more when zoomed in
   c.strokeStyle=`rgba(125,125,135,${alpha})`; c.stroke(P.path); c.restore() }
@@ -399,9 +409,10 @@ function drawStripes(dpr){
 function resize(){const dpr=window.devicePixelRatio||1;cv.width=Math.round(cv.clientWidth*dpr);cv.height=Math.round(cv.clientHeight*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
 function fitZ(){return Math.min(cv.clientWidth/P.w,cv.clientHeight/P.h)*.97}
 function fit(){cam.z=fitZ();cam.x=P.w/2-cv.clientWidth/2/cam.z;cam.y=P.h/2-cv.clientHeight/2/cam.z;draw()}
-function maxZ(){return Math.max(fitZ()*8,4)}
+function maxZ(){return Math.max(fitZ()*24,12)} // zoom far in: lines and numbers are vectors, so they stay sharp
 function clampZ(z){return Math.min(maxZ(),Math.max(fitZ()*.6,z))}
 function world(sx,sy){return[sx/cam.z+cam.x,sy/cam.z+cam.y]}
+let camWas={x:0,y:0,z:0},crispT=0;
 function draw(){if(!P)return;cancelAnimationFrame(raf);raf=requestAnimationFrame(_draw)}
 function _draw(){
   const W=cv.clientWidth,H=cv.clientHeight; ctx.save(); ctx.clearRect(0,0,W,H);
@@ -412,7 +423,15 @@ function _draw(){
   if(P.hiDirty)buildHighlight();
   if(P.page.mode==='pair'){ctx.globalAlpha=.10;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
   if(P.meta.ink){ // the drawing itself: solid black on coloring-book pages (v3, tools/book_page.py), soft grey on older ones
-    ctx.globalAlpha=P.meta.v>=3?1:.55;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
+    ctx.globalAlpha=P.meta.v>=3?1:.55;
+    // Vector lines once the stored picture would soften. While the view is moving (pan, pinch, wheel) the picture is
+    // drawn so it stays fluid; the crisp vector lines come back the moment it stops.
+    const moving=cam.x!==camWas.x||cam.y!==camWas.y||cam.z!==camWas.z; camWas={x:cam.x,y:cam.y,z:cam.z};
+    const wantVec=P.inkPath&&cam.z*(window.devicePixelRatio||1)>1.7;
+    clearTimeout(crispT);
+    if(wantVec&&!moving){ctx.fillStyle='#000';ctx.fill(P.inkPath,'evenodd')}
+    else{ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over'; if(wantVec)crispT=setTimeout(draw,130)}
+    ctx.globalAlpha=1;
     if(P.path) strokeOutlines(ctx,cam.z,.45); // piece edges close any gap in the drawing
   }
   else if(P.path) strokeOutlines(ctx,cam.z,.85);
@@ -424,7 +443,7 @@ function _draw(){
     const x0=cam.x-20/cam.z,y0=cam.y-20/cam.z,x1=cam.x+(W+20)/cam.z,y1=cam.y+(H+20)/cam.z;
     for(const r of P.meta.regions){ if(P.filled[r.id])continue; const me=r.c===P.sel, t=String(r.c+1);
       for(const [x,y,room] of (r.L||[[r.x,r.y,r.r]])){ const s=room*cam.z; if(s<(me?2.6:4.5)||x<x0||x>x1||y<y0||y>y1)continue;
-        const fs=Math.min(Math.max(s*(me?1.35:1.2),me?12:10),me?22:17)/cam.z; ctx.font=`${me?900:800} ${fs}px Nunito,sans-serif`;
+        const fs=Math.min(Math.max(s*(me?1.35:1.2),me?12:10),me?40:34)/cam.z; ctx.font=`${me?900:800} ${fs}px Nunito,sans-serif`;
         ctx.lineWidth=(me?4:3)/cam.z;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.strokeText(t,x,y);
         ctx.fillStyle=me?'#000':'#3a3a3a';ctx.fillText(t,x,y)}}
   }

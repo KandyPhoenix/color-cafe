@@ -30,6 +30,14 @@ the heavy black ink with thin grey outlines traced from the pieces themselves (s
 `pages/ink/<slug>.png`, so a page can be re-run with other settings, e.g. `--min 800` for more pieces or
 `--min 1500` for fewer. Run pages one at a time (each run updates `public/pages.json`).
 
+Then make its lines vector, so they stay smooth and sharp at any zoom (run again whenever a page's drawing changes):
+
+    python3 tools/vector_ink.py <slug>
+
+This writes `public/pages/<slug>/ink.json` (every ink shape as a smooth closed outline) and sets `"inkv": 1` in
+`regions.json`. The app fills those shapes once you zoom in past what `ink.png` can show sharply, and draws
+`ink.png` while the view is moving. Zoom goes to 24x.
+
 Then commit `public/pages/<slug>/`, `public/pages.json` and `pages/ink/<slug>.png`.
 
 Deploying: every push to `main` publishes `public/` to color.kandyphoenix.com through
