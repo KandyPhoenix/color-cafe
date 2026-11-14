@@ -1589,5 +1589,33 @@
   "colors": 27,
   "added": "2026-10-29",
   "level": "Medium"
+ },
+ {
+  "slug": "harvest-table",
+  "title": "Harvest Table",
+  "theme": "cozy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Soft oil",
+  "w": 1254,
+  "h": 1254,
+  "regions": 182,
+  "colors": 16,
+  "added": "2026-11-13",
+  "level": "Easy"
+ },
+ {
+  "slug": "christmas-cabin",
+  "title": "Christmas Cabin",
+  "theme": "christmas",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Vibrant watercolor",
+  "w": 1254,
+  "h": 1254,
+  "regions": 151,
+  "colors": 15,
+  "added": "2026-11-13",
+  "level": "Easy"
  }
 ]
