@@ -367,8 +367,16 @@ function clearRegion(id){const {idx,off,fill}=P,d=fill.data;for(let k=off[id];k<
 // Outlines (pages built by tools/simplify_page.py): meta.lines holds every piece edge as a polyline
 // (delta-encoded, quarter pixels). Stroked as vectors so they stay thin, light and sharp at any zoom.
 function outlinePath(meta){ if(!meta.lines)return null; const p=new Path2D();
-  for(const d of meta.lines){let x=d[0],y=d[1];p.moveTo(x/4,y/4);for(let i=2;i<d.length;i+=2){x+=d[i];y+=d[i+1];p.lineTo(x/4,y/4)}}
+  for(const d of meta.lines){ const n=d.length/2; let x=d[0]/4,y=d[1]/4; p.moveTo(x,y);
+    if(n<3){for(let i=1;i<n;i++){x+=d[2*i]/4;y+=d[2*i+1]/4;p.lineTo(x,y)}continue}
+    // curve through the midpoints, so an outline bends smoothly instead of in straight steps
+    let px=x,py=y; for(let i=1;i<n;i++){x+=d[2*i]/4;y+=d[2*i+1]/4; if(i===1){px=x;py=y;continue} p.quadraticCurveTo(px,py,(px+x)/2,(py+y)/2);px=x;py=y}
+    p.lineTo(x,y) }
   return p }
+// Coloring-app look (meta.look 2, tools/outline_page.py): every piece has its own thin black outline, exactly
+// the edge of what a tap fills. About 1.2 screen pixels when the whole page shows, a little bolder zoomed in.
+function strokePieceOutlines(c,z){ c.save(); c.lineJoin='round'; c.lineCap='round';
+  c.lineWidth=Math.min(2.6,1.2*Math.pow(Math.max(1,z/fitZ()),.35))/z; c.strokeStyle='#111'; c.stroke(P.path); c.restore() }
 // The drawing as vector shapes (ink.json): each ink shape is a closed outline; curves run through the
 // midpoints of its points, so every line stays smooth, solid and sharp however far you zoom in.
 function inkShapes(j){ const p=new Path2D(), q=j.s||8;
@@ -422,8 +430,9 @@ function _draw(){
   ctx.drawImage(P.fillC,0,0);
   if(P.hiDirty)buildHighlight();
   if(P.page.mode==='pair'){ctx.globalAlpha=.10;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
+  const look2=P.meta.look===2&&P.path;
   if(P.meta.ink){ // the drawing itself: solid black on coloring-book pages (v3, tools/book_page.py), soft grey on older ones
-    ctx.globalAlpha=P.meta.v>=3?1:.55;
+    ctx.globalAlpha=look2?.17:P.meta.v>=3?1:.55; // look 2: the artist's lines are only faint detail inside the pieces
     // Vector lines once the stored picture would soften. While the view is moving (pan, pinch, wheel) the picture is
     // drawn so it stays fluid; the crisp vector lines come back the moment it stops.
     const moving=cam.x!==camWas.x||cam.y!==camWas.y||cam.z!==camWas.z; camWas={x:cam.x,y:cam.y,z:cam.z};
@@ -432,7 +441,7 @@ function _draw(){
     if(wantVec&&!moving){ctx.fillStyle='#000';ctx.fill(P.inkPath,'evenodd')}
     else{ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over'; if(wantVec)crispT=setTimeout(draw,130)}
     ctx.globalAlpha=1;
-    if(P.path) strokeOutlines(ctx,cam.z,.45); // piece edges close any gap in the drawing
+    if(look2) strokePieceOutlines(ctx,cam.z); else if(P.path) strokeOutlines(ctx,cam.z,.45); // piece edges close any gap in the drawing
   }
   else if(P.path) strokeOutlines(ctx,cam.z,.85);
   else{ctx.globalAlpha=.35;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1} // older pages: lighter ink

@@ -38,6 +38,15 @@ This writes `public/pages/<slug>/ink.json` (every ink shape as a smooth closed o
 `regions.json`. The app fills those shapes once you zoom in past what `ink.png` can show sharply, and draws
 `ink.png` while the view is moving. Zoom goes to 24x.
 
+Then give it the coloring-app look (run again whenever a page's pieces change):
+
+    python3 tools/outline_page.py <slug>
+
+A coloring app's page is built from shapes: the blank page is the outlines of the pieces, and a tap fills
+exactly what an outline encloses. This traces the edge between every two pieces into smooth vector lines
+(`"lines"` in `regions.json`), sets `"look": 2`, and redraws `thumb.jpg`. With look 2 the app strokes those
+outlines thin and black and shows the artist's drawing only as faint grey detail inside the pieces.
+
 Then commit `public/pages/<slug>/`, `public/pages.json` and `pages/ink/<slug>.png`.
 
 Deploying: every push to `main` publishes `public/` to color.kandyphoenix.com through
