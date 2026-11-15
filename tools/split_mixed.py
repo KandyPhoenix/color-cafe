@@ -65,7 +65,7 @@ for slug in a.slugs:
         regions.append({'id': r, 'c': c, 'a': int(len(ys)), 'x': int(x + x0 - 1), 'y': int(y + y0 - 1), 'r': round(float(dt.max()), 1)})
     rgb = np.zeros((h, w, 3), np.uint8); rgb[:, :, 2] = lbl % 256; rgb[:, :, 1] = lbl // 256
     cv2.imwrite(os.path.join(d, 'labels.png'), rgb, [cv2.IMWRITE_PNG_COMPRESSION, 9])
-    m['regions'] = regions; json.dump(m, open(rp, 'w'), separators=(',', ':'))
+    m.setdefault('base', n0); m['regions'] = regions; json.dump(m, open(rp, 'w'), separators=(',', ':'))
     pj = os.path.join(R, 'public', 'pages.json'); P = json.load(open(pj, encoding='utf-8'))
     for x in P:
         if x['slug'] == slug: x['regions'] = len(regions); x.pop('level', None)

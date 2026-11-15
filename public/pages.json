@@ -60,10 +60,9 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 222,
+  "regions": 447,
   "colors": 16,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "added": "2026-10-25"
  },
  {
   "slug": "reading-nook",
@@ -200,10 +199,9 @@
   "style": "Vibrant soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 371,
+  "regions": 502,
   "colors": 16,
-  "added": "2026-10-25",
-  "level": "Hard"
+  "added": "2026-10-25"
  },
  {
   "slug": "rose-window",
@@ -214,10 +212,9 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 346,
+  "regions": 588,
   "colors": 14,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "added": "2026-10-25"
  },
  {
   "slug": "dragonfly-pond",
@@ -228,10 +225,9 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 469,
+  "regions": 664,
   "colors": 15,
-  "added": "2026-10-25",
-  "level": "Hard"
+  "added": "2026-10-25"
  },
  {
   "slug": "elephant-marigolds",
@@ -284,10 +280,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 515,
+  "regions": 707,
   "colors": 25,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "added": "2026-10-25"
  },
  {
   "slug": "tiger-hibiscus",
@@ -298,24 +293,22 @@
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 385,
+  "regions": 521,
   "colors": 17,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "added": "2026-10-25"
  },
  {
   "slug": "peacock-roses",
   "title": "Peacock in the Rose Garden",
   "theme": "animals",
-  "mode": "pair",
+  "mode": "line",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 511,
+  "regions": 710,
   "colors": 22,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "added": "2026-10-25"
  },
  {
   "slug": "koi-lotus",
@@ -424,10 +417,9 @@
   "style": "Dutch Golden Age",
   "w": 1254,
   "h": 1254,
-  "regions": 443,
+  "regions": 580,
   "colors": 19,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "added": "2026-10-25"
  },
  {
   "slug": "gingerbread-village",
@@ -460,15 +452,14 @@
   "slug": "witch-greenhouse",
   "title": "Witch's Moonlit Greenhouse",
   "theme": "fantasy",
-  "mode": "pair",
+  "mode": "line",
   "artist": "Original art",
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 438,
+  "regions": 571,
   "colors": 16,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "haunted-library",
@@ -493,10 +484,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 475,
+  "regions": 628,
   "colors": 20,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "celestial-goddess",
@@ -521,10 +511,9 @@
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 396,
+  "regions": 542,
   "colors": 18,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "enchanted-library",
@@ -549,10 +538,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 535,
+  "regions": 699,
   "colors": 24,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "tarot-the-star",
@@ -586,15 +574,14 @@
   "slug": "dragon-hatchery",
   "title": "Dragon Hatchery",
   "theme": "fantasy",
-  "mode": "pair",
+  "mode": "line",
   "artist": "Original art",
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 441,
+  "regions": 608,
   "colors": 23,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "unicorn-glade",
@@ -689,10 +676,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 473,
+  "regions": 613,
   "colors": 20,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "moth-goddess",
@@ -782,29 +768,27 @@
   "slug": "phoenix-rising",
   "title": "Phoenix Rising",
   "theme": "fantasy",
-  "mode": "pair",
+  "mode": "line",
   "artist": "Original art",
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 411,
+  "regions": 571,
   "colors": 15,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "candy-wizards-kitchen",
   "title": "Candy Wizard's Kitchen",
   "theme": "fantasy",
-  "mode": "pair",
+  "mode": "line",
   "artist": "Original art",
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 429,
+  "regions": 582,
   "colors": 18,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "classic-muscle-car",
@@ -885,10 +869,9 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 177,
+  "regions": 391,
   "colors": 15,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "robot-workshop",
@@ -899,10 +882,9 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 457,
+  "regions": 642,
   "colors": 15,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "baseball-stadium-at-night",
@@ -927,10 +909,9 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 107,
+  "regions": 381,
   "colors": 18,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "football-game-day",
@@ -955,10 +936,9 @@
   "style": "Acrylic",
   "w": 1254,
   "h": 1254,
-  "regions": 161,
+  "regions": 356,
   "colors": 18,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "golf-course-at-sunrise",
@@ -983,10 +963,9 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 351,
+  "regions": 503,
   "colors": 17,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "added": "2026-10-26"
  },
  {
   "slug": "lions-at-the-waterhole",
@@ -1011,10 +990,9 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 173,
+  "regions": 402,
   "colors": 21,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "giraffes-on-the-savanna",
@@ -1039,10 +1017,9 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 314,
+  "regions": 499,
   "colors": 15,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "octopus-and-the-shipwreck",
@@ -1095,10 +1072,9 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 205,
+  "regions": 425,
   "colors": 18,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "astronaut-moon-base",
@@ -1109,10 +1085,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 409,
+  "regions": 577,
   "colors": 18,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "ringed-planet-and-starship",
@@ -1123,10 +1098,9 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 110,
+  "regions": 284,
   "colors": 12,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "space-station",
@@ -1137,10 +1111,9 @@
   "style": "Chrome and enamel",
   "w": 1254,
   "h": 1254,
-  "regions": 449,
+  "regions": 593,
   "colors": 19,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "added": "2026-10-26"
  },
  {
   "slug": "nebula-observatory",
@@ -1151,10 +1124,9 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 153,
+  "regions": 384,
   "colors": 15,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "mountain-summit",
@@ -1179,10 +1151,9 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 339,
+  "regions": 513,
   "colors": 16,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "added": "2026-10-26"
  },
  {
   "slug": "grizzly-at-the-falls",
@@ -1235,10 +1206,9 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 150,
+  "regions": 392,
   "colors": 15,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "pumpkin-patch-party",
@@ -1258,15 +1228,14 @@
   "slug": "candy-corn-cottage",
   "title": "Candy Corn Cottage",
   "theme": "spooky",
-  "mode": "pair",
+  "mode": "line",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 449,
+  "regions": 617,
   "colors": 18,
-  "added": "2026-10-27",
-  "level": "Hard"
+  "added": "2026-10-27"
  },
  {
   "slug": "toucan-paradise",
@@ -1277,10 +1246,9 @@
   "style": "Vibrant gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 167,
+  "regions": 353,
   "colors": 19,
-  "added": "2026-10-27",
-  "level": "Easy"
+  "added": "2026-10-27"
  },
  {
   "slug": "hot-air-balloon-festival",
@@ -1291,10 +1259,9 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 152,
+  "regions": 283,
   "colors": 16,
-  "added": "2026-10-27",
-  "level": "Easy"
+  "added": "2026-10-27"
  },
  {
   "slug": "mermaid-lagoon",
@@ -1305,10 +1272,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 331,
+  "regions": 498,
   "colors": 18,
-  "added": "2026-10-27",
-  "level": "Medium"
+  "added": "2026-10-27"
  },
  {
   "slug": "flamingo-fiesta",
@@ -1333,10 +1299,9 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 267,
+  "regions": 438,
   "colors": 15,
-  "added": "2026-10-27",
-  "level": "Easy"
+  "added": "2026-10-27"
  },
  {
   "slug": "galaxy-jellyfish",
@@ -1347,10 +1312,9 @@
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 177,
+  "regions": 520,
   "colors": 13,
-  "added": "2026-10-27",
-  "level": "Easy"
+  "added": "2026-10-27"
  },
  {
   "slug": "christmas-candy-shop",
@@ -1375,10 +1339,9 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 218,
+  "regions": 501,
   "colors": 18,
-  "added": "2026-10-27",
-  "level": "Easy"
+  "added": "2026-10-27"
  },
  {
   "slug": "out-of-office-mentally",
@@ -1403,10 +1366,9 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 402,
+  "regions": 542,
   "colors": 20,
-  "added": "2026-10-28",
-  "level": "Medium"
+  "added": "2026-10-28"
  },
  {
   "slug": "self-care-sunday",
@@ -1431,10 +1393,9 @@
   "style": "Lifelike painterly",
   "w": 1254,
   "h": 1254,
-  "regions": 261,
+  "regions": 413,
   "colors": 19,
-  "added": "2026-10-28",
-  "level": "Easy"
+  "added": "2026-10-28"
  },
  {
   "slug": "roadside-diner-1957",
@@ -1473,10 +1434,9 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 372,
+  "regions": 521,
   "colors": 26,
-  "added": "2026-10-29",
-  "level": "Hard"
+  "added": "2026-10-29"
  },
  {
   "slug": "serengeti-waterhole",
@@ -1515,10 +1475,9 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 225,
+  "regions": 310,
   "colors": 18,
-  "added": "2026-10-29",
-  "level": "Medium"
+  "added": "2026-10-29"
  },
  {
   "slug": "cinque-terre-harbor",
@@ -1529,10 +1488,9 @@
   "style": "Rich oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 326,
+  "regions": 444,
   "colors": 21,
-  "added": "2026-10-29",
-  "level": "Hard"
+  "added": "2026-10-29"
  },
  {
   "slug": "ha-long-bay-junks",
@@ -1543,10 +1501,9 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 301,
+  "regions": 376,
   "colors": 21,
-  "added": "2026-10-29",
-  "level": "Medium"
+  "added": "2026-10-29"
  },
  {
   "slug": "fuji-fishing-village",
@@ -1571,10 +1528,9 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 268,
+  "regions": 375,
   "colors": 16,
-  "added": "2026-10-29",
-  "level": "Medium"
+  "added": "2026-10-29"
  },
  {
   "slug": "venice-canal-morning",
