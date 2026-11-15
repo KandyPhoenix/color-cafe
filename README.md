@@ -19,6 +19,8 @@ the same picture repainted rich and shaded (shapes kept in place); a tap then re
     python3 tools/flat_page.py <slug> flat.png [rich.jpg] --title "Title" --theme landscapes --style "Kodachrome"
 
 That one command writes the whole page (pieces, vector outlines, thumbnail, feature image, pages.json entry).
+To add or replace the rich picture later without changing the pieces: `python3 tools/rich_page.py <slug> rich.png`
+(it aligns the repaint and reports how well it fits the outlines).
 With no rich picture, it runs `tools/shade_page.py`, which paints light, shadow, a soft rim and deeper colour into
 every flat piece, so a tap reveals shaded colour instead of a flat fill (`--depth` and `--rich` tune it).
 
