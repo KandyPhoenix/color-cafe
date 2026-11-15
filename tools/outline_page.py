@@ -75,11 +75,11 @@ for slug in slugs:
     m = json.load(open(rp))
     m['lines'] = [np.concatenate([q[:1], np.diff(q, axis=0)]).ravel().tolist() for q in chains]; m['look'] = 2
     json.dump(m, open(rp, 'w'), separators=(',', ':'))
-    # thumbnail in the same look: faint drawing, crisp outlines
+    # thumbnail in the same look: crisp black outlines only
     U = 2; img = np.full((h * U, w * U), 255, np.uint8)
     g = cv2.imread(os.path.join(d, 'line.png'), cv2.IMREAD_GRAYSCALE)
-    if g is not None:
-        g = cv2.resize(g, (w * U, h * U), interpolation=cv2.INTER_CUBIC).astype(np.float32); img = (255 - (255 - g) * 0.26).astype(np.uint8)
+    if g is not None and not m.get('solo'):   # meta.solo pages show outlines only; the rest show their drawing in black too
+        g = cv2.resize(g, (w * U, h * U), interpolation=cv2.INTER_CUBIC).astype(np.float32); img = g.astype(np.uint8)
     cv2.polylines(img, [np.round(q * (U / 4) * 16).astype(np.int32).reshape(-1, 1, 2) for q in chains], False, 0, U * 2, cv2.LINE_AA, 4)
     ts = 420 / max(h, w)
     cv2.imwrite(os.path.join(d, 'thumb.jpg'), cv2.resize(img, (round(w * ts), round(h * ts)), interpolation=cv2.INTER_AREA), [cv2.IMWRITE_JPEG_QUALITY, 84])
