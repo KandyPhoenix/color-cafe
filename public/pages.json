@@ -1659,5 +1659,19 @@
   "colors": 18,
   "added": "2026-11-15",
   "level": "Easy"
+ },
+ {
+  "slug": "thanksgiving-window",
+  "title": "Thanksgiving Window",
+  "theme": "cozy",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Flat color",
+  "w": 1254,
+  "h": 1254,
+  "regions": 330,
+  "colors": 24,
+  "added": "2026-11-15",
+  "level": "Medium"
  }
 ]
