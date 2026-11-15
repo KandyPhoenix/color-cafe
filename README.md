@@ -12,6 +12,15 @@ next door to [Puzzle Parlor](https://puzzles.kandyphoenix.com).
 - `research/*` branches — experiments; never merged
 
 ## Adding a page
+**Shapes-first (preferred, the way coloring apps work):** start from flat-colour art, where every object is a solid
+colour with a hard edge. Each patch of colour is one piece exactly as drawn, so nothing is guessed. Optionally add
+the same picture repainted rich and shaded (shapes kept in place); a tap then reveals that inside the piece.
+
+    python3 tools/flat_page.py <slug> flat.png [rich.jpg] --title "Title" --theme landscapes --style "Kodachrome"
+
+That one command writes the whole page (pieces, vector outlines, thumbnail, feature image, pages.json entry).
+
+**From a line drawing and a painting (older route):**
 Color-by-number (two files from ChatGPT: the line art, then "paint this exact drawing"):
 
     python3 tools/make_page.py pair <slug> line.png color.jpg --title "Title" --theme fantasy --style "Watercolor"
