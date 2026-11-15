@@ -1750,5 +1750,19 @@
   "colors": 24,
   "added": "2026-11-15",
   "level": "Medium"
+ },
+ {
+  "slug": "enchanted-night",
+  "title": "Magic Is Everywhere: Enchanted Night",
+  "theme": "quotes",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Painted",
+  "w": 1254,
+  "h": 1254,
+  "regions": 343,
+  "colors": 24,
+  "added": "2026-11-15",
+  "level": "Medium"
  }
 ]
