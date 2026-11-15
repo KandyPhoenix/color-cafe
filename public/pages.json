@@ -1508,19 +1508,6 @@
   "added": "2026-11-13"
  },
  {
-  "slug": "autumn-porch",
-  "title": "Autumn Porch",
-  "theme": "cozy",
-  "mode": "pair",
-  "artist": "Original art",
-  "style": "Gouache",
-  "w": 1254,
-  "h": 1254,
-  "regions": 228,
-  "colors": 21,
-  "added": "2026-11-14"
- },
- {
   "slug": "lakeside-cottage",
   "title": "Lakeside Cottage",
   "theme": "landscapes",
