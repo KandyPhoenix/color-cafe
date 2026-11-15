@@ -32,6 +32,7 @@ e = np.zeros((h, w), np.uint8); e[:, 1:] |= (lbl[:, 1:] != lbl[:, :-1]).astype(n
 ce = cv2.Canny(cv2.GaussianBlur(cv2.cvtColor(al, cv2.COLOR_BGR2GRAY), (0, 0), 1.5), 60, 160) > 0
 fit = 100 * ((cv2.dilate(ce.astype(np.uint8), np.ones((9, 9), np.uint8)) > 0) & (e > 0)).sum() / max(1, (e > 0).sum())
 cv2.imwrite(os.path.join(d, 'color.jpg'), al, [cv2.IMWRITE_JPEG_QUALITY, 92])
+os.makedirs(os.path.join(R, 'pages', 'rich'), exist_ok=True); cv2.imwrite(os.path.join(R, 'pages', 'rich', a.slug + '.jpg'), al, [cv2.IMWRITE_JPEG_QUALITY, 92])   # kept for shade_page.py --mix
 shutil.copy(a.rich, os.path.join(R, 'pages', 'src', a.slug + '-color' + os.path.splitext(a.rich)[1]))
 line = cv2.imread(os.path.join(d, 'line.png'), cv2.IMREAD_GRAYSCALE); blank = cv2.cvtColor(cv2.erode(line, np.ones((2, 2), np.uint8)), cv2.COLOR_GRAY2BGR)
 yy, xx = np.mgrid[0:h, 0:w].astype(np.float32); t = np.clip(((xx - 0.60 * w) + (yy - 0.5 * h) * 0.35) / (0.06 * w) + 0.5, 0, 1)[..., None]

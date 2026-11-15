@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Paint depth into a flat-colour page: what a tap reveals becomes shaded and rich instead of flat.
 
-  python3 tools/shade_page.py <slug> [<slug> ...] [--depth 1.0] [--rich 1.0]
+  python3 tools/shade_page.py <slug> [<slug> ...] [--depth 1.0] [--rich 1.0] [--mix 0.35]
 
 For a page built by flat_page.py from flat art only. Reads the pieces (labels.png) and the flat picture
 (pages/src/<slug>-flat.*) and writes a new public/pages/<slug>/color.jpg in which every piece has:
@@ -17,6 +17,7 @@ R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ap = argparse.ArgumentParser(); ap.add_argument('slugs', nargs='+')
 ap.add_argument('--depth', type=float, default=1.0, help='strength of the light and shadow')
 ap.add_argument('--rich', type=float, default=1.0, help='strength of the colour deepening')
+ap.add_argument('--mix', type=float, default=0.0, help='0-1: how much of the real repaint (pages/rich/<slug>.jpg, saved by rich_page.py) to blend into the shading')
 a = ap.parse_args()
 for slug in a.slugs:
     d = os.path.join(R, 'public', 'pages', slug)
@@ -56,6 +57,9 @@ for slug in a.slugs:
     rng = np.random.RandomState(7); grain = cv2.GaussianBlur(rng.randn(h, w).astype(np.float32), (0, 0), 0.8) * 5.0
     img = np.clip(img + grain[..., None], 0, 255)
     img = cv2.bilateralFilter(img.astype(np.uint8), 5, 12, 3)
+    rp = os.path.join(R, 'pages', 'rich', slug + '.jpg')
+    if a.mix > 0 and os.path.exists(rp):   # mostly the computed shading, with some of the repaint's real texture and light
+        img = cv2.addWeighted(img, 1 - a.mix, cv2.resize(cv2.imread(rp), (w, h)), a.mix, 0)
     cv2.imwrite(os.path.join(d, 'color.jpg'), img, [cv2.IMWRITE_JPEG_QUALITY, 92])
     line = cv2.imread(os.path.join(d, 'line.png'), cv2.IMREAD_GRAYSCALE)
     if line is not None:
