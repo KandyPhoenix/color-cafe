@@ -494,7 +494,7 @@ function regionAt(wx,wy){const x=Math.round(wx),y=Math.round(wy);if(x<0||y<0||x>
   return best}
 function tap(sx,sy){const[wx,wy]=world(sx,sy);const id=regionAt(wx,wy);if(!id)return;const reg=P.meta.regions[id-1];
   if(P.page.mode==='pair'){
-    if(P.filled[id]){ if(reg.c!==P.sel){P.sel=reg.c;P.hiDirty=true;renderPal();draw()} return }
+    if(P.filled[id]) return; // a spot that is already colored does nothing: the chosen color only ever changes from the tray
     if(reg.c!==P.sel) return; // wrong number: do nothing
     paintRegion(id,'r'); updatePct();
     if(P.byColor[P.sel].every(i=>P.filled[i])){ if(P.save.n>=P.meta.regions.length){finish()} else {renderPal();draw()} } // color done: stay on it, the user picks the next dot
