@@ -105,5 +105,7 @@ blank = cv2.cvtColor(cv2.erode(line, np.ones((2, 2), np.uint8)), cv2.COLOR_GRAY2
 yy, xx = np.mgrid[0:h, 0:w].astype(np.float32); t = np.clip(((xx - 0.60 * w) + (yy - 0.5 * h) * 0.35) / (0.06 * w) + 0.5, 0, 1)[..., None]
 feat = (np.minimum(col, blank) * (1 - t) + blank * t).astype(np.uint8)
 cv2.imwrite(os.path.join(out, 'feature.jpg'), cv2.resize(feat, (900, round(900 * h / w)), interpolation=cv2.INTER_AREA), [cv2.IMWRITE_JPEG_QUALITY, 86])
+if not a.rich:   # no rich repaint supplied: paint light, shadow and deeper colour into the flat pieces
+    subprocess.run([sys.executable, os.path.join(R, 'tools', 'shade_page.py'), a.slug], check=True, stdout=subprocess.DEVNULL)
 ar = sorted(r['a'] for r in regions)
 print(f"{a.slug}: {Rn} pieces, {K} colours, smallest {ar[0]} px, median {ar[len(ar)//2]}, {level}, {time.time()-t0:.0f}s")
