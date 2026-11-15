@@ -1673,5 +1673,19 @@
   "colors": 24,
   "added": "2026-11-15",
   "level": "Medium"
+ },
+ {
+  "slug": "christmas-window-seat",
+  "title": "Christmas Window Seat",
+  "theme": "christmas",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Flat color",
+  "w": 1254,
+  "h": 1254,
+  "regions": 394,
+  "colors": 22,
+  "added": "2026-11-15",
+  "level": "Medium"
  }
 ]
