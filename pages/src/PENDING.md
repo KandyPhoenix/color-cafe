@@ -23,3 +23,9 @@ colour-by-number page needs a black-and-white drawing that matches the painting.
 
       python3 tools/make_page.py pair greenhouse-growth pages/src/greenhouse-growth-line.png pages/src/greenhouse-growth-color.jpg --title "Keep Watering Yourself" --theme quotes --style "Realistic"
       python3 tools/book_page.py greenhouse-growth
+
+## Magic Is Everywhere: Enchanted Night (painted, adult look Kandy wants)
+- Rich painting saved: `pages/src/enchanted-night-rich.png` (2026-11-15).
+- Building pieces straight from the painting gives shapeless blobs and loses the lettering (tried, not shipped).
+- Needs the flat-colour version of this same picture from ChatGPT; then
+  `flat_page.py enchanted-night <flat.png> --title ... --theme quotes` and `rich_page.py enchanted-night pages/src/enchanted-night-rich.png`.
