@@ -4,7 +4,7 @@
   python3 tools/thin_ink.py <slug> [<slug> ...] [--width 2.2]
 
 Reads public/pages/<slug>/ink.png (2x page size, black lines). Every stroke is reduced to its centre line,
-about --width px wide at 2x (so roughly one page pixel); areas that are drawn solid black stay solid.
+about --width px wide at 2x (so roughly one page pixel); areas drawn solid black become an outline, never a black blob.
 The original is kept once as pages/ink-full/<slug>.png (not in git) so the page can be re-thinned; if that copy is gone, run book_page.py again first. Then vector_ink.py redraws ink.json.
 """
 import sys, os, argparse, subprocess, shutil
@@ -20,8 +20,10 @@ for slug in a.slugs:
     dt = cv2.distanceTransform(ink, cv2.DIST_L2, 5)
     ridge = (dt >= cv2.dilate(dt, np.ones((5, 5), np.uint8)) - 1.05) & (ink > 0)          # centre line of every stroke
     solid = cv2.morphologyEx(ink, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (29, 29))) > 0   # filled black areas
-    r = max(1, int(round(a.width)))
-    out = cv2.dilate(ridge.astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (r, r))) & ink | solid.astype(np.uint8)
+    r = max(1, int(round(a.width))); k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (r, r))
+    core = cv2.erode(solid.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0
+    edge = solid & ~(cv2.erode(solid.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0)      # a filled black area keeps only its outline: no black blobs
+    out = (cv2.dilate((ridge & ~core).astype(np.uint8), k) | cv2.dilate(edge.astype(np.uint8), k)) & ink
     soft = cv2.GaussianBlur(out.astype(np.float32) * 255, (0, 0), 0.6)
     if g.ndim == 3 and g.shape[2] == 4:
         o = np.zeros_like(g); o[:, :, 3] = np.clip(soft, 0, 255).astype(np.uint8)
