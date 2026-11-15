@@ -431,7 +431,8 @@ function _draw(){
   if(P.hiDirty)buildHighlight();
   if(P.page.mode==='pair'){ctx.globalAlpha=.10;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
   const look2=P.meta.look===2&&P.path;
-  if(look2&&(P.meta.solo||!P.meta.ink)) strokePieceOutlines(ctx,cam.z); // black outlines only, one per spot that fills in (flat-art pages, and older pages whose pieces follow the drawing: meta.solo)
+  const blend=!!P.meta.blend; // blend pages (tools/blend_page.py): the drawing only; spots are patches of colour with no outlines of their own
+  if(look2&&!blend&&(P.meta.solo||!P.meta.ink)) strokePieceOutlines(ctx,cam.z); // black outlines only, one per spot that fills in (flat-art pages, and older pages whose pieces follow the drawing: meta.solo)
   else if(P.meta.ink){ // the drawing itself: solid black on coloring-book pages (v3, tools/book_page.py), soft grey on older ones
     ctx.globalAlpha=look2||P.meta.v>=3?1:.55; // never a faint second set of lines: the drawing is black, like the outlines
     // Vector lines once the stored picture would soften. While the view is moving (pan, pinch, wheel) the picture is
@@ -442,7 +443,7 @@ function _draw(){
     if(wantVec&&!moving){ctx.fillStyle='#000';ctx.fill(P.inkPath,'evenodd')}
     else{ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over'; if(wantVec)crispT=setTimeout(draw,130)}
     ctx.globalAlpha=1;
-    if(look2) strokePieceOutlines(ctx,cam.z); else if(P.path) strokeOutlines(ctx,cam.z,.45); // piece edges close any gap in the drawing
+    if(blend){} else if(look2) strokePieceOutlines(ctx,cam.z); else if(P.path) strokeOutlines(ctx,cam.z,.45); // piece edges close any gap in the drawing
   }
   else if(P.path) strokeOutlines(ctx,cam.z,.85);
   else{ctx.globalAlpha=.35;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1} // older pages: lighter ink

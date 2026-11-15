@@ -442,19 +442,6 @@
   "added": "2026-10-26"
  },
  {
-  "slug": "haunted-library",
-  "title": "Haunted Library",
-  "theme": "spooky",
-  "mode": "pair",
-  "artist": "Original art",
-  "style": "Dark oil",
-  "w": 1254,
-  "h": 1254,
-  "regions": 806,
-  "colors": 18,
-  "added": "2026-10-26"
- },
- {
   "slug": "fairy-market",
   "title": "Fairy Market",
   "theme": "fantasy",
@@ -1688,5 +1675,18 @@
   "colors": 24,
   "added": "2026-11-15",
   "level": "Medium"
+ },
+ {
+  "slug": "haunted-library",
+  "title": "Haunted Library",
+  "theme": "spooky",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Dark oil",
+  "w": 1254,
+  "h": 1254,
+  "regions": 301,
+  "colors": 20,
+  "added": "2026-10-26"
  }
 ]
