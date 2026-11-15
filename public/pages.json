@@ -1631,5 +1631,19 @@
   "colors": 21,
   "added": "2026-11-14",
   "level": "Easy"
+ },
+ {
+  "slug": "lakeside-cottage",
+  "title": "Lakeside Cottage",
+  "theme": "landscapes",
+  "mode": "pair",
+  "artist": "Original art",
+  "style": "Flat color",
+  "w": 1254,
+  "h": 1254,
+  "regions": 138,
+  "colors": 26,
+  "added": "2026-11-15",
+  "level": "Easy"
  }
 ]

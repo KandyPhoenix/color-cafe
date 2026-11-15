@@ -443,6 +443,7 @@ function _draw(){
     ctx.globalAlpha=1;
     if(look2) strokePieceOutlines(ctx,cam.z); else if(P.path) strokeOutlines(ctx,cam.z,.45); // piece edges close any gap in the drawing
   }
+  else if(look2) strokePieceOutlines(ctx,cam.z); // shapes-first pages (tools/flat_page.py): outlines only, no ink drawing
   else if(P.path) strokeOutlines(ctx,cam.z,.85);
   else{ctx.globalAlpha=.35;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1} // older pages: lighter ink
   // numbers: dark and at least 10px on screen so they are easy to read. The chosen color's numbers are black,
