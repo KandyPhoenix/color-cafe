@@ -376,7 +376,7 @@ function outlinePath(meta){ if(!meta.lines)return null; const p=new Path2D();
 // Coloring-app look (meta.look 2, tools/outline_page.py): every piece has its own thin black outline, exactly
 // the edge of what a tap fills. About 1.2 screen pixels when the whole page shows, a little bolder zoomed in.
 function strokePieceOutlines(c,z){ c.save(); c.lineJoin='round'; c.lineCap='round';
-  c.lineWidth=Math.min(2.6,1.2*Math.pow(Math.max(1,z/fitZ()),.35))/z; c.strokeStyle='#111'; c.stroke(P.path); c.restore() }
+  c.lineWidth=Math.min(2,.9*Math.pow(Math.max(1,z/fitZ()),.35))/z; c.strokeStyle='#222'; c.stroke(P.path); c.restore() }
 // The drawing as vector shapes (ink.json): each ink shape is a closed outline; curves run through the
 // midpoints of its points, so every line stays smooth, solid and sharp however far you zoom in.
 function inkShapes(j){ const p=new Path2D(), q=j.s||8;
@@ -405,8 +405,8 @@ function drawStripes(dpr){
   if(stripeC.width!==cv.width||stripeC.height!==cv.height){stripeC.width=cv.width;stripeC.height=cv.height}
   const key=String(dpr);
   if(key!==stripeKey){ // soft grey diagonal stripes
-    const t=Math.round(11*dpr),c=document.createElement('canvas');c.width=c.height=t;const x=c.getContext('2d');
-    x.strokeStyle='rgba(140,140,148,.6)';x.lineWidth=1.8*dpr;x.beginPath();x.moveTo(-t*.2,t*1.2);x.lineTo(t*1.2,-t*.2);x.moveTo(-t*.2,t*.2);x.lineTo(t*.2,-t*.2);x.moveTo(t*.8,t*1.2);x.lineTo(t*1.2,t*.8);x.stroke();
+    const q=Math.max(2,Math.round(4*dpr)),t=q*2,c=document.createElement('canvas');c.width=c.height=t;const x=c.getContext('2d'); // small grey checkerboard
+    x.fillStyle='rgba(120,120,128,.55)';x.fillRect(0,0,q,q);x.fillRect(q,q,q,q);
     stripePat=stripeX.createPattern(c,'repeat');stripeKey=key}
   const s=stripeX; s.setTransform(1,0,0,1,0,0); s.globalCompositeOperation='source-over'; s.clearRect(0,0,cv.width,cv.height);
   s.setTransform(dpr*cam.z,0,0,dpr*cam.z,-cam.x*cam.z*dpr,-cam.y*cam.z*dpr); s.imageSmoothingEnabled=true; s.drawImage(P.hiC,0,0);
@@ -452,8 +452,8 @@ function _draw(){
     ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';
     const x0=cam.x-20/cam.z,y0=cam.y-20/cam.z,x1=cam.x+(W+20)/cam.z,y1=cam.y+(H+20)/cam.z;
     for(const r of P.meta.regions){ if(P.filled[r.id])continue; const me=r.c===P.sel, t=String(r.c+1);
-      for(const [x,y,room] of (r.L||[[r.x,r.y,r.r]])){ const s=room*cam.z; if(s<(me?2.6:4.5)||x<x0||x>x1||y<y0||y>y1)continue;
-        const fs=Math.min(Math.max(s*(me?1.35:1.2),me?12:10),me?40:34)/cam.z; ctx.font=`${me?900:800} ${fs}px Nunito,sans-serif`;
+      for(const [x,y,room] of (r.L||[[r.x,r.y,r.r]])){ const s=room*cam.z; if(s<(me?5:6.5)||x<x0||x>x1||y<y0||y>y1)continue; // a number shows only once its spot has room for it: zoom in to see the small ones
+        const fs=Math.min(Math.max(s*1.15,9),me?30:26)/cam.z; ctx.font=`${me?900:800} ${fs}px Nunito,sans-serif`;
         ctx.lineWidth=(me?4:3)/cam.z;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.strokeText(t,x,y);
         ctx.fillStyle=me?'#000':'#3a3a3a';ctx.fillText(t,x,y)}}
   }

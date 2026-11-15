@@ -3,3 +3,4 @@ research/
 node_modules/
 .wrangler/
 tools/tests/*.png
+pages/ink-full/
