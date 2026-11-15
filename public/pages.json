@@ -60,8 +60,8 @@
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 447,
-  "colors": 16,
+  "regions": 342,
+  "colors": 18,
   "added": "2026-10-25"
  },
  {
@@ -73,10 +73,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 166,
-  "colors": 15,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 218,
+  "colors": 16,
+  "added": "2026-10-25"
  },
  {
   "slug": "strawberry-patch",
@@ -87,10 +86,9 @@
   "style": "Botanical plate",
   "w": 1254,
   "h": 1254,
-  "regions": 179,
-  "colors": 12,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 181,
+  "colors": 11,
+  "added": "2026-10-25"
  },
  {
   "slug": "bicycle-flowers",
@@ -101,10 +99,9 @@
   "style": "Chalk pastel",
   "w": 1254,
   "h": 1254,
-  "regions": 218,
-  "colors": 11,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 252,
+  "colors": 13,
+  "added": "2026-10-25"
  },
  {
   "slug": "venetian-window",
@@ -115,10 +112,9 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 217,
+  "regions": 256,
   "colors": 20,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "added": "2026-10-25"
  },
  {
   "slug": "wildflower-meadow",
@@ -129,10 +125,9 @@
   "style": "Oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 190,
-  "colors": 14,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 240,
+  "colors": 15,
+  "added": "2026-10-25"
  },
  {
   "slug": "cafe-terrace",
@@ -143,10 +138,9 @@
   "style": "Ink and watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 235,
+  "regions": 296,
   "colors": 11,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "added": "2026-10-25"
  },
  {
   "slug": "enchanted-cottage",
@@ -157,10 +151,9 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 195,
-  "colors": 11,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 239,
+  "colors": 12,
+  "added": "2026-10-25"
  },
  {
   "slug": "witch-apothecary",
@@ -171,10 +164,9 @@
   "style": "Oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 220,
+  "regions": 257,
   "colors": 20,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "added": "2026-10-25"
  },
  {
   "slug": "raven-pomegranates",
@@ -185,47 +177,46 @@
   "style": "Dutch Golden Age",
   "w": 1254,
   "h": 1254,
-  "regions": 299,
-  "colors": 14,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 487,
+  "colors": 15,
+  "added": "2026-10-25"
  },
  {
   "slug": "grandmothers-garden",
   "title": "Grandmother's Garden",
   "theme": "gardens",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Vibrant soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 502,
-  "colors": 16,
+  "regions": 630,
+  "colors": 17,
   "added": "2026-10-25"
  },
  {
   "slug": "rose-window",
   "title": "Rose Window Cathedral",
   "theme": "cozy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 588,
-  "colors": 14,
+  "regions": 532,
+  "colors": 15,
   "added": "2026-10-25"
  },
  {
   "slug": "dragonfly-pond",
   "title": "Dragonfly Pond at Dusk",
   "theme": "animals",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 664,
+  "regions": 680,
   "colors": 15,
   "added": "2026-10-25"
  },
@@ -238,10 +229,9 @@
   "style": "Persian miniature",
   "w": 1254,
   "h": 1254,
-  "regions": 285,
-  "colors": 16,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "regions": 607,
+  "colors": 15,
+  "added": "2026-10-25"
  },
  {
   "slug": "carousel-horse",
@@ -252,10 +242,9 @@
   "style": "Vintage lithograph",
   "w": 1254,
   "h": 1254,
-  "regions": 304,
-  "colors": 10,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "regions": 476,
+  "colors": 9,
+  "added": "2026-10-25"
  },
  {
   "slug": "venetian-masquerade",
@@ -266,47 +255,46 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 443,
-  "colors": 18,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "regions": 743,
+  "colors": 20,
+  "added": "2026-10-25"
  },
  {
   "slug": "hummingbirds-orchids",
   "title": "Hummingbirds and Orchids",
   "theme": "animals",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 707,
-  "colors": 25,
+  "regions": 808,
+  "colors": 26,
   "added": "2026-10-25"
  },
  {
   "slug": "tiger-hibiscus",
   "title": "Tiger Among Hibiscus",
   "theme": "animals",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 521,
-  "colors": 17,
+  "regions": 606,
+  "colors": 18,
   "added": "2026-10-25"
  },
  {
   "slug": "peacock-roses",
   "title": "Peacock in the Rose Garden",
   "theme": "animals",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 710,
+  "regions": 724,
   "colors": 22,
   "added": "2026-10-25"
  },
@@ -319,10 +307,9 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 300,
+  "regions": 513,
   "colors": 16,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "added": "2026-10-25"
  },
  {
   "slug": "coffee-first",
@@ -333,10 +320,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 301,
-  "colors": 22,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 409,
+  "colors": 23,
+  "added": "2026-10-25"
  },
  {
   "slug": "bloom-anyway",
@@ -347,10 +333,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 228,
-  "colors": 11,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 297,
+  "colors": 12,
+  "added": "2026-10-25"
  },
  {
   "slug": "plot-twist",
@@ -361,10 +346,9 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 230,
-  "colors": 14,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 310,
+  "colors": 15,
+  "added": "2026-10-25"
  },
  {
   "slug": "not-today-chaos",
@@ -375,10 +359,9 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 294,
-  "colors": 14,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "regions": 370,
+  "colors": 13,
+  "added": "2026-10-25"
  },
  {
   "slug": "christmas-mantel",
@@ -389,10 +372,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 371,
-  "colors": 21,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "regions": 699,
+  "colors": 20,
+  "added": "2026-10-25"
  },
  {
   "slug": "christmas-market",
@@ -403,22 +385,21 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 372,
+  "regions": 700,
   "colors": 16,
-  "added": "2026-10-25",
-  "level": "Medium"
+  "added": "2026-10-25"
  },
  {
   "slug": "victorian-ornaments",
   "title": "Victorian Ornaments",
   "theme": "christmas",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Dutch Golden Age",
   "w": 1254,
   "h": 1254,
-  "regions": 580,
-  "colors": 19,
+  "regions": 801,
+  "colors": 22,
   "added": "2026-10-25"
  },
  {
@@ -430,10 +411,9 @@
   "style": "Colored pencil",
   "w": 1254,
   "h": 1254,
-  "regions": 380,
+  "regions": 442,
   "colors": 14,
-  "added": "2026-10-25",
-  "level": "Easy"
+  "added": "2026-10-25"
  },
  {
   "slug": "overthinking",
@@ -452,12 +432,12 @@
   "slug": "witch-greenhouse",
   "title": "Witch's Moonlit Greenhouse",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 571,
+  "regions": 719,
   "colors": 16,
   "added": "2026-10-26"
  },
@@ -465,26 +445,26 @@
   "slug": "haunted-library",
   "title": "Haunted Library",
   "theme": "spooky",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 493,
-  "colors": 17,
+  "regions": 806,
+  "colors": 18,
   "added": "2026-10-26"
  },
  {
   "slug": "fairy-market",
   "title": "Fairy Market",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 628,
-  "colors": 20,
+  "regions": 953,
+  "colors": 21,
   "added": "2026-10-26"
  },
  {
@@ -496,22 +476,21 @@
   "style": "Art Nouveau",
   "w": 1254,
   "h": 1254,
-  "regions": 307,
+  "regions": 531,
   "colors": 14,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "mermaid-throne",
   "title": "Mermaid Throne",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 542,
-  "colors": 18,
+  "regions": 602,
+  "colors": 20,
   "added": "2026-10-26"
  },
  {
@@ -523,21 +502,20 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 407,
+  "regions": 765,
   "colors": 13,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "crystal-cave",
   "title": "Crystal Cave",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 699,
+  "regions": 962,
   "colors": 24,
   "added": "2026-10-26"
  },
@@ -550,10 +528,9 @@
   "style": "Art Nouveau",
   "w": 1254,
   "h": 1254,
-  "regions": 309,
+  "regions": 493,
   "colors": 13,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "tarot-the-moon",
@@ -564,21 +541,20 @@
   "style": "Woodblock print",
   "w": 1254,
   "h": 1254,
-  "regions": 263,
-  "colors": 10,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "regions": 478,
+  "colors": 11,
+  "added": "2026-10-26"
  },
  {
   "slug": "dragon-hatchery",
   "title": "Dragon Hatchery",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 608,
+  "regions": 735,
   "colors": 23,
   "added": "2026-10-26"
  },
@@ -591,10 +567,9 @@
   "style": "Chalk pastel",
   "w": 1254,
   "h": 1254,
-  "regions": 372,
+  "regions": 694,
   "colors": 11,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "haunted-mansion-ball",
@@ -605,10 +580,9 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 406,
-  "colors": 17,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "regions": 761,
+  "colors": 18,
+  "added": "2026-10-26"
  },
  {
   "slug": "sky-whale",
@@ -619,10 +593,9 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 371,
+  "regions": 549,
   "colors": 12,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "witches-tea-party",
@@ -633,10 +606,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 430,
-  "colors": 17,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "regions": 638,
+  "colors": 18,
+  "added": "2026-10-26"
  },
  {
   "slug": "elven-treehouse-city",
@@ -647,10 +619,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 425,
-  "colors": 18,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "regions": 742,
+  "colors": 17,
+  "added": "2026-10-26"
  },
  {
   "slug": "oracle-and-the-crystal-ball",
@@ -661,22 +632,21 @@
   "style": "Persian miniature",
   "w": 1254,
   "h": 1254,
-  "regions": 248,
+  "regions": 413,
   "colors": 9,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "added": "2026-10-26"
  },
  {
   "slug": "northern-lights-ritual",
   "title": "Northern Lights Ritual",
   "theme": "mystic",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 613,
-  "colors": 20,
+  "regions": 766,
+  "colors": 19,
   "added": "2026-10-26"
  },
  {
@@ -688,22 +658,21 @@
   "style": "Art Nouveau",
   "w": 1254,
   "h": 1254,
-  "regions": 448,
+  "regions": 697,
   "colors": 13,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "potion-shop",
   "title": "Potion Shop",
   "theme": "spooky",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 513,
-  "colors": 22,
+  "regions": 885,
+  "colors": 23,
   "added": "2026-10-26"
  },
  {
@@ -715,10 +684,9 @@
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 439,
+  "regions": 781,
   "colors": 16,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "added": "2026-10-26"
  },
  {
   "slug": "garden-of-floating-islands",
@@ -729,21 +697,20 @@
   "style": "Acrylic",
   "w": 1254,
   "h": 1254,
-  "regions": 420,
-  "colors": 17,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "regions": 680,
+  "colors": 18,
+  "added": "2026-10-26"
  },
  {
   "slug": "wizards-tower-study",
   "title": "Wizard's Tower Study",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 575,
+  "regions": 966,
   "colors": 21,
   "added": "2026-10-26"
  },
@@ -756,34 +723,33 @@
   "style": "Hand-tinted engraving",
   "w": 1254,
   "h": 1254,
-  "regions": 347,
+  "regions": 597,
   "colors": 11,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "phoenix-rising",
   "title": "Phoenix Rising",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 571,
-  "colors": 15,
+  "regions": 599,
+  "colors": 17,
   "added": "2026-10-26"
  },
  {
   "slug": "candy-wizards-kitchen",
   "title": "Candy Wizard's Kitchen",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Glaze",
   "w": 1254,
   "h": 1254,
-  "regions": 582,
+  "regions": 769,
   "colors": 18,
   "added": "2026-10-26"
  },
@@ -796,10 +762,9 @@
   "style": "Chrome and enamel",
   "w": 1254,
   "h": 1254,
-  "regions": 382,
-  "colors": 21,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "regions": 577,
+  "colors": 22,
+  "added": "2026-10-26"
  },
  {
   "slug": "vintage-motorcycle",
@@ -810,10 +775,9 @@
   "style": "Hand-tinted engraving",
   "w": 1254,
   "h": 1254,
-  "regions": 211,
-  "colors": 13,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "regions": 238,
+  "colors": 14,
+  "added": "2026-10-26"
  },
  {
   "slug": "steam-locomotive",
@@ -824,10 +788,9 @@
   "style": "Hand-tinted engraving",
   "w": 1254,
   "h": 1254,
-  "regions": 283,
+  "regions": 501,
   "colors": 11,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "vintage-biplane",
@@ -838,10 +801,9 @@
   "style": "Vintage lithograph",
   "w": 1254,
   "h": 1254,
-  "regions": 155,
+  "regions": 190,
   "colors": 15,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "old-workshop",
@@ -852,10 +814,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 396,
+  "regions": 665,
   "colors": 17,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "added": "2026-10-26"
  },
  {
   "slug": "viking-longship",
@@ -866,21 +827,21 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 391,
-  "colors": 15,
+  "regions": 195,
+  "colors": 16,
   "added": "2026-10-26"
  },
  {
   "slug": "robot-workshop",
   "title": "Robot Workshop",
   "theme": "machines",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 642,
-  "colors": 15,
+  "regions": 742,
+  "colors": 14,
   "added": "2026-10-26"
  },
  {
@@ -892,10 +853,9 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 367,
-  "colors": 11,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "regions": 573,
+  "colors": 13,
+  "added": "2026-10-26"
  },
  {
   "slug": "surfer-on-a-giant-wave",
@@ -906,8 +866,8 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 381,
-  "colors": 18,
+  "regions": 127,
+  "colors": 17,
   "added": "2026-10-26"
  },
  {
@@ -919,10 +879,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 330,
-  "colors": 16,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "regions": 598,
+  "colors": 15,
+  "added": "2026-10-26"
  },
  {
   "slug": "mountain-biker-on-a-trail",
@@ -933,8 +892,8 @@
   "style": "Acrylic",
   "w": 1254,
   "h": 1254,
-  "regions": 356,
-  "colors": 18,
+  "regions": 178,
+  "colors": 19,
   "added": "2026-10-26"
  },
  {
@@ -946,22 +905,21 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 126,
+  "regions": 141,
   "colors": 14,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "added": "2026-10-26"
  },
  {
   "slug": "monster-truck-rally",
   "title": "Monster Truck Rally",
   "theme": "sports",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 503,
-  "colors": 17,
+  "regions": 662,
+  "colors": 16,
   "added": "2026-10-26"
  },
  {
@@ -973,10 +931,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 386,
+  "regions": 644,
   "colors": 19,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "added": "2026-10-26"
  },
  {
   "slug": "elephants-at-sunset",
@@ -987,7 +944,7 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 402,
+  "regions": 195,
   "colors": 21,
   "added": "2026-10-26"
  },
@@ -1000,21 +957,20 @@
   "style": "Chalk pastel",
   "w": 1254,
   "h": 1254,
-  "regions": 188,
-  "colors": 10,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "regions": 206,
+  "colors": 11,
+  "added": "2026-10-26"
  },
  {
   "slug": "coral-reef",
   "title": "Coral Reef",
   "theme": "wild",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 499,
+  "regions": 583,
   "colors": 15,
   "added": "2026-10-26"
  },
@@ -1022,13 +978,13 @@
   "slug": "octopus-and-the-shipwreck",
   "title": "Octopus and the Shipwreck",
   "theme": "wild",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Dark oil",
   "w": 1254,
   "h": 1254,
-  "regions": 546,
-  "colors": 22,
+  "regions": 941,
+  "colors": 21,
   "added": "2026-10-26"
  },
  {
@@ -1040,10 +996,9 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 106,
-  "colors": 12,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "regions": 175,
+  "colors": 14,
+  "added": "2026-10-26"
  },
  {
   "slug": "pirate-ship-battle",
@@ -1054,10 +1009,9 @@
   "style": "Hand-tinted engraving",
   "w": 1254,
   "h": 1254,
-  "regions": 223,
+  "regions": 426,
   "colors": 8,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "added": "2026-10-26"
  },
  {
   "slug": "dinosaur-valley",
@@ -1068,7 +1022,7 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 425,
+  "regions": 268,
   "colors": 18,
   "added": "2026-10-26"
  },
@@ -1076,12 +1030,12 @@
   "slug": "astronaut-moon-base",
   "title": "Astronaut Moon Base",
   "theme": "space",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 577,
+  "regions": 748,
   "colors": 18,
   "added": "2026-10-26"
  },
@@ -1094,7 +1048,7 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 284,
+  "regions": 120,
   "colors": 12,
   "added": "2026-10-26"
  },
@@ -1102,12 +1056,12 @@
   "slug": "space-station",
   "title": "Space Station",
   "theme": "space",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Chrome and enamel",
   "w": 1254,
   "h": 1254,
-  "regions": 593,
+  "regions": 793,
   "colors": 19,
   "added": "2026-10-26"
  },
@@ -1120,7 +1074,7 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 384,
+  "regions": 163,
   "colors": 15,
   "added": "2026-10-26"
  },
@@ -1133,21 +1087,20 @@
   "style": "Watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 400,
-  "colors": 15,
-  "added": "2026-10-26",
-  "level": "Medium"
+  "regions": 604,
+  "colors": 14,
+  "added": "2026-10-26"
  },
  {
   "slug": "stag-in-the-glen",
   "title": "Stag in the Glen",
   "theme": "landscapes",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 513,
+  "regions": 584,
   "colors": 16,
   "added": "2026-10-26"
  },
@@ -1160,10 +1113,9 @@
   "style": "Colored pencil",
   "w": 1254,
   "h": 1254,
-  "regions": 133,
-  "colors": 14,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "regions": 177,
+  "colors": 13,
+  "added": "2026-10-26"
  },
  {
   "slug": "mountain-lake-cabin",
@@ -1174,10 +1126,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 204,
-  "colors": 20,
-  "added": "2026-10-26",
-  "level": "Easy"
+  "regions": 234,
+  "colors": 19,
+  "added": "2026-10-26"
  },
  {
   "slug": "autumn-covered-bridge",
@@ -1188,10 +1139,9 @@
   "style": "Colored pencil",
   "w": 1254,
   "h": 1254,
-  "regions": 269,
-  "colors": 11,
-  "added": "2026-10-26",
-  "level": "Hard"
+  "regions": 398,
+  "colors": 12,
+  "added": "2026-10-26"
  },
  {
   "slug": "desert-canyon",
@@ -1202,8 +1152,8 @@
   "style": "Fauvist",
   "w": 1254,
   "h": 1254,
-  "regions": 392,
-  "colors": 15,
+  "regions": 157,
+  "colors": 13,
   "added": "2026-10-26"
  },
  {
@@ -1215,22 +1165,21 @@
   "style": "Vibrant gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 168,
+  "regions": 173,
   "colors": 20,
-  "added": "2026-10-27",
-  "level": "Easy"
+  "added": "2026-10-27"
  },
  {
   "slug": "candy-corn-cottage",
   "title": "Candy Corn Cottage",
   "theme": "spooky",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 617,
-  "colors": 18,
+  "regions": 770,
+  "colors": 19,
   "added": "2026-10-27"
  },
  {
@@ -1242,7 +1191,7 @@
   "style": "Vibrant gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 353,
+  "regions": 176,
   "colors": 19,
   "added": "2026-10-27"
  },
@@ -1255,21 +1204,21 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 283,
-  "colors": 16,
+  "regions": 180,
+  "colors": 18,
   "added": "2026-10-27"
  },
  {
   "slug": "mermaid-lagoon",
   "title": "Mermaid Lagoon",
   "theme": "fantasy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 498,
-  "colors": 18,
+  "regions": 556,
+  "colors": 19,
   "added": "2026-10-27"
  },
  {
@@ -1281,10 +1230,9 @@
   "style": "Neon pop art",
   "w": 1254,
   "h": 1254,
-  "regions": 147,
-  "colors": 16,
-  "added": "2026-10-27",
-  "level": "Easy"
+  "regions": 144,
+  "colors": 17,
+  "added": "2026-10-27"
  },
  {
   "slug": "butterfly-garden-gazebo",
@@ -1295,33 +1243,33 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 438,
-  "colors": 15,
+  "regions": 402,
+  "colors": 16,
   "added": "2026-10-27"
  },
  {
   "slug": "galaxy-jellyfish",
   "title": "Galaxy Jellyfish",
   "theme": "space",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Airbrush fantasy",
   "w": 1254,
   "h": 1254,
-  "regions": 520,
-  "colors": 13,
+  "regions": 203,
+  "colors": 12,
   "added": "2026-10-27"
  },
  {
   "slug": "christmas-candy-shop",
   "title": "Christmas Candy Shop",
   "theme": "christmas",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Vibrant oil",
   "w": 1254,
   "h": 1254,
-  "regions": 486,
+  "regions": 821,
   "colors": 19,
   "added": "2026-10-27"
  },
@@ -1329,12 +1277,12 @@
   "slug": "night-market-lanterns",
   "title": "Night Market Lanterns",
   "theme": "cozy",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Stained glass",
   "w": 1254,
   "h": 1254,
-  "regions": 501,
+  "regions": 288,
   "colors": 18,
   "added": "2026-10-27"
  },
@@ -1347,22 +1295,21 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 364,
-  "colors": 17,
-  "added": "2026-10-28",
-  "level": "Medium"
+  "regions": 473,
+  "colors": 19,
+  "added": "2026-10-28"
  },
  {
   "slug": "dawn-on-the-bass-lake",
   "title": "Dawn on the Bass Lake",
   "theme": "sports",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 542,
-  "colors": 20,
+  "regions": 623,
+  "colors": 21,
   "added": "2026-10-28"
  },
  {
@@ -1374,10 +1321,9 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 375,
+  "regions": 590,
   "colors": 19,
-  "added": "2026-10-28",
-  "level": "Medium"
+  "added": "2026-10-28"
  },
  {
   "slug": "trophy-bass-morning",
@@ -1388,7 +1334,7 @@
   "style": "Lifelike painterly",
   "w": 1254,
   "h": 1254,
-  "regions": 413,
+  "regions": 366,
   "colors": 19,
   "added": "2026-10-28"
  },
@@ -1401,10 +1347,9 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 197,
+  "regions": 294,
   "colors": 26,
-  "added": "2026-10-29",
-  "level": "Easy"
+  "added": "2026-10-29"
  },
  {
   "slug": "saturday-farmers-market",
@@ -1415,21 +1360,20 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 401,
+  "regions": 602,
   "colors": 27,
-  "added": "2026-10-29",
-  "level": "Medium"
+  "added": "2026-10-29"
  },
  {
   "slug": "harbor-at-golden-hour",
   "title": "Harbor at Golden Hour",
   "theme": "landscapes",
-  "mode": "line",
+  "mode": "pair",
   "artist": "Original art",
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 521,
+  "regions": 634,
   "colors": 26,
   "added": "2026-10-29"
  },
@@ -1442,10 +1386,9 @@
   "style": "Lifelike photo",
   "w": 1254,
   "h": 1254,
-  "regions": 293,
+  "regions": 531,
   "colors": 20,
-  "added": "2026-10-29",
-  "level": "Medium"
+  "added": "2026-10-29"
  },
  {
   "slug": "positano-cliffside",
@@ -1456,10 +1399,9 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 338,
-  "colors": 22,
-  "added": "2026-10-29",
-  "level": "Medium"
+  "regions": 546,
+  "colors": 21,
+  "added": "2026-10-29"
  },
  {
   "slug": "santorini-blue-domes",
@@ -1470,7 +1412,7 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 310,
+  "regions": 414,
   "colors": 18,
   "added": "2026-10-29"
  },
@@ -1483,7 +1425,7 @@
   "style": "Rich oil painting",
   "w": 1254,
   "h": 1254,
-  "regions": 444,
+  "regions": 617,
   "colors": 21,
   "added": "2026-10-29"
  },
@@ -1496,7 +1438,7 @@
   "style": "Deep digital art",
   "w": 1254,
   "h": 1254,
-  "regions": 376,
+  "regions": 487,
   "colors": 21,
   "added": "2026-10-29"
  },
@@ -1509,10 +1451,9 @@
   "style": "Japanese woodblock",
   "w": 1254,
   "h": 1254,
-  "regions": 291,
-  "colors": 14,
-  "added": "2026-10-29",
-  "level": "Hard"
+  "regions": 551,
+  "colors": 15,
+  "added": "2026-10-29"
  },
  {
   "slug": "guilin-river-dawn",
@@ -1523,7 +1464,7 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 375,
+  "regions": 411,
   "colors": 16,
   "added": "2026-10-29"
  },
@@ -1536,10 +1477,9 @@
   "style": "Kodachrome photo",
   "w": 1254,
   "h": 1254,
-  "regions": 449,
-  "colors": 27,
-  "added": "2026-10-29",
-  "level": "Medium"
+  "regions": 783,
+  "colors": 28,
+  "added": "2026-10-29"
  },
  {
   "slug": "harvest-table",
@@ -1550,10 +1490,9 @@
   "style": "Soft oil",
   "w": 1254,
   "h": 1254,
-  "regions": 182,
+  "regions": 241,
   "colors": 16,
-  "added": "2026-11-13",
-  "level": "Easy"
+  "added": "2026-11-13"
  },
  {
   "slug": "christmas-cabin",
@@ -1564,10 +1503,9 @@
   "style": "Vibrant watercolor",
   "w": 1254,
   "h": 1254,
-  "regions": 151,
-  "colors": 15,
-  "added": "2026-11-13",
-  "level": "Easy"
+  "regions": 266,
+  "colors": 16,
+  "added": "2026-11-13"
  },
  {
   "slug": "autumn-porch",
@@ -1578,10 +1516,9 @@
   "style": "Gouache",
   "w": 1254,
   "h": 1254,
-  "regions": 165,
+  "regions": 228,
   "colors": 21,
-  "added": "2026-11-14",
-  "level": "Easy"
+  "added": "2026-11-14"
  },
  {
   "slug": "lakeside-cottage",
