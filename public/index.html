@@ -405,8 +405,8 @@ function drawStripes(dpr){
   if(stripeC.width!==cv.width||stripeC.height!==cv.height){stripeC.width=cv.width;stripeC.height=cv.height}
   const key=String(dpr);
   if(key!==stripeKey){ // soft grey diagonal stripes
-    const q=Math.max(2,Math.round(4*dpr)),t=q*2,c=document.createElement('canvas');c.width=c.height=t;const x=c.getContext('2d'); // small grey checkerboard
-    x.fillStyle='rgba(120,120,128,.55)';x.fillRect(0,0,q,q);x.fillRect(q,q,q,q);
+    const q=Math.max(2,Math.round(3*dpr)),t=q*2,c=document.createElement('canvas');c.width=c.height=t;const x=c.getContext('2d'); // small grey checkerboard
+    x.fillStyle='rgba(95,95,105,.7)';x.fillRect(0,0,q,q);x.fillRect(q,q,q,q);
     stripePat=stripeX.createPattern(c,'repeat');stripeKey=key}
   const s=stripeX; s.setTransform(1,0,0,1,0,0); s.globalCompositeOperation='source-over'; s.clearRect(0,0,cv.width,cv.height);
   s.setTransform(dpr*cam.z,0,0,dpr*cam.z,-cam.x*cam.z*dpr,-cam.y*cam.z*dpr); s.imageSmoothingEnabled=true; s.drawImage(P.hiC,0,0);
@@ -429,7 +429,7 @@ function _draw(){
   ctx.fillStyle='#fff'; ctx.fillRect(0,0,P.w,P.h);
   ctx.drawImage(P.fillC,0,0);
   if(P.hiDirty)buildHighlight();
-  if(P.page.mode==='pair'){ctx.globalAlpha=.10;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
+  if(P.page.mode==='pair'){ctx.globalAlpha=.22;ctx.drawImage(P.hiC,0,0);ctx.globalAlpha=1;drawStripes(window.devicePixelRatio||1)}
   const look2=P.meta.look===2&&P.path;
   const blend=!!P.meta.blend; // blend pages (tools/blend_page.py): the drawing only; spots are patches of colour with no outlines of their own
   if(look2&&!blend&&(P.meta.solo||!P.meta.ink)) strokePieceOutlines(ctx,cam.z); // black outlines only, one per spot that fills in (flat-art pages, and older pages whose pieces follow the drawing: meta.solo)
@@ -447,16 +447,15 @@ function _draw(){
   }
   else if(P.path) strokeOutlines(ctx,cam.z,.85);
   else{ctx.globalAlpha=.35;ctx.globalCompositeOperation='multiply';ctx.drawImage(P.lineImg,0,0,P.w,P.h);ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1} // older pages: lighter ink
-  // numbers: dark and at least 10px on screen so they are easy to read. The chosen color's numbers are black,
-  // bigger and shown even on small pieces, so every striped piece has its number; others show once there is room.
+  // numbers: light grey and small, a quiet guide. The chosen color's numbers are a little darker. A number shows
+  // only once its spot has room for it; the shading is what marks where to tap.
   if(P.page.mode==='pair'){
     ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';
     const x0=cam.x-20/cam.z,y0=cam.y-20/cam.z,x1=cam.x+(W+20)/cam.z,y1=cam.y+(H+20)/cam.z;
     for(const r of P.meta.regions){ if(P.filled[r.id])continue; const me=r.c===P.sel, t=String(r.c+1);
       for(const [x,y,room] of (r.L||[[r.x,r.y,r.r]])){ const s=room*cam.z; if(s<(me?5:6.5)||x<x0||x>x1||y<y0||y>y1)continue; // a number shows only once its spot has room for it: zoom in to see the small ones
-        const fs=Math.min(Math.max(s*1.15,9),me?30:26)/cam.z; ctx.font=`${me?900:800} ${fs}px Nunito,sans-serif`;
-        ctx.lineWidth=(me?4:3)/cam.z;ctx.strokeStyle='rgba(255,255,255,.95)';ctx.strokeText(t,x,y);
-        ctx.fillStyle=me?'#000':'#3a3a3a';ctx.fillText(t,x,y)}}
+        const fs=Math.min(Math.max(s*.95,8),me?20:17)/cam.z; ctx.font=`600 ${fs}px Nunito,sans-serif`;
+        ctx.fillStyle=me?'rgba(60,60,66,.8)':'rgba(120,120,128,.6)';ctx.fillText(t,x,y)}} // light numbers, no white halo: they sit quietly on the page and never cover a small shaded spot
   }
   drawHint();
   ctx.restore();
