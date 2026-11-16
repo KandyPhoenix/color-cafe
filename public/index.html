@@ -13,6 +13,7 @@
 :root{--bg:#fbf3f1;--fg:#3a2b33;--muted:#8a6f7c;--card:#fffafa;--line:#f0d6dc;--espresso:#4a6b4f;--cream:#fff6f3;--accent:#d9466b;--accent-ink:#fff;--ok:#5aa469;--chip:#f6e3e8;--sun:#f6c453;
  --display:"Fraunces",Georgia,serif;--body:"Nunito",system-ui,sans-serif}
 *{box-sizing:border-box}html,body{height:100%}
+html{touch-action:manipulation}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);-webkit-text-size-adjust:100%;overscroll-behavior:none}
 button{font:inherit;cursor:pointer}
 a{color:inherit}
@@ -562,6 +563,12 @@ function up(e){if(!ptrs.has(e.pointerId))return;ptrs.delete(e.pointerId);
   if(pan&&pan.pid===e.pointerId){if(!pan.moved&&tapStart)tap(tapStart.x,tapStart.y);pan=null;tapStart=null}
   if(ptrs.size<2)pinch=null;}
 cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+// The page itself never zooms: only the picture does. A pinch that starts on the top bar or the color tray, or with one
+// finger on each, a double tap, or a trackpad pinch would otherwise zoom the whole app and push the Back button off screen.
+for(const ev of ['gesturestart','gesturechange','gestureend']) document.addEventListener(ev,e=>e.preventDefault(),{passive:false});
+document.addEventListener('touchmove',e=>{if(e.touches.length>1)e.preventDefault()},{passive:false});
+document.addEventListener('wheel',e=>{if(e.ctrlKey)e.preventDefault()},{passive:false});
+let lastTouchEnd=0; document.addEventListener('touchend',e=>{const n=Date.now(); if(n-lastTouchEnd<320&&!e.target.closest('canvas'))e.preventDefault(); lastTouchEnd=n},{passive:false});
 cv.addEventListener('wheel',e=>{e.preventDefault();if(!P)return;const[sx,sy]=local(e);const[wx,wy]=world(sx,sy);cam.z=clampZ(cam.z*(e.deltaY<0?1.15:1/1.15));cam.x=wx-sx/cam.z;cam.y=wy-sy/cam.z;draw()},{passive:false});
 cv.addEventListener('dblclick',e=>{const[sx,sy]=local(e);const[wx,wy]=world(sx,sy);cam.z=clampZ(cam.z*2);cam.x=wx-sx/cam.z;cam.y=wy-sy/cam.z;draw()});
 window.addEventListener('resize',()=>{if(P)resize()});
