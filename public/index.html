@@ -357,6 +357,9 @@ function paintRegion(id,val,commit=true){
   const rgb=(typeof val==='string'&&val[0]==='#')?hexToRgb(val):P.meta.palette[P.meta.regions[id-1].c];
   if(val==='r'&&P.shadeD&&P.meta.reveal){const S=P.shadeD; // coloring-book pages: the right color brings the painting's own shades into the piece
     for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=S[j];d[j+1]=S[j+1];d[j+2]=S[j+2];d[j+3]=255}}
+  else if(val==='r'&&P.shadeD&&P.meta.tone){const S=P.shadeD,m=P.meanC,o=id*3,ml=Math.max(8,.299*m[o]+.587*m[o+1]+.114*m[o+2]); // blend pages: the whole spot is its number's color, lighter and darker exactly where the painting is (no other hue comes in)
+    for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4,g=Math.min(1.9,Math.max(.3,(.299*S[j]+.587*S[j+1]+.114*S[j+2])/ml)),u=g>1?(g-1)*.38:0;
+      d[j]=rgb[0]*Math.min(g,1)*(1-u)+255*u;d[j+1]=rgb[1]*Math.min(g,1)*(1-u)+255*u;d[j+2]=rgb[2]*Math.min(g,1)*(1-u)+255*u;d[j+3]=255}}
   else if(val==='r'&&P.shadeD){const S=P.shadeD,m=P.meanC,o=id*3,t=P.sh;
     for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=rgb[0]+t*(S[j]-m[o]);d[j+1]=rgb[1]+t*(S[j+1]-m[o+1]);d[j+2]=rgb[2]+t*(S[j+2]-m[o+2]);d[j+3]=255}}
   else for(let k=off[id];k<off[id+1];k++){const j=idx[k]*4;d[j]=rgb[0];d[j+1]=rgb[1];d[j+2]=rgb[2];d[j+3]=255}

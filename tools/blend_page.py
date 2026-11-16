@@ -6,8 +6,8 @@
 The page still shows the artist's black-and-white drawing, but the spots you colour are not the drawn
 shapes: they are the patches of one colour in the painting (a shadow under a shelf, the lit side of a wall,
 a crease in a sleeve). Spots have no outlines of their own. Choosing a number shades its spots; a tap fills
-one with the painting. So every spot is one colour, its number is that colour, and the finished page is the
-painting exactly.
+one with its number's colour, lighter and darker exactly where the painting is. So every spot is one colour
+and everything a number paints is that number's colour.
 
 Paints the drawing's lines out of color.jpg, flattens it lightly, and hands that to flat_page.py for the
 spots (the painting stays as what a tap reveals). Then puts the drawing back (ink.png, ink.json, line.png)
@@ -16,10 +16,10 @@ and marks the page "blend": 1 so the app draws the drawing only. Spots change, s
 import sys, os, json, argparse, subprocess, tempfile, shutil
 import numpy as np, cv2
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ap = argparse.ArgumentParser(); ap.add_argument('slugs', nargs='+'); ap.add_argument('--colors', type=int, default=22); ap.add_argument('--min', type=float, default=220)
+ap = argparse.ArgumentParser(); ap.add_argument('slugs', nargs='+'); ap.add_argument('--colors', type=int, default=26); ap.add_argument('--min', type=float, default=220)
 ap.add_argument('--split', type=float, default=260, help='a patch of a clearly different colour inside a spot becomes its own spot when at least this big (px on a 1254px page)')
 ap.add_argument('--near', type=float, default=11, help='two palette colours closer than this are one number')
-W3 = np.array([.7, 1, 1], np.float32)   # hue counts a little more than light and dark
+W3 = np.array([.5, 1, 1], np.float32)   # hue counts twice as much as light and dark: a green leaf and a brown shelf never share a number
 
 def purify(d, clean, split, near):
     """Every spot one colour, every number the colour of its spots, no two numbers that look alike."""
@@ -80,7 +80,7 @@ for slug in a.slugs:
     for f in (slug + '-flat.png', slug + '-color.jpg', slug + '-color.png'):                          # flat_page's source copies are not sources here
         p = os.path.join(R, 'pages', 'src', f)
         if os.path.exists(p) and f.endswith('-flat.png'): os.remove(p)
-    rp = os.path.join(d, 'regions.json'); m = json.load(open(rp)); m['blend'] = 1; m['ink'] = 2; m['inkv'] = 1 if 'ink.json' in keep else 0; m.pop('flat', None)
+    rp = os.path.join(d, 'regions.json'); m = json.load(open(rp)); m['blend'] = 1; m['tone'] = 1; m['reveal'] = 0; m['shade'] = 1.0; m['ink'] = 2; m['inkv'] = 1 if 'ink.json' in keep else 0; m.pop('flat', None)
     json.dump(m, open(rp, 'w'), separators=(',', ':'))
     P = json.load(open(pj, encoding='utf-8'))
     for x in P:
