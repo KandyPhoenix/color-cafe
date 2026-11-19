@@ -18,6 +18,7 @@ ap = argparse.ArgumentParser(); ap.add_argument('slugs', nargs='+')
 ap.add_argument('--depth', type=float, default=1.0, help='strength of the light and shadow')
 ap.add_argument('--rich', type=float, default=1.0, help='strength of the colour deepening')
 ap.add_argument('--mix', type=float, default=0.0, help='0-1: how much of the real repaint (pages/rich/<slug>.jpg, saved by rich_page.py) to blend into the shading')
+ap.add_argument('--palette', action='store_true', help="fill every piece with its number's own colour (shaded), so a number never paints anything but its colour")
 a = ap.parse_args()
 for slug in a.slugs:
     d = os.path.join(R, 'public', 'pages', slug)
@@ -33,6 +34,9 @@ for slug in a.slugs:
     wgt = np.clip(dist.ravel() - 1.5, 0.05, 4)
     den = np.bincount(fl, weights=wgt, minlength=n)
     base = np.stack([np.bincount(fl, weights=lab[:, i] * wgt, minlength=n) for i in range(3)], 1) / np.maximum(den, 1e-6)[:, None]
+    if a.palette:   # the number's colour, not the picture's: what the dot shows is what the tap paints
+        m = json.load(open(os.path.join(d, 'regions.json'))); pl = cv2.cvtColor(np.array(m['palette'], np.uint8).reshape(1, -1, 3)[:, :, ::-1].copy(), cv2.COLOR_BGR2LAB)[0].astype(np.float32)
+        for r in m['regions']: base[r['id']] = pl[r['c']]
     area = np.bincount(fl, minlength=n).astype(np.float32); rmax = np.zeros(n, np.float32); np.maximum.at(rmax, fl, dist.ravel())
     # position of each pixel inside its piece along the light direction (upper left -> lower right), 0..1
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32); proj = (xx * 0.55 + yy * 0.83).ravel()

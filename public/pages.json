@@ -1682,11 +1682,12 @@
   "theme": "spooky",
   "mode": "pair",
   "artist": "Original art",
-  "style": "Dark oil",
+  "style": "Shaded storybook",
   "w": 1254,
   "h": 1254,
-  "regions": 480,
-  "colors": 26,
-  "added": "2026-10-26"
+  "regions": 652,
+  "colors": 32,
+  "added": "2026-10-26",
+  "level": "Medium"
  }
 ]
